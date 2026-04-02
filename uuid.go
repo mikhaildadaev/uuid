@@ -43,7 +43,9 @@ var (
 	ErrInvalidUUIDString  = errors.New("invalid UUID string")
 	ErrInvalidUUIDVariant = errors.New("invalid UUID variant")
 	ErrInvalidUUIDVersion = errors.New("invalid UUID version")
-	ErrNilUUID            = errors.New("nil UUID")
+	ErrNullUUID           = errors.New("null UUID")
+	ErrNullUUIDNotAllowed = errors.New("null UUID not allowed")
+	ErrUnsupportUUIDType  = errors.New("unsupport UUID type")
 )
 var (
 	NameSpaceDNS  = [16]byte{0x6b, 0xa7, 0xb8, 0x10, 0x9d, 0xad, 0x11, 0xd1, 0x80, 0xb4, 0x00, 0xc0, 0x4f, 0xd4, 0x30, 0xc8}
@@ -245,7 +247,7 @@ func (uuid UUID) Timestamp() int64 {
 }
 func (uuid UUID) Validate() error {
 	if uuid.IsZero() {
-		return ErrNilUUID
+		return ErrNullUUID
 	}
 	switch uuid.Variant() {
 	case variantRFC4122:
@@ -303,7 +305,7 @@ func (uuid UUID) Version() int {
 }
 func (nulluuid NullUUID) Validate() error {
 	if !nulluuid.Valid {
-		return ErrNilUUID
+		return ErrNullUUID
 	}
 	return nulluuid.UUID.Validate()
 }

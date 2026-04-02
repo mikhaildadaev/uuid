@@ -7,7 +7,6 @@ package uuid
 
 import (
 	"database/sql/driver"
-	"fmt"
 )
 
 // Публичные методы
@@ -17,7 +16,7 @@ func (uuid *UUID) Scan(src any) error {
 		return err
 	}
 	if !valid {
-		return fmt.Errorf("cannot scan NULL into UUID")
+		return ErrNullUUIDNotAllowed
 	}
 	*uuid = un
 	return nil
@@ -66,6 +65,6 @@ func scanUUID(src any) (UUID, bool, error) {
 		}
 		return scanUUID(string(src))
 	default:
-		return UUID{}, false, fmt.Errorf("Scan: unsupported type %T", src)
+		return UUID{}, false, ErrUnsupportUUIDType
 	}
 }

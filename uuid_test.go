@@ -456,7 +456,7 @@ func Test_Validate(t *testing.T) {
 			{
 				name:    "Nil UUID",
 				uuid:    NilUUIDByte,
-				wantErr: ErrNilUUID,
+				wantErr: ErrNullUUID,
 			},
 			{
 				name:    "Nil MAC UUIDV1",
