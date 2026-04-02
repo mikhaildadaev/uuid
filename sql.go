@@ -65,6 +65,6 @@ func scanUUID(src any) (UUID, bool, error) {
 		}
 		return scanUUID(string(src))
 	default:
-		return UUID{}, false, ErrUnsupportUUIDType
+		return UUID{}, false, ErrUnsupportedUUIDType
 	}
 }
