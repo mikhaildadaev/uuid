@@ -690,8 +690,6 @@ func Test_UUIDV1_Generate(t *testing.T) {
 	// Генерация идентификаторов
 	ui1 := V1()
 	ui2 := V1()
-	// Добавить проверку на соответсвие UUIDV1
-	//
 	// Проверка вариантов
 	vt1 := ui1.Variant()
 	vt2 := ui2.Variant()
@@ -803,8 +801,6 @@ func Test_UUIDV2_Generate(t *testing.T) {
 	for i := int(0); i < 2; i++ {
 		// Генерация идентификаторов
 		ui := V2(i)
-		// Добавить проверку на соответсвие UUIDV2
-		//
 		// Проверка вариантов
 		vt := ui.Variant()
 		if vt != variantRFC4122 {
@@ -820,9 +816,6 @@ func Test_UUIDV2_Generate(t *testing.T) {
 			t.Errorf("Invalid posixtype in UUIDv2-%d: got %d, expected %d", i+1, ui[9], i)
 		}
 	}
-	// Проверка при некорректном POSTypeID
-	//ui := V2(POSType + 256)
-	// Добавить проверку на соответсвие UUIDV2
 }
 func Test_UUIDV3_Generate(t *testing.T) {
 	testCases := []struct {
@@ -837,8 +830,6 @@ func Test_UUIDV3_Generate(t *testing.T) {
 	for i, tc := range testCases {
 		// Генерация идентификаторов
 		ui := V3(tc.namespace, tc.name)
-		// Добавить проверку на соответсвие UUIDV3
-		//
 		// Проверка вариантов
 		vt := ui.Variant()
 		if vt != variantRFC4122 {
@@ -850,12 +841,6 @@ func Test_UUIDV3_Generate(t *testing.T) {
 			t.Errorf("Invalid version for UUIDv3-%d: got %x, expected %x", i+1, vn, bitV3)
 		}
 	}
-	// Проверка при некорректном NameSpace
-	//_ := V3(UUID{}, TestNameString)
-	// Добавить проверку на соответсвие UUIDV3
-	// Проверка при некорректном TestNameString
-	//_ = V3(NameSpaceDNS, "")
-	// Добавить проверку на соответсвие UUIDV3
 }
 func Test_UUIDV3_Hash(t *testing.T) {
 	// Генерация идентификаторов
@@ -876,8 +861,6 @@ func Test_UUIDV4_Generate(t *testing.T) {
 	// Генерация идентификаторов
 	ui1 := V4()
 	ui2 := V4()
-	// Добавить проверку на соответсвие UUIDV4
-	//
 	// Проверка вариантов
 	vt1 := ui1.Variant()
 	vt2 := ui2.Variant()
@@ -914,8 +897,6 @@ func Test_UUIDV5_Generate(t *testing.T) {
 	for i, tc := range testCases {
 		// Генерация идентификаторов
 		ui := V5(tc.namespace, tc.name)
-		// Добавить проверку на соответсвие UUIDV5
-		//
 		// Проверка вариантов
 		vt := ui.Variant()
 		if vt != variantRFC4122 {
@@ -927,12 +908,6 @@ func Test_UUIDV5_Generate(t *testing.T) {
 			t.Errorf("Invalid version for UUIDv5-%d: got %x, expected %x", i+1, vn, bitV5)
 		}
 	}
-	// Проверка при некорректном NameSpace
-	//_ := V5(UUID{}, TestNameString)
-	// Добавить проверку на соответсвие UUIDV5
-	// Проверка при некорректном TestNameString
-	//_ = V5(NameSpaceDNS, "")
-	// Добавить проверку на соответсвие UUIDV5
 }
 func Test_UUIDV5_Hash(t *testing.T) {
 	// Генерация идентификаторов
@@ -973,8 +948,6 @@ func Test_UUIDV6_Generate(t *testing.T) {
 	// Генерация идентификаторов
 	ui1 := V6()
 	ui2 := V6()
-	// Добавить проверку на соответсвие UUIDV6
-	//
 	// Проверка вариантов
 	vt1 := ui1.Variant()
 	vt2 := ui2.Variant()
@@ -1106,8 +1079,6 @@ func Test_UUIDV7_Generate(t *testing.T) {
 	// Генерация идентификаторов
 	ui1 := V7()
 	ui2 := V7()
-	// Добавить проверку на соответсвие UUIDV7
-	//
 	// Проверка вариантов
 	vt1 := ui1.Variant()
 	vt2 := ui2.Variant()
@@ -1242,8 +1213,6 @@ func Test_UUIDV8_Generate(t *testing.T) {
 	// Генерация идентификаторов
 	ui1 := V8(testNodeID)
 	ui2 := V8(testNodeID)
-	// Добавить проверку на соответсвие UUIDV8
-	//
 	// Проверка вариантов
 	vt1 := ui1.Variant()
 	vt2 := ui2.Variant()

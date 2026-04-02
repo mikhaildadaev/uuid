@@ -38,7 +38,7 @@ func (nulluuid *NullUUID) Scan(src any) error {
 }
 func (nulluuid NullUUID) Value() (driver.Value, error) {
 	if !nulluuid.Valid {
-		return nil, nil // NULL в БД
+		return nil, nil
 	}
 	return nulluuid.UUID.String(), nil
 }

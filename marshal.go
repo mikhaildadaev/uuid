@@ -8,7 +8,6 @@ package uuid
 import (
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
 )
 
 // Публичные методы
@@ -110,7 +109,7 @@ func (nulluuid NullUUID) MarshalText() ([]byte, error) {
 }
 func (nulluuid *NullUUID) UnmarshalBinary(data []byte) error {
 	if len(data) != 16 {
-		return fmt.Errorf("invalid UUID (got %d bytes)", len(data))
+		return ErrInvalidUUIDLength
 	}
 	copy(nulluuid.UUID[:], data)
 	nulluuid.Valid = true
