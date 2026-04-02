@@ -10,12 +10,12 @@ import (
 	"database/sql/driver"
 	"encoding/binary"
 	"errors"
-	"strconv"
 	"strings"
 	"testing"
 	"time"
 )
 
+// Публичные переменные
 var (
 	TestNameString              = "md.local"
 	TestNodeID                  = 1995
@@ -53,74 +53,7 @@ var (
 	TestUUIDVUStringJSON        = `"01968727-8c7e-8000-87cb-bdba4f634d9f"`
 )
 
-func Benchmark_Parse(b *testing.B) {
-	UUID := TestUUIDVUString
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_, _ = Parse(UUID)
-	}
-}
-func Benchmark_String(b *testing.B) {
-	uuid, _ := Parse(TestUUIDVUString)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = uuid.String()
-	}
-}
-func Benchmark_Time(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		waitTime(time.Nanosecond * 100)
-	}
-}
-func Benchmark_UUIDs(b *testing.B) {
-	b.Run("v1 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V1()
-		}
-	})
-	b.Run("v2 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V2(TestPOSType)
-		}
-	})
-	b.Run("v3 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V3(NameSpaceDNS, TestNameString)
-		}
-	})
-	b.Run("v4 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V4()
-		}
-	})
-	b.Run("v5 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V5(NameSpaceDNS, TestNameString)
-		}
-	})
-	b.Run("v6 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V6()
-		}
-	})
-	b.Run("v7 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V7()
-		}
-	})
-	b.Run("v8 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V8(TestNodeID)
-		}
-	})
-}
-func Benchmark_Validate(b *testing.B) {
-	uuid, _ := Parse(TestUUIDVUString)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = uuid.Validate()
-	}
-}
+// Публичные функции
 func Test_Init(t *testing.T) {
 	initSync.Do(func() {
 		initError = initGlobal()
@@ -771,57 +704,6 @@ func Test_MarshalUnmarshalText(t *testing.T) {
 		})
 	}
 }
-func Benchmark_UUIDV1_Info(b *testing.B) {
-	b.Run("With Mock Time", func(b *testing.B) {
-		// Ленивая инициализация глобального состояния
-		initSync.Do(func() {
-			initError = initGlobal()
-		})
-		if initError != nil {
-			b.Fatal(initError)
-		}
-		// Фиксация текущего состояние
-		realClock := initClock
-		realTime := v1.lastTime.Load()
-		realSequence := v1.lastSequence.Load()
-		b.Cleanup(func() {
-			initClock = realClock
-			v1.lastTime.Store(realTime)
-			v1.lastSequence.Store(realSequence)
-		})
-		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
-		v1.lastTime.Store(uint64((initClock.Now().UnixNano() / 100) + offsetTime))
-		v1.lastSequence.Store(0)
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V1()
-			b.Logf("UUIDv1-%d: %s", i, ui)
-		}
-	})
-	b.Run("Without Mock Time", func(b *testing.B) {
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V1()
-			b.Logf("UUIDv1-%d: %s", i, ui)
-		}
-	})
-}
-func Benchmark_UUIDV1_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V1()
-		}
-	})
-}
-func Benchmark_UUIDV1_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V1()
-	}
-}
 func Test_UUIDV1_Generate(t *testing.T) {
 	// Ленивая инициализация глобального состояния
 	initSync.Do(func() {
@@ -955,29 +837,6 @@ func Test_UUIDV1_Sequence(t *testing.T) {
 		}
 	})
 }
-func Benchmark_UUIDV2_Info(b *testing.B) {
-	b.Run("Without Mock Time", func(b *testing.B) {
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V2(TestPOSType)
-			b.Logf("UUIDv2-%d: %s", i, ui)
-		}
-	})
-}
-func Benchmark_UUIDV2_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V2(TestPOSType)
-		}
-	})
-}
-func Benchmark_UUIDV2_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V2(TestPOSType)
-	}
-}
 func Test_UUIDV2_Generate(t *testing.T) {
 	for i := int(0); i < 2; i++ {
 		// Генерация идентификаторов
@@ -1002,29 +861,6 @@ func Test_UUIDV2_Generate(t *testing.T) {
 	// Проверка при некорректном POSTypeID
 	//ui := V2(POSType + 256)
 	// Добавить проверку на соответсвие UUIDV2
-}
-func Benchmark_UUIDV3_Info(b *testing.B) {
-	b.Run("Without Mock Time", func(b *testing.B) {
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V3(NameSpaceDNS, TestNameString+strconv.Itoa(i))
-			b.Logf("UUIDv3-%d: %s", i, ui)
-		}
-	})
-}
-func Benchmark_UUIDV3_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V3(NameSpaceDNS, TestNameString)
-		}
-	})
-}
-func Benchmark_UUIDV3_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V3(NameSpaceDNS, TestNameString+strconv.Itoa(i))
-	}
 }
 func Test_UUIDV3_Generate(t *testing.T) {
 	testCases := []struct {
@@ -1074,29 +910,6 @@ func Test_UUIDV3_Hash(t *testing.T) {
 		t.Error("Invalid UUIDv3 with the same value for different TestNameString")
 	}
 }
-func Benchmark_UUIDV4_Info(b *testing.B) {
-	b.Run("Without Mock Time", func(b *testing.B) {
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V4()
-			b.Logf("UUIDv4-%d: %s", i, ui)
-		}
-	})
-}
-func Benchmark_UUIDV4_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V4()
-		}
-	})
-}
-func Benchmark_UUIDV4_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V4()
-	}
-}
 func Test_UUIDV4_Generate(t *testing.T) {
 	// Генерация идентификаторов
 	ui1 := V4()
@@ -1124,29 +937,6 @@ func Test_UUIDV4_Generate(t *testing.T) {
 	// Проверка детерминированности
 	if ui1 == ui2 {
 		t.Error("Generated same UUIDv4 for different data")
-	}
-}
-func Benchmark_UUIDV5_Info(b *testing.B) {
-	b.Run("Without Mock Time", func(b *testing.B) {
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V5(NameSpaceDNS, TestNameString+strconv.Itoa(i))
-			b.Logf("UUIDv5-%d: %s", i, ui)
-		}
-	})
-}
-func Benchmark_UUIDV5_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V5(NameSpaceDNS, TestNameString)
-		}
-	})
-}
-func Benchmark_UUIDV5_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V5(NameSpaceDNS, TestNameString+strconv.Itoa(i))
 	}
 }
 func Test_UUIDV5_Generate(t *testing.T) {
@@ -1195,57 +985,6 @@ func Test_UUIDV5_Hash(t *testing.T) {
 	// Проверка детерминированности при разных TestNameString
 	if (ui1a == ui1b) || (ui2a == ui2b) {
 		t.Error("Invalid UUIDv5 with the same value for different TestNameString")
-	}
-}
-func Benchmark_UUIDV6_Info(b *testing.B) {
-	b.Run("With Mock Time", func(b *testing.B) {
-		// Ленивая инициализация глобального состояния
-		initSync.Do(func() {
-			initError = initGlobal()
-		})
-		if initError != nil {
-			b.Fatal(initError)
-		}
-		// Фиксация текущего состояние
-		realClock := initClock
-		realTime := v6.lastTime.Load()
-		realSequence := v6.lastSequence.Load()
-		b.Cleanup(func() {
-			initClock = realClock
-			v6.lastTime.Store(realTime)
-			v6.lastSequence.Store(realSequence)
-		})
-		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
-		v6.lastTime.Store(uint64((initClock.Now().UnixNano() / 100) + offsetTime))
-		v6.lastSequence.Store(0)
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V6()
-			b.Logf("UUIDv6-%d: %s", i, ui)
-		}
-	})
-	b.Run("Without Mock Time", func(b *testing.B) {
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V6()
-			b.Logf("UUIDv6-%d: %s", i, ui)
-		}
-	})
-}
-func Benchmark_UUIDV6_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V6()
-		}
-	})
-}
-func Benchmark_UUIDV6_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V6()
 	}
 }
 func Test_UUIDV6_Generate(t *testing.T) {
@@ -1381,57 +1120,6 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 		}
 	})
 }
-func Benchmark_UUIDV7_Info(b *testing.B) {
-	b.Run("With Mock Time", func(b *testing.B) {
-		// Ленивая инициализация глобального состояния
-		initSync.Do(func() {
-			initError = initGlobal()
-		})
-		if initError != nil {
-			b.Fatal(initError)
-		}
-		// Фиксация текущего состояние
-		realClock := initClock
-		realTime := v7.lastTime.Load()
-		realSequence := v7.lastSequence.Load()
-		b.Cleanup(func() {
-			initClock = realClock
-			v7.lastTime.Store(realTime)
-			v7.lastSequence.Store(realSequence)
-		})
-		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
-		v7.lastTime.Store(uint64(initClock.Now().UnixMicro()))
-		v7.lastSequence.Store(0)
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V7()
-			b.Logf("UUIDv7-%d: %s", i, ui)
-		}
-	})
-	b.Run("Without Mock Time", func(b *testing.B) {
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V7()
-			b.Logf("UUIDv7-%d: %s", i, ui)
-		}
-	})
-}
-func Benchmark_UUIDV7_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V7()
-		}
-	})
-}
-func Benchmark_UUIDV7_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V7()
-	}
-}
 func Test_UUIDV7_Generate(t *testing.T) {
 	// Генерация идентификаторов
 	ui1 := V7()
@@ -1546,57 +1234,6 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 			t.Errorf("Failed to overflow sequence: sq1=%d sq2=%d", sq1, sq2)
 		}
 	})
-}
-func Benchmark_UUIDV8_Info(b *testing.B) {
-	b.Run("With Mock Time", func(b *testing.B) {
-		// Ленивая инициализация глобального состояния
-		initSync.Do(func() {
-			initError = initGlobal()
-		})
-		if initError != nil {
-			b.Fatal(initError)
-		}
-		// Фиксация текущего состояние
-		realClock := initClock
-		realTime := v8.lastTime.Load()
-		realSequence := v8.lastSequence.Load()
-		b.Cleanup(func() {
-			initClock = realClock
-			v8.lastTime.Store(realTime)
-			v8.lastSequence.Store(realSequence)
-		})
-		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
-		v8.lastTime.Store(uint64(initClock.Now().UnixMicro()))
-		v8.lastSequence.Store(0)
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V8(TestNodeID)
-			b.Logf("UUIDv8-%d: %s", i, ui)
-		}
-	})
-	b.Run("Without Mock Time", func(b *testing.B) {
-		b.ResetTimer()
-		for i := 0; i < b.N; i++ {
-			ui := V8(TestNodeID)
-			b.Logf("UUIDv8-%d: %s", i, ui)
-		}
-	})
-}
-func Benchmark_UUIDV8_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V8(TestNodeID)
-		}
-	})
-}
-func Benchmark_v8_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V8(TestNodeID)
-	}
 }
 func Test_UUIDV8_Generate(t *testing.T) {
 	// Генерация идентификаторов
