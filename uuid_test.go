@@ -17,40 +17,40 @@ import (
 
 // Публичные переменные
 var (
-	TestNameString              = "md.local"
-	TestNodeID                  = 1995
-	TestPOSType                 = 0
-	TestUUIDErrByteCharacter    = ""
-	TestUUIDErrByteEmpty        = []byte{}
-	TestUUIDErrByteLenghtLong   = [17]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
-	TestUUIDErrByteLenghtShot   = [15]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
-	TestUUIDErrStringCharacter  = "01968727-8c7e-800x-87cb-bdba4f634d9f"
-	TestUUIDErrStringEmpty      = ""
-	TestUUIDErrStringInvalid    = "invalid-format"
-	TestUUIDErrStringLengthLong = "01968727-8c7e-800000-87cb-bdba4f634d9f"
-	TestUUIDErrStringLengthShot = "01968727-8c7e-80-87cb-bdba4f634d9f"
-	TestUUIDErrStringLong       = "{01968727-8c7e-8000-87cb-bdba4f634d9f}"
-	TestUUIDErrStringShort      = "019687278c7e800087cbbdba4f634d9f"
-	TestUUIDErrTypeInt          = 19687278
-	TestUUIDV1Byte              = [16]byte{0x2b, 0xa0, 0x17, 0x4a, 0x20, 0x9d, 0x11, 0xf0, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
-	TestUUIDV1String            = "2ba0174a-209d-11f0-8000-acde48001122"
-	TestUUIDV2Byte              = [16]byte{0x00, 0x00, 0x01, 0xf5, 0x2b, 0xa0, 0x20, 0x9d, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
-	TestUUIDV2String            = "000001f5-2ba0-209d-8000-acde48001122"
-	TestUUIDV3Byte              = [16]byte{0x90, 0x73, 0x92, 0x6b, 0x92, 0x9f, 0x31, 0xc2, 0xab, 0xc9, 0xfa, 0xd7, 0x7a, 0xe3, 0xe8, 0xeb}
-	TestUUIDV3String            = "9073926b-929f-31c2-abc9-fad77ae3e8eb"
-	TestUUIDV4Byte              = [16]byte{0xae, 0x68, 0x2b, 0x8f, 0x49, 0xff, 0x46, 0x9c, 0x85, 0x28, 0xa3, 0xed, 0xe0, 0x52, 0xc6, 0x90}
-	TestUUIDV4String            = "ae682b8f-49ff-469c-8528-a3ede052c690"
-	TestUUIDV5Byte              = [16]byte{0x4f, 0xd3, 0x5a, 0x71, 0x71, 0xef, 0x5a, 0x55, 0xa9, 0xd9, 0xaa, 0x75, 0xc8, 0x89, 0xa6, 0xd0}
-	TestUUIDV5String            = "4fd35a71-71ef-5a55-a9d9-aa75c889a6d0"
-	TestUUIDV6Byte              = [16]byte{0x1f, 0x02, 0x09, 0xd2, 0xba, 0x01, 0x67, 0x9a, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
-	TestUUIDV6String            = "1f0209d2-ba01-679a-8000-acde48001122"
-	TestUUIDV7Byte              = [16]byte{0x01, 0x96, 0x65, 0x0b, 0xad, 0x3b, 0x70, 0x00, 0x82, 0xb1, 0xce, 0x73, 0x41, 0x49, 0x23, 0x30}
-	TestUUIDV7String            = "0196650b-ad3b-7000-82b1-ce7341492330"
-	TestUUIDV8Byte              = [16]byte{0xaa, 0xbb, 0xcc, 0xdd, 0x11, 0x22, 0x83, 0x44, 0x95, 0x66, 0x4c, 0x84, 0xeb, 0x01, 0x58, 0x16}
-	TestUUIDV8String            = "aabbccdd-1122-8344-9566-4c84eb015816"
-	TestUUIDVUByte              = [16]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
-	TestUUIDVUString            = "01968727-8c7e-8000-87cb-bdba4f634d9f"
-	TestUUIDVUStringJSON        = `"01968727-8c7e-8000-87cb-bdba4f634d9f"`
+	TestNameString               = "md.local"
+	TestNodeID                   = 1995
+	TestPOSType                  = 0
+	TestUUIDErrByteCharacter     = ""
+	TestUUIDErrByteEmpty         = []byte{}
+	TestUUIDErrByteLengthLong    = [17]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+	TestUUIDErrByteLengthShort   = [15]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+	TestUUIDErrStringCharacter   = "01968727-8c7e-800x-87cb-bdba4f634d9f"
+	TestUUIDErrStringEmpty       = ""
+	TestUUIDErrStringInvalid     = "invalid-format"
+	TestUUIDErrStringLengthLong  = "01968727-8c7e-800000-87cb-bdba4f634d9f"
+	TestUUIDErrStringLengthShort = "01968727-8c7e-80-87cb-bdba4f634d9f"
+	TestUUIDErrStringLong        = "{01968727-8c7e-8000-87cb-bdba4f634d9f}"
+	TestUUIDErrStringShort       = "019687278c7e800087cbbdba4f634d9f"
+	TestUUIDErrTypeInt           = 19687278
+	TestUUIDV1Byte               = [16]byte{0x2b, 0xa0, 0x17, 0x4a, 0x20, 0x9d, 0x11, 0xf0, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
+	TestUUIDV1String             = "2ba0174a-209d-11f0-8000-acde48001122"
+	TestUUIDV2Byte               = [16]byte{0x00, 0x00, 0x01, 0xf5, 0x2b, 0xa0, 0x20, 0x9d, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
+	TestUUIDV2String             = "000001f5-2ba0-209d-8000-acde48001122"
+	TestUUIDV3Byte               = [16]byte{0x90, 0x73, 0x92, 0x6b, 0x92, 0x9f, 0x31, 0xc2, 0xab, 0xc9, 0xfa, 0xd7, 0x7a, 0xe3, 0xe8, 0xeb}
+	TestUUIDV3String             = "9073926b-929f-31c2-abc9-fad77ae3e8eb"
+	TestUUIDV4Byte               = [16]byte{0xae, 0x68, 0x2b, 0x8f, 0x49, 0xff, 0x46, 0x9c, 0x85, 0x28, 0xa3, 0xed, 0xe0, 0x52, 0xc6, 0x90}
+	TestUUIDV4String             = "ae682b8f-49ff-469c-8528-a3ede052c690"
+	TestUUIDV5Byte               = [16]byte{0x4f, 0xd3, 0x5a, 0x71, 0x71, 0xef, 0x5a, 0x55, 0xa9, 0xd9, 0xaa, 0x75, 0xc8, 0x89, 0xa6, 0xd0}
+	TestUUIDV5String             = "4fd35a71-71ef-5a55-a9d9-aa75c889a6d0"
+	TestUUIDV6Byte               = [16]byte{0x1f, 0x02, 0x09, 0xd2, 0xba, 0x01, 0x67, 0x9a, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
+	TestUUIDV6String             = "1f0209d2-ba01-679a-8000-acde48001122"
+	TestUUIDV7Byte               = [16]byte{0x01, 0x96, 0x65, 0x0b, 0xad, 0x3b, 0x70, 0x00, 0x82, 0xb1, 0xce, 0x73, 0x41, 0x49, 0x23, 0x30}
+	TestUUIDV7String             = "0196650b-ad3b-7000-82b1-ce7341492330"
+	TestUUIDV8Byte               = [16]byte{0xaa, 0xbb, 0xcc, 0xdd, 0x11, 0x22, 0x83, 0x44, 0x95, 0x66, 0x4c, 0x84, 0xeb, 0x01, 0x58, 0x16}
+	TestUUIDV8String             = "aabbccdd-1122-8344-9566-4c84eb015816"
+	TestUUIDVUByte               = [16]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+	TestUUIDVUString             = "01968727-8c7e-8000-87cb-bdba4f634d9f"
+	TestUUIDVUStringJSON         = `"01968727-8c7e-8000-87cb-bdba4f634d9f"`
 )
 
 // Публичные функции
@@ -207,8 +207,8 @@ func Test_Parse(t *testing.T) {
 			line: TestUUIDErrStringLengthLong,
 		},
 		{
-			name: "Shot string UUID",
-			line: TestUUIDErrStringLengthShot,
+			name: "Short string UUID",
+			line: TestUUIDErrStringLengthShort,
 		},
 	}
 	for _, tc := range invalidCases {
@@ -241,13 +241,13 @@ func Test_Scan(t *testing.T) {
 		},
 		{
 			name:    "Long byte format UUID",
-			src:     TestUUIDErrByteLenghtLong,
+			src:     TestUUIDErrByteLengthLong,
 			want:    NilUUIDByte,
 			wantErr: true,
 		},
 		{
-			name:    "Shot byte format UUID",
-			src:     TestUUIDErrByteLenghtShot,
+			name:    "Short byte format UUID",
+			src:     TestUUIDErrByteLengthShort,
 			want:    NilUUIDByte,
 			wantErr: true,
 		},
@@ -358,7 +358,7 @@ func Test_TextFormatVariations(t *testing.T) {
 		expect UUID
 	}{
 		{"Long_format_UUID", TestUUIDErrStringLong, TestUUIDVUByte},
-		{"Shot_format_UUID", TestUUIDErrStringShort, TestUUIDVUByte},
+		{"Short_format_UUID", TestUUIDErrStringShort, TestUUIDVUByte},
 		{"Standard_format_UUID", TestUUIDVUString, TestUUIDVUByte},
 	}
 	for _, tt := range formats {
@@ -692,7 +692,7 @@ func Test_MarshalUnmarshalText(t *testing.T) {
 	}{
 		{"Invalid chars UUID", []byte(TestUUIDErrStringCharacter), true},
 		{"Long format UUID", []byte(TestUUIDErrStringLong), false},
-		{"Short format UUID", []byte(TestUUIDErrStringLengthShot), true},
+		{"Short format UUID", []byte(TestUUIDErrStringLengthShort), true},
 	}
 	for _, tt := range invalidTests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -1121,6 +1121,26 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 	})
 }
 func Test_UUIDV7_Generate(t *testing.T) {
+	// Ленивая инициализация глобального состояния
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
+	if initError != nil {
+		t.Fatal(initError)
+	}
+	// Фиксация текущего состояние
+	realClock := initClock
+	realTime := v7.lastTime.Load()
+	realSequence := v7.lastSequence.Load()
+	t.Cleanup(func() {
+		initClock = realClock
+		v7.lastTime.Store(realTime)
+		v7.lastSequence.Store(realSequence)
+	})
+	// Мокирование
+	initClock = &RealClock{}
+	v7.lastTime.Store(0)
+	v7.lastSequence.Store(0)
 	// Генерация идентификаторов
 	ui1 := V7()
 	ui2 := V7()
@@ -1236,6 +1256,27 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 	})
 }
 func Test_UUIDV8_Generate(t *testing.T) {
+	// Ленивая инициализация глобального состояния
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
+	if initError != nil {
+		t.Fatal(initError)
+	}
+	// Фиксация текущего состояние
+	realClock := initClock
+	realTime := v8.lastTime.Load()
+	realSequence := v8.lastSequence.Load()
+	t.Cleanup(func() {
+		initClock = realClock
+		v8.lastTime.Store(realTime)
+		v8.lastSequence.Store(realSequence)
+	})
+	// Мокирование
+	mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+	initClock = mockClock
+	v8.lastTime.Store(uint64(initClock.Now().UnixMilli()))
+	v8.lastSequence.Store(0)
 	// Генерация идентификаторов
 	ui1 := V8(TestNodeID)
 	ui2 := V8(TestNodeID)

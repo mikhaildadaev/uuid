@@ -283,13 +283,13 @@ func (uuid UUID) Variant() int {
 		return variantInvalid
 	}
 	switch {
-	case uuid[8]&0xE0 == bitVNCS:
+	case uuid[8] == bitVNCS:
 		return variantNCS
-	case uuid[8]&0xE0 == bitVRFC4122:
+	case uuid[8]&bitVRFC4122 == bitVRFC4122:
 		return variantRFC4122
-	case uuid[8]&0xE0 == bitVMS:
+	case uuid[8]&bitVMS == bitVMS:
 		return variantMicrosoft
-	case uuid[8]&0xE0 == bitVReserved:
+	case uuid[8]&bitVReserved == bitVReserved:
 		return variantReserved
 	default:
 		return variantInvalid
