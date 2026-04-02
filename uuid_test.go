@@ -15,44 +15,6 @@ import (
 	"time"
 )
 
-// Публичные переменные
-var (
-	TestNameString               = "md.local"
-	TestNodeID                   = 1995
-	TestPOSType                  = 0
-	TestUUIDErrByteCharacter     = ""
-	TestUUIDErrByteEmpty         = []byte{}
-	TestUUIDErrByteLengthLong    = [17]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
-	TestUUIDErrByteLengthShort   = [15]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
-	TestUUIDErrStringCharacter   = "01968727-8c7e-800x-87cb-bdba4f634d9f"
-	TestUUIDErrStringEmpty       = ""
-	TestUUIDErrStringInvalid     = "invalid-format"
-	TestUUIDErrStringLengthLong  = "01968727-8c7e-800000-87cb-bdba4f634d9f"
-	TestUUIDErrStringLengthShort = "01968727-8c7e-80-87cb-bdba4f634d9f"
-	TestUUIDErrStringLong        = "{01968727-8c7e-8000-87cb-bdba4f634d9f}"
-	TestUUIDErrStringShort       = "019687278c7e800087cbbdba4f634d9f"
-	TestUUIDErrTypeInt           = 19687278
-	TestUUIDV1Byte               = [16]byte{0x2b, 0xa0, 0x17, 0x4a, 0x20, 0x9d, 0x11, 0xf0, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
-	TestUUIDV1String             = "2ba0174a-209d-11f0-8000-acde48001122"
-	TestUUIDV2Byte               = [16]byte{0x00, 0x00, 0x01, 0xf5, 0x2b, 0xa0, 0x20, 0x9d, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
-	TestUUIDV2String             = "000001f5-2ba0-209d-8000-acde48001122"
-	TestUUIDV3Byte               = [16]byte{0x90, 0x73, 0x92, 0x6b, 0x92, 0x9f, 0x31, 0xc2, 0xab, 0xc9, 0xfa, 0xd7, 0x7a, 0xe3, 0xe8, 0xeb}
-	TestUUIDV3String             = "9073926b-929f-31c2-abc9-fad77ae3e8eb"
-	TestUUIDV4Byte               = [16]byte{0xae, 0x68, 0x2b, 0x8f, 0x49, 0xff, 0x46, 0x9c, 0x85, 0x28, 0xa3, 0xed, 0xe0, 0x52, 0xc6, 0x90}
-	TestUUIDV4String             = "ae682b8f-49ff-469c-8528-a3ede052c690"
-	TestUUIDV5Byte               = [16]byte{0x4f, 0xd3, 0x5a, 0x71, 0x71, 0xef, 0x5a, 0x55, 0xa9, 0xd9, 0xaa, 0x75, 0xc8, 0x89, 0xa6, 0xd0}
-	TestUUIDV5String             = "4fd35a71-71ef-5a55-a9d9-aa75c889a6d0"
-	TestUUIDV6Byte               = [16]byte{0x1f, 0x02, 0x09, 0xd2, 0xba, 0x01, 0x67, 0x9a, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
-	TestUUIDV6String             = "1f0209d2-ba01-679a-8000-acde48001122"
-	TestUUIDV7Byte               = [16]byte{0x01, 0x96, 0x65, 0x0b, 0xad, 0x3b, 0x70, 0x00, 0x82, 0xb1, 0xce, 0x73, 0x41, 0x49, 0x23, 0x30}
-	TestUUIDV7String             = "0196650b-ad3b-7000-82b1-ce7341492330"
-	TestUUIDV8Byte               = [16]byte{0xaa, 0xbb, 0xcc, 0xdd, 0x11, 0x22, 0x83, 0x44, 0x95, 0x66, 0x4c, 0x84, 0xeb, 0x01, 0x58, 0x16}
-	TestUUIDV8String             = "aabbccdd-1122-8344-9566-4c84eb015816"
-	TestUUIDVUByte               = [16]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
-	TestUUIDVUString             = "01968727-8c7e-8000-87cb-bdba4f634d9f"
-	TestUUIDVUStringJSON         = `"01968727-8c7e-8000-87cb-bdba4f634d9f"`
-)
-
 // Публичные функции
 func Test_Init(t *testing.T) {
 	initSync.Do(func() {
@@ -83,13 +45,13 @@ func Test_Info(t *testing.T) {
 		uuid UUID
 	}{
 		{"V1 UUID", func() UUID { u := V1(); return u }()},
-		{"V2 UUID", func() UUID { u := V2(TestPOSType); return u }()},
-		{"V3 UUID", func() UUID { u := V3(NameSpaceDNS, TestNameString); return u }()},
+		{"V2 UUID", func() UUID { u := V2(testPOSType); return u }()},
+		{"V3 UUID", func() UUID { u := V3(NameSpaceDNS, testNameString); return u }()},
 		{"V4 UUID", func() UUID { u := V4(); return u }()},
-		{"V5 UUID", func() UUID { u := V5(NameSpaceDNS, TestNameString); return u }()},
+		{"V5 UUID", func() UUID { u := V5(NameSpaceDNS, testNameString); return u }()},
 		{"V6 UUID", func() UUID { u := V6(); return u }()},
 		{"V7 UUID", func() UUID { u := V7(); return u }()},
-		{"V8 UUID", func() UUID { u := V8(TestNodeID); return u }()},
+		{"V8 UUID", func() UUID { u := V8(testNodeID); return u }()},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -117,7 +79,7 @@ func Test_Info(t *testing.T) {
 }
 func Test_Nil(t *testing.T) {
 	uinil, _ := Parse(NilUUIDString)
-	uinonil, _ := Parse(TestUUIDVUString)
+	uinonil, _ := Parse(testUUIDVUString)
 	if !uinil.IsZero() {
 		t.Error("returned false nil UUID")
 	}
@@ -138,48 +100,48 @@ func Test_Parse(t *testing.T) {
 		},
 		{
 			name: "V1 UUID",
-			line: TestUUIDV1String,
-			want: TestUUIDV1Byte,
+			line: testUUIDV1String,
+			want: testUUIDV1Byte,
 		},
 		{
 			name: "V2 UUID",
-			line: TestUUIDV2String,
-			want: TestUUIDV2Byte,
+			line: testUUIDV2String,
+			want: testUUIDV2Byte,
 		},
 		{
 			name: "V3 UUID",
-			line: TestUUIDV3String,
-			want: TestUUIDV3Byte,
+			line: testUUIDV3String,
+			want: testUUIDV3Byte,
 		},
 		{
 			name: "V4 UUID",
-			line: TestUUIDV4String,
-			want: TestUUIDV4Byte,
+			line: testUUIDV4String,
+			want: testUUIDV4Byte,
 		},
 		{
 			name: "V5 UUID",
-			line: TestUUIDV5String,
-			want: TestUUIDV5Byte,
+			line: testUUIDV5String,
+			want: testUUIDV5Byte,
 		},
 		{
 			name: "V6 UUID",
-			line: TestUUIDV6String,
-			want: TestUUIDV6Byte,
+			line: testUUIDV6String,
+			want: testUUIDV6Byte,
 		},
 		{
 			name: "V7 UUID",
-			line: TestUUIDV7String,
-			want: TestUUIDV7Byte,
+			line: testUUIDV7String,
+			want: testUUIDV7Byte,
 		},
 		{
 			name: "V8 UUID",
-			line: TestUUIDV8String,
-			want: TestUUIDV8Byte,
+			line: testUUIDV8String,
+			want: testUUIDV8Byte,
 		},
 	}
 	for _, tc := range validCases {
 		t.Run(tc.name, func(t *testing.T) {
-			got := Must(Parse(tc.line))
+			got := must(Parse(tc.line))
 			if got != tc.want {
 				t.Errorf("Parse() = %v, want %v", got, tc.want)
 			}
@@ -192,23 +154,23 @@ func Test_Parse(t *testing.T) {
 	}{
 		{
 			name: "Empty string UUID",
-			line: TestUUIDErrStringEmpty,
+			line: testUUIDErrStringEmpty,
 		},
 		{
 			name: "Invalid string UUID",
-			line: TestUUIDErrStringInvalid,
+			line: testUUIDErrStringInvalid,
 		},
 		{
 			name: "Incorrect string character UUID",
-			line: TestUUIDErrStringCharacter,
+			line: testUUIDErrStringCharacter,
 		},
 		{
 			name: "Long string UUID",
-			line: TestUUIDErrStringLengthLong,
+			line: testUUIDErrStringLengthLong,
 		},
 		{
 			name: "Short string UUID",
-			line: TestUUIDErrStringLengthShort,
+			line: testUUIDErrStringLengthShort,
 		},
 	}
 	for _, tc := range invalidCases {
@@ -229,31 +191,31 @@ func Test_Scan(t *testing.T) {
 	}{
 		{
 			name:    "Empty byte format UUID",
-			src:     TestUUIDErrByteEmpty,
+			src:     testUUIDErrByteEmpty,
 			want:    NilUUIDByte,
 			wantErr: true,
 		},
 		{
 			name:    "Empty string format UUID",
-			src:     TestUUIDErrStringEmpty,
+			src:     testUUIDErrStringEmpty,
 			want:    NilUUIDByte,
 			wantErr: true,
 		},
 		{
 			name:    "Long byte format UUID",
-			src:     TestUUIDErrByteLengthLong,
+			src:     testUUIDErrByteLengthLong,
 			want:    NilUUIDByte,
 			wantErr: true,
 		},
 		{
 			name:    "Short byte format UUID",
-			src:     TestUUIDErrByteLengthShort,
+			src:     testUUIDErrByteLengthShort,
 			want:    NilUUIDByte,
 			wantErr: true,
 		},
 		{
 			name:    "Invalid type",
-			src:     TestUUIDErrTypeInt,
+			src:     testUUIDErrTypeInt,
 			want:    NilUUIDByte,
 			wantErr: true,
 		},
@@ -265,14 +227,14 @@ func Test_Scan(t *testing.T) {
 		},
 		{
 			name:    "Valid byte format UUID",
-			src:     Must(Parse(TestUUIDVUString)).Bytes(),
-			want:    TestUUIDVUByte,
+			src:     must(Parse(testUUIDVUString)).Bytes(),
+			want:    testUUIDVUByte,
 			wantErr: false,
 		},
 		{
 			name:    "Valid string format UUID",
-			src:     TestUUIDVUString,
-			want:    TestUUIDVUByte,
+			src:     testUUIDVUString,
+			want:    testUUIDVUByte,
 			wantErr: false,
 		},
 	}
@@ -303,43 +265,43 @@ func Test_String(t *testing.T) {
 		},
 		{
 			name: "V1 UUID",
-			uuid: TestUUIDV1Byte,
-			want: TestUUIDV1String,
+			uuid: testUUIDV1Byte,
+			want: testUUIDV1String,
 		},
 		{
 			name: "V2 UUID",
-			uuid: TestUUIDV2Byte,
-			want: TestUUIDV2String,
+			uuid: testUUIDV2Byte,
+			want: testUUIDV2String,
 		},
 		{
 			name: "V3 UUID",
-			uuid: TestUUIDV3Byte,
-			want: TestUUIDV3String,
+			uuid: testUUIDV3Byte,
+			want: testUUIDV3String,
 		},
 		{
 			name: "V4 UUID",
-			uuid: TestUUIDV4Byte,
-			want: TestUUIDV4String,
+			uuid: testUUIDV4Byte,
+			want: testUUIDV4String,
 		},
 		{
 			name: "V5 UUID",
-			uuid: TestUUIDV5Byte,
-			want: TestUUIDV5String,
+			uuid: testUUIDV5Byte,
+			want: testUUIDV5String,
 		},
 		{
 			name: "V6 UUID",
-			uuid: TestUUIDV6Byte,
-			want: TestUUIDV6String,
+			uuid: testUUIDV6Byte,
+			want: testUUIDV6String,
 		},
 		{
 			name: "V7 UUID",
-			uuid: TestUUIDV7Byte,
-			want: TestUUIDV7String,
+			uuid: testUUIDV7Byte,
+			want: testUUIDV7String,
 		},
 		{
 			name: "V8 UUID",
-			uuid: TestUUIDV8Byte,
-			want: TestUUIDV8String,
+			uuid: testUUIDV8Byte,
+			want: testUUIDV8String,
 		},
 	}
 	for _, tc := range validCases {
@@ -357,13 +319,13 @@ func Test_TextFormatVariations(t *testing.T) {
 		input  string
 		expect UUID
 	}{
-		{"Long_format_UUID", TestUUIDErrStringLong, TestUUIDVUByte},
-		{"Short_format_UUID", TestUUIDErrStringShort, TestUUIDVUByte},
-		{"Standard_format_UUID", TestUUIDVUString, TestUUIDVUByte},
+		{"Long_format_UUID", testUUIDErrStringLong, testUUIDVUByte},
+		{"Short_format_UUID", testUUIDErrStringShort, testUUIDVUByte},
+		{"Standard_format_UUID", testUUIDVUString, testUUIDVUByte},
 	}
 	for _, tt := range formats {
 		t.Run(tt.name, func(t *testing.T) {
-			u := Must(Parse(tt.input))
+			u := must(Parse(tt.input))
 			if u != tt.expect {
 				t.Errorf("UnmarshalText() = %v, want %v", u, tt.expect)
 			}
@@ -428,7 +390,7 @@ func Test_Timestamp(t *testing.T) {
 	t.Run("V8 UUID", func(t *testing.T) {
 		var prevUUID UUID
 		for i := 0; i < 10; i++ {
-			uuid := V8(TestNodeID)
+			uuid := V8(testNodeID)
 			if i > 0 {
 				currentTime := uuid.Timestamp()
 				prevTime := prevUUID.Timestamp()
@@ -447,13 +409,13 @@ func Test_Validate(t *testing.T) {
 			uuid UUID
 		}{
 			{"V1 UUID", V1()},
-			{"V2 UUID", V2(TestPOSType)},
-			{"V3 UUID", V3(NameSpaceDNS, TestNameString)},
+			{"V2 UUID", V2(testPOSType)},
+			{"V3 UUID", V3(NameSpaceDNS, testNameString)},
 			{"V4 UUID", V4()},
-			{"V5 UUID", V5(NameSpaceDNS, TestNameString)},
+			{"V5 UUID", V5(NameSpaceDNS, testNameString)},
 			{"V6 UUID", V6()},
 			{"V7 UUID", V7()},
-			{"V8 UUID", V8(TestNodeID)},
+			{"V8 UUID", V8(testNodeID)},
 		}
 
 		for _, tt := range tests {
@@ -527,8 +489,8 @@ func Test_Value(t *testing.T) {
 		},
 		{
 			name:    "Valid UUID",
-			u:       TestUUIDVUByte,
-			want:    TestUUIDVUString,
+			u:       testUUIDVUByte,
+			want:    testUUIDVUString,
 			wantErr: false,
 		},
 	}
@@ -552,7 +514,7 @@ func Test_MarshalUnmarshalBinary(t *testing.T) {
 		wantErr bool
 	}{
 		{"Nil UUID", NilUUIDByte, false},
-		{"Valid UUID", TestUUIDVUByte, false},
+		{"Valid UUID", testUUIDVUByte, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -603,8 +565,8 @@ func Test_MarshalUnmarshalJSON(t *testing.T) {
 		},
 		{
 			name:    "Valid UUID",
-			u:       TestUUIDVUByte,
-			want:    TestUUIDVUStringJSON,
+			u:       testUUIDVUByte,
+			want:    testUUIDVUStringJSON,
 			wantErr: false,
 		},
 	}
@@ -657,8 +619,8 @@ func Test_MarshalUnmarshalText(t *testing.T) {
 		},
 		{
 			name:    "Valid UUID",
-			u:       TestUUIDVUByte,
-			want:    TestUUIDVUString,
+			u:       testUUIDVUByte,
+			want:    testUUIDVUString,
 			wantErr: false,
 		},
 	}
@@ -690,9 +652,9 @@ func Test_MarshalUnmarshalText(t *testing.T) {
 		data    []byte
 		wantErr bool
 	}{
-		{"Invalid chars UUID", []byte(TestUUIDErrStringCharacter), true},
-		{"Long format UUID", []byte(TestUUIDErrStringLong), false},
-		{"Short format UUID", []byte(TestUUIDErrStringLengthShort), true},
+		{"Invalid chars UUID", []byte(testUUIDErrStringCharacter), true},
+		{"Long format UUID", []byte(testUUIDErrStringLong), false},
+		{"Short format UUID", []byte(testUUIDErrStringLengthShort), true},
 	}
 	for _, tt := range invalidTests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -867,10 +829,10 @@ func Test_UUIDV3_Generate(t *testing.T) {
 		namespace UUID
 		name      string
 	}{
-		{NameSpaceDNS, TestNameString},
-		{NameSpaceURL, TestNameString},
-		{NameSpaceOID, TestNameString},
-		{NameSpaceX500, TestNameString},
+		{NameSpaceDNS, testNameString},
+		{NameSpaceURL, testNameString},
+		{NameSpaceOID, testNameString},
+		{NameSpaceX500, testNameString},
 	}
 	for i, tc := range testCases {
 		// Генерация идентификаторов
@@ -897,10 +859,10 @@ func Test_UUIDV3_Generate(t *testing.T) {
 }
 func Test_UUIDV3_Hash(t *testing.T) {
 	// Генерация идентификаторов
-	ui1a := V3(NameSpaceDNS, TestNameString+"/TestA")
-	ui1b := V3(NameSpaceDNS, TestNameString+"/TestB")
-	ui2a := V3(NameSpaceURL, TestNameString+"/TestA")
-	ui2b := V3(NameSpaceURL, TestNameString+"/TestB")
+	ui1a := V3(NameSpaceDNS, testNameString+"/TestA")
+	ui1b := V3(NameSpaceDNS, testNameString+"/TestB")
+	ui2a := V3(NameSpaceURL, testNameString+"/TestA")
+	ui2b := V3(NameSpaceURL, testNameString+"/TestB")
 	// Проверка детерминированности при разных NameSpace
 	if (ui1a == ui2a) || (ui1b == ui2b) {
 		t.Error("Invalid UUIDv3 with the same value for different Namespace")
@@ -944,10 +906,10 @@ func Test_UUIDV5_Generate(t *testing.T) {
 		namespace UUID
 		name      string
 	}{
-		{NameSpaceDNS, TestNameString},
-		{NameSpaceURL, TestNameString},
-		{NameSpaceOID, TestNameString},
-		{NameSpaceX500, TestNameString},
+		{NameSpaceDNS, testNameString},
+		{NameSpaceURL, testNameString},
+		{NameSpaceOID, testNameString},
+		{NameSpaceX500, testNameString},
 	}
 	for i, tc := range testCases {
 		// Генерация идентификаторов
@@ -974,10 +936,10 @@ func Test_UUIDV5_Generate(t *testing.T) {
 }
 func Test_UUIDV5_Hash(t *testing.T) {
 	// Генерация идентификаторов
-	ui1a := V5(NameSpaceDNS, TestNameString+"/TestA")
-	ui1b := V5(NameSpaceDNS, TestNameString+"/TestB")
-	ui2a := V5(NameSpaceURL, TestNameString+"/TestA")
-	ui2b := V5(NameSpaceURL, TestNameString+"/TestB")
+	ui1a := V5(NameSpaceDNS, testNameString+"/TestA")
+	ui1b := V5(NameSpaceDNS, testNameString+"/TestB")
+	ui2a := V5(NameSpaceURL, testNameString+"/TestA")
+	ui2b := V5(NameSpaceURL, testNameString+"/TestB")
 	// Проверка детерминированности при разных NameSpace
 	if (ui1a == ui2a) || (ui1b == ui2b) {
 		t.Error("Invalid UUIDv5 with the same value for different Namespace")
@@ -1278,8 +1240,8 @@ func Test_UUIDV8_Generate(t *testing.T) {
 	v8.lastTime.Store(uint64(initClock.Now().UnixMilli()))
 	v8.lastSequence.Store(0)
 	// Генерация идентификаторов
-	ui1 := V8(TestNodeID)
-	ui2 := V8(TestNodeID)
+	ui1 := V8(testNodeID)
+	ui2 := V8(testNodeID)
 	// Добавить проверку на соответсвие UUIDV8
 	//
 	// Проверка вариантов
@@ -1312,11 +1274,11 @@ func Test_UUIDV8_Generate(t *testing.T) {
 	// Проверка идентификаторов нод
 	nd1 := ui1.Node()
 	nd2 := ui2.Node()
-	if nd1 != TestNodeID {
-		t.Errorf("Invalid NodeID in UUIDv8-1: got %d, expected %d", nd1, TestNodeID)
+	if nd1 != testNodeID {
+		t.Errorf("Invalid NodeID in UUIDv8-1: got %d, expected %d", nd1, testNodeID)
 	}
-	if nd2 != TestNodeID {
-		t.Errorf("Invalid NodeID in UUIDv8-2: got %d, expected %d", nd2, TestNodeID)
+	if nd2 != testNodeID {
+		t.Errorf("Invalid NodeID in UUIDv8-2: got %d, expected %d", nd2, testNodeID)
 	}
 	// Проверка детерминированности
 	if ui1 == ui2 {
@@ -1347,8 +1309,8 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 		v8.lastTime.Store(uint64(initClock.Now().UnixMilli()))
 		v8.lastSequence.Store(0)
 		// Генерация идентификаторов
-		ui1 := V8(TestNodeID)
-		ui2 := V8(TestNodeID)
+		ui1 := V8(testNodeID)
+		ui2 := V8(testNodeID)
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
 		sq1 := ui1.Sequence()
@@ -1383,9 +1345,9 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 		v8.lastTime.Store(uint64(initClock.Now().UnixMilli()))
 		v8.lastSequence.Store(maxV8Sequence - 1)
 		// Генерация идентификаторов
-		ui1 := V8(TestNodeID)
+		ui1 := V8(testNodeID)
 		mockClock.Add(time.Millisecond)
-		ui2 := V8(TestNodeID)
+		ui2 := V8(testNodeID)
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
 		sq1 := ui1.Sequence()
@@ -1399,10 +1361,48 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 	})
 }
 
-// Вспомогательная функция-обёртка
-func Must(u UUID, err error) UUID {
+// Приватные переменные
+var (
+	testNameString               = "md.local"
+	testNodeID                   = 1995
+	testPOSType                  = 0
+	testUUIDErrByteCharacter     = ""
+	testUUIDErrByteEmpty         = []byte{}
+	testUUIDErrByteLengthLong    = [17]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+	testUUIDErrByteLengthShort   = [15]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+	testUUIDErrStringCharacter   = "01968727-8c7e-800x-87cb-bdba4f634d9f"
+	testUUIDErrStringEmpty       = ""
+	testUUIDErrStringInvalid     = "invalid-format"
+	testUUIDErrStringLengthLong  = "01968727-8c7e-800000-87cb-bdba4f634d9f"
+	testUUIDErrStringLengthShort = "01968727-8c7e-80-87cb-bdba4f634d9f"
+	testUUIDErrStringLong        = "{01968727-8c7e-8000-87cb-bdba4f634d9f}"
+	testUUIDErrStringShort       = "019687278c7e800087cbbdba4f634d9f"
+	testUUIDErrTypeInt           = 19687278
+	testUUIDV1Byte               = [16]byte{0x2b, 0xa0, 0x17, 0x4a, 0x20, 0x9d, 0x11, 0xf0, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
+	testUUIDV1String             = "2ba0174a-209d-11f0-8000-acde48001122"
+	testUUIDV2Byte               = [16]byte{0x00, 0x00, 0x01, 0xf5, 0x2b, 0xa0, 0x20, 0x9d, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
+	testUUIDV2String             = "000001f5-2ba0-209d-8000-acde48001122"
+	testUUIDV3Byte               = [16]byte{0x90, 0x73, 0x92, 0x6b, 0x92, 0x9f, 0x31, 0xc2, 0xab, 0xc9, 0xfa, 0xd7, 0x7a, 0xe3, 0xe8, 0xeb}
+	testUUIDV3String             = "9073926b-929f-31c2-abc9-fad77ae3e8eb"
+	testUUIDV4Byte               = [16]byte{0xae, 0x68, 0x2b, 0x8f, 0x49, 0xff, 0x46, 0x9c, 0x85, 0x28, 0xa3, 0xed, 0xe0, 0x52, 0xc6, 0x90}
+	testUUIDV4String             = "ae682b8f-49ff-469c-8528-a3ede052c690"
+	testUUIDV5Byte               = [16]byte{0x4f, 0xd3, 0x5a, 0x71, 0x71, 0xef, 0x5a, 0x55, 0xa9, 0xd9, 0xaa, 0x75, 0xc8, 0x89, 0xa6, 0xd0}
+	testUUIDV5String             = "4fd35a71-71ef-5a55-a9d9-aa75c889a6d0"
+	testUUIDV6Byte               = [16]byte{0x1f, 0x02, 0x09, 0xd2, 0xba, 0x01, 0x67, 0x9a, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
+	testUUIDV6String             = "1f0209d2-ba01-679a-8000-acde48001122"
+	testUUIDV7Byte               = [16]byte{0x01, 0x96, 0x65, 0x0b, 0xad, 0x3b, 0x70, 0x00, 0x82, 0xb1, 0xce, 0x73, 0x41, 0x49, 0x23, 0x30}
+	testUUIDV7String             = "0196650b-ad3b-7000-82b1-ce7341492330"
+	testUUIDV8Byte               = [16]byte{0xaa, 0xbb, 0xcc, 0xdd, 0x11, 0x22, 0x83, 0x44, 0x95, 0x66, 0x4c, 0x84, 0xeb, 0x01, 0x58, 0x16}
+	testUUIDV8String             = "aabbccdd-1122-8344-9566-4c84eb015816"
+	testUUIDVUByte               = [16]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+	testUUIDVUString             = "01968727-8c7e-8000-87cb-bdba4f634d9f"
+	testUUIDVUStringJSON         = `"01968727-8c7e-8000-87cb-bdba4f634d9f"`
+)
+
+// Приватные функции
+func must(uuid UUID, err error) UUID {
 	if err != nil {
 		panic(err)
 	}
-	return u
+	return uuid
 }

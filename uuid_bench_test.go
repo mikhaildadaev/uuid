@@ -13,14 +13,14 @@ import (
 
 // Публичные функции
 func Benchmark_Parse(b *testing.B) {
-	UUID := TestUUIDVUString
+	UUID := testUUIDVUString
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_, _ = Parse(UUID)
 	}
 }
 func Benchmark_String(b *testing.B) {
-	uuid, _ := Parse(TestUUIDVUString)
+	uuid, _ := Parse(testUUIDVUString)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_ = uuid.String()
@@ -39,12 +39,12 @@ func Benchmark_UUIDs(b *testing.B) {
 	})
 	b.Run("v2 UUID", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_ = V2(TestPOSType)
+			_ = V2(testPOSType)
 		}
 	})
 	b.Run("v3 UUID", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_ = V3(NameSpaceDNS, TestNameString)
+			_ = V3(NameSpaceDNS, testNameString)
 		}
 	})
 	b.Run("v4 UUID", func(b *testing.B) {
@@ -54,7 +54,7 @@ func Benchmark_UUIDs(b *testing.B) {
 	})
 	b.Run("v5 UUID", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_ = V5(NameSpaceDNS, TestNameString)
+			_ = V5(NameSpaceDNS, testNameString)
 		}
 	})
 	b.Run("v6 UUID", func(b *testing.B) {
@@ -69,12 +69,12 @@ func Benchmark_UUIDs(b *testing.B) {
 	})
 	b.Run("v8 UUID", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_ = V8(TestNodeID)
+			_ = V8(testNodeID)
 		}
 	})
 }
 func Benchmark_Validate(b *testing.B) {
-	uuid, _ := Parse(TestUUIDVUString)
+	uuid, _ := Parse(testUUIDVUString)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_ = uuid.Validate()
@@ -135,7 +135,7 @@ func Benchmark_UUIDV2_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V2(TestPOSType)
+			ui := V2(testPOSType)
 			b.Logf("UUIDv2-%d: %s", i, ui)
 		}
 	})
@@ -144,21 +144,21 @@ func Benchmark_UUIDV2_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			_ = V2(TestPOSType)
+			_ = V2(testPOSType)
 		}
 	})
 }
 func Benchmark_UUIDV2_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		_ = V2(TestPOSType)
+		_ = V2(testPOSType)
 	}
 }
 func Benchmark_UUIDV3_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V3(NameSpaceDNS, TestNameString+strconv.Itoa(i))
+			ui := V3(NameSpaceDNS, testNameString+strconv.Itoa(i))
 			b.Logf("UUIDv3-%d: %s", i, ui)
 		}
 	})
@@ -167,14 +167,14 @@ func Benchmark_UUIDV3_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			_ = V3(NameSpaceDNS, TestNameString)
+			_ = V3(NameSpaceDNS, testNameString)
 		}
 	})
 }
 func Benchmark_UUIDV3_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		_ = V3(NameSpaceDNS, TestNameString+strconv.Itoa(i))
+		_ = V3(NameSpaceDNS, testNameString+strconv.Itoa(i))
 	}
 }
 func Benchmark_UUIDV4_Info(b *testing.B) {
@@ -204,7 +204,7 @@ func Benchmark_UUIDV5_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V5(NameSpaceDNS, TestNameString+strconv.Itoa(i))
+			ui := V5(NameSpaceDNS, testNameString+strconv.Itoa(i))
 			b.Logf("UUIDv5-%d: %s", i, ui)
 		}
 	})
@@ -213,14 +213,14 @@ func Benchmark_UUIDV5_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			_ = V5(NameSpaceDNS, TestNameString)
+			_ = V5(NameSpaceDNS, testNameString)
 		}
 	})
 }
 func Benchmark_UUIDV5_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		_ = V5(NameSpaceDNS, TestNameString+strconv.Itoa(i))
+		_ = V5(NameSpaceDNS, testNameString+strconv.Itoa(i))
 	}
 }
 func Benchmark_UUIDV6_Info(b *testing.B) {
@@ -350,14 +350,14 @@ func Benchmark_UUIDV8_Info(b *testing.B) {
 		v8.lastSequence.Store(0)
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V8(TestNodeID)
+			ui := V8(testNodeID)
 			b.Logf("UUIDv8-%d: %s", i, ui)
 		}
 	})
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V8(TestNodeID)
+			ui := V8(testNodeID)
 			b.Logf("UUIDv8-%d: %s", i, ui)
 		}
 	})
@@ -366,13 +366,13 @@ func Benchmark_UUIDV8_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			_ = V8(TestNodeID)
+			_ = V8(testNodeID)
 		}
 	})
 }
 func Benchmark_v8_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		_ = V8(TestNodeID)
+		_ = V8(testNodeID)
 	}
 }
