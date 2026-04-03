@@ -74,6 +74,7 @@ go get github.com/mikhaildadaev/uuid
 ```go
 import (
     "fmt"
+    "log"
     "github.com/mikhaildadaev/uuid"
 )
 
@@ -101,7 +102,7 @@ func main() {
     // Parse existing UUID
     parsed, err := uuid.Parse("01968727-8c7e-8000-87cb-bdba4f634d9f")
     if err != nil {
-        panic(err)
+        log.Fatal(err)
     }
     fmt.Println("Parsed:", parsed)
     // Check if UUID is zero (nil)
