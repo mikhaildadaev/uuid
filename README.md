@@ -1,19 +1,31 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/mikhaildadaev/uuid.svg)](https://pkg.go.dev/github.com/mikhaildadaev/uuid)
 [![Go Report Card](https://goreportcard.com/badge/github.com/mikhaildadaev/uuid)](https://goreportcard.com/report/github.com/mikhaildadaev/uuid)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikhaildadaev/uuid/blob/main/LICENSE.md)
-# UUID Generator / Генератор UUID
+# UUID Generator
 
-Go package for generating, parsing, validating, and serializing UUIDs (versions 1-8) with optional NULL support. / Go Пакет для генерации, разбора, валидации и сериализации UUID (версии 1-8), включая поддержу NULL-UUID.
+Go package for generating, parsing, validating, and serializing UUIDs (versions 1-8) with optional NULL support.
 
 ---
 
-## Installation / Установка
+## License / Лицензия
+
+MIT License - `LICENSE.md`
+
+## Links / Ссылки
+
+- [GoDoc](https://pkg.go.dev/github.com/mikhaildadaev/uuid)
+- [GitHub](https://github.com/mikhaildadaev/uuid)
+- [Report](https://goreportcard.com/report/github.com/mikhaildadaev/uuid)
+
+---
+
+## Installation
 
 ```bash
 go get github.com/mikhaildadaev/uuid
 ```
 
-## Usage / Использование
+## Usage
 
 ```go
 import (
@@ -47,29 +59,67 @@ func main() {
 }
 ```
 
-## Quick API / Быстрый API
+## Quick API
 
-- uuid.V1(), uuid.V2(t), uuid.V3(ns, name), uuid.V4(), uuid.V5(ns, name), uuid.V6(), uuid.V7(), uuid.V8(node)
-- uuid.Parse(string) -> UUID or error
-- uuid.Null() -> UUIDNULL
-- u.Validate(), u.IsZero(), u.Equal(other), u.MarshalBinary(), u.UnmarshalBinary(), u.MarshalJSON(), u.UnmarshalJSON(), u.MarshalText(), u.UnmarshalText()
-- u.Version(), u.Variant(), u.Timestamp(), u.Info(), u.Node(), u.POS(), u.Sequence()
+### Functions
+- uuid.Null()
+- uuid.Parse(uuid)
+- uuid.V1()
+- uuid.V2(posix)
+- uuid.V3(namespace)
+- uuid.V4()
+- uuid.V5(namespace, name)
+- uuid.V6()
+- uuid.V7()
+- uuid.V8(node)
 
-## Features / Возможности
+### Methods
+- uuid.Bytes()
+- uuid.Equal(other)
+- uuid.Info()
+- uuid.IsZero()
+- uuid.Node()
+- uuid.Posix()
+- uuid.Sequence()
+- uuid.String()
+- uuid.Timestamp()
+- uuid.Validate()
+- uuid.Variant()
+- uuid.Version()
 
-- Generate UUIDv1..v8 и null UUID / Генерация UUIDv1..v8 и пустых UUID
-- Parse and validate standard and null UUID | Парсинг и валидация стандартного и нулевого UUID
-- Serialize and deserialize via binary|text|json / Сериализация и десериализация в бинарный, текстовый и JSON форматы.
-- Extract metadata (version|variant|timestamp|node|POS|sequence) / Получение метаинформации (версия, вариант, таймстамп, узел, POS, последовательность) 
-- Fast, allocator-free core routines / Быстрые основные процедуры, не требующие выделения ресурсов
+- uuid.MarshalBinary()
+- uuid.MarshalJSON()
+- uuid.MarshalText()
+- uuid.UnmarshalBinary()
+- uuid.UnmarshalJSON()
+- uuid.UnmarshalText()
 
-## Limits / Ограничения
+## Features
 
-- V2: `posix` should be 0..255 / должно быть 0..255
-- V3/V5: `name` should be 0..36 symbols / должно быть 0..36 символов
-- V8: `node` should be 0..16383 / должно быть 0..16383
+- Generate UUIDv1..v8 и null UUID;
+- Parse and validate standard and null UUID;
+- Serialize and deserialize via binary|text|json;
+- Extract metadata (version|variant|timestamp|node|POS|sequence);
+- Fast, allocator-free core routines;
 
-## Benchmarks / Производительность
+## Limits
+
+- V2: `posix` should be 0..255;
+- V3/V5: `name` should be 0..36 symbols;
+- V8: `node` should be 0..16383;
+
+---
+
+## Tests and CI
+
+Run:
+
+```bash
+go test ./...
+go test -bench=.
+```
+
+## Benchmarks
 
 | Version | Time (ns/op) | Memory | Allocs |
 |---------|--------------|--------|--------|
@@ -82,11 +132,11 @@ func main() {
 | **V7**  |       109.50 |    0 B |      0 |
 | **V8**  |       109.10 |    0 B |      0 |
 
-Benchmarks are available in `uuid_bench_test.go` / Бенчмарки доступны в файле `uuid_bench_test.go`.
+Benchmarks are available in `uuid_bench_test.go`.
 
 ---
 
-## Example / Пример
+## Example
 
 ```go
 import (
@@ -109,24 +159,3 @@ func main() {
     fmt.Println("Parsed:", u2)
 }
 ``` 
-
-## Tests and CI / Тесты и CI
-
-Run:
-
-```bash
-go test ./...
-go test -bench=.
-```
-
----
-
-## License / Лицензия
-
-MIT License - `LICENSE.md`
-
-## Links / Ссылки
-
-- [GoDoc](https://pkg.go.dev/github.com/mikhaildadaev/uuid)
-- [GitHub](https://github.com/mikhaildadaev/uuid)
-- [Report](https://goreportcard.com/report/github.com/mikhaildadaev/uuid)
