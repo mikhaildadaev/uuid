@@ -104,7 +104,7 @@ func main() {
 - V3/V5: `name` should be 0..36 symbols;
 - V8: `node` should be 0..16383;
 
-## Tests and CI
+## Tests and Benchmarks
 
 Run:
 
@@ -112,8 +112,6 @@ Run:
 go test ./...
 go test -bench=.
 ```
-
-## Benchmarks
 
 |  Version | Time (ns/op) | Memory | Allocs |
 |----------|--------------|--------|--------|
