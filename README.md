@@ -3,9 +3,7 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikhaildadaev/uuid/blob/main/LICENSE.md)
 # UUID Generator / Генератор UUID
 
-Go package for generating, parsing, validating, and serializing UUIDs (versions 1-8) with optional NULL support.  
-
-Go Пакет для генерации, разбора, валидации и сериализации UUID (версии 1-8), включая поддержу NULL-UUID.
+Go package for generating, parsing, validating, and serializing UUIDs (versions 1-8) with optional NULL support. / Go Пакет для генерации, разбора, валидации и сериализации UUID (версии 1-8), включая поддержу NULL-UUID.
 
 ---
 
@@ -59,26 +57,17 @@ func main() {
 
 ## Features / Возможности
 
-- Generate UUIDv1..v8 + NULL UUID
-- Parse and validate standard and null UUID
-- Serialize and deserialize via binary/text/json
-- Extract metadata (version/variant/timestamp/node/POS/sequence)
-- Fast, allocator-free core routines
-
-- Генерация UUID всех поддерживаемых версий.  
-- UUID-null (`uuid.Null()`) с валидацией.  
-- Чтение/запись в бинарный, текстовый и JSON форматы.  
-- Получение информации по UUID: версия, вариант, таймстамп, узел, POS, последовательность. 
-- Быстрые основные процедуры, не требующие выделения ресурсов.
+- Generate UUIDv1..v8 и null UUID / Генерация UUIDv1..v8 и пустых UUID
+- Parse and validate standard and null UUID | Парсинг и валидация стандартного и нулевого UUID
+- Serialize and deserialize via binary|text|json / Сериализация и десериализация в бинарный, текстовый и JSON форматы.
+- Extract metadata (version|variant|timestamp|node|POS|sequence) / Получение метаинформации (версия, вариант, таймстамп, узел, POS, последовательность) 
+- Fast, allocator-free core routines / Быстрые основные процедуры, не требующие выделения ресурсов
 
 ## Limits / Ограничения
 
-- V2 `posix` should be 0..255
-- V3/V5 `name` should be 0..36 chars
-- V8 `node` should be 0..16383
-
-- Для V1/V6: время в 100-наносекундных интервалах с 1582-10-15 (V6 — переставленный набор полей).  
-- Для V7/V8: время в миллисекундах с 1970-01-01. 
+- V2: `posix` should be 0..255 / должно быть 0..255
+- V3/V5: `name` should be 0..36 symbols / должно быть 0..36 символов
+- V8: `node` should be 0..16383 / должно быть 0..16383
 
 ## Benchmarks / Производительность
 
@@ -93,9 +82,7 @@ func main() {
 | **V7**  |       109.50 |    0 B |      0 |
 | **V8**  |       109.10 |    0 B |      0 |
 
-Benchmarks are available in `uuid_bench_test.go`.
-
-Бенчмарки доступны в файле `uuid_bench_test.go`.
+Benchmarks are available in `uuid_bench_test.go` / Бенчмарки доступны в файле `uuid_bench_test.go`.
 
 ---
 
@@ -136,7 +123,7 @@ go test -bench=.
 
 ## License / Лицензия
 
-MIT License - `LICENSE.md`.
+MIT License - `LICENSE.md`
 
 ## Links / Ссылки
 
