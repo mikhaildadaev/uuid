@@ -7,11 +7,67 @@
 
 A high-performance, zero-allocation UUID library for Go supporting versions 1 through 8, NULL UUID, and full serialization (Binary, JSON, Text) with SQL database integration.
 
+## Features
+
+- Generate UUIDv1..v8 and null UUID;
+- Parse and validate standard and null UUID;
+- Serialize and deserialize via binary/text/json;
+- Extract metadata UUID;
+- Fast, allocator-free core routines;
+
 ## Installation
 
 ```bash
 go get github.com/mikhaildadaev/uuid
 ```
+
+## Quick API
+
+### Functions
+- uuid.Null()
+- uuid.Parse(uuid)
+- uuid.V1()
+- uuid.V2(posix)
+- uuid.V3(namespace, name)
+- uuid.V4()
+- uuid.V5(namespace, name)
+- uuid.V6()
+- uuid.V7()
+- uuid.V8(node)
+
+### Methods
+- uuid.Bytes()
+- uuid.Equal(other)
+- uuid.Info()
+- uuid.IsZero()
+- uuid.Node()
+- uuid.Posix()
+- uuid.Sequence()
+- uuid.String()
+- uuid.Timestamp()
+- uuid.Validate()
+- uuid.Variant()
+- uuid.Version()
+
+- uuid.MarshalBinary()
+- uuid.MarshalJSON()
+- uuid.MarshalText()
+- uuid.UnmarshalBinary()
+- uuid.UnmarshalJSON()
+- uuid.UnmarshalText()
+
+## Performance
+
+|  Version | Time (ns/op) | Memory | Allocs |
+|----------|--------------|--------|--------|
+|  **V1**  |        85.46 |    0 B |      0 |
+|  **V2**  |        36.61 |    0 B |      0 |
+|  **V3**  |       117.30 |    0 B |      0 |
+|  **V4**  |        44.28 |    0 B |      0 |
+|  **V5**  |       152.60 |    0 B |      0 |
+|  **V6**  |        85.78 |    0 B |      0 |
+|  **V7**  |       109.50 |    0 B |      0 |
+|  **V8**  |       109.10 |    0 B |      0 |
 
 ## Usage
 
@@ -53,49 +109,6 @@ func main() {
 }
 ```
 
-## Quick API
-
-### Functions
-- uuid.Null()
-- uuid.Parse(uuid)
-- uuid.V1()
-- uuid.V2(posix)
-- uuid.V3(namespace, name)
-- uuid.V4()
-- uuid.V5(namespace, name)
-- uuid.V6()
-- uuid.V7()
-- uuid.V8(node)
-
-### Methods
-- uuid.Bytes()
-- uuid.Equal(other)
-- uuid.Info()
-- uuid.IsZero()
-- uuid.Node()
-- uuid.Posix()
-- uuid.Sequence()
-- uuid.String()
-- uuid.Timestamp()
-- uuid.Validate()
-- uuid.Variant()
-- uuid.Version()
-
-- uuid.MarshalBinary()
-- uuid.MarshalJSON()
-- uuid.MarshalText()
-- uuid.UnmarshalBinary()
-- uuid.UnmarshalJSON()
-- uuid.UnmarshalText()
-
-## Features
-
-- Generate UUIDv1..v8 and null UUID;
-- Parse and validate standard and null UUID;
-- Serialize and deserialize via binary/text/json;
-- Extract metadata UUID;
-- Fast, allocator-free core routines;
-
 ## Limits
 
 - V2: `posix` should be 0..255;
@@ -110,14 +123,3 @@ Run:
 go test ./...
 go test -bench=.
 ```
-
-|  Version | Time (ns/op) | Memory | Allocs |
-|----------|--------------|--------|--------|
-|  **V1**  |        85.46 |    0 B |      0 |
-|  **V2**  |        36.61 |    0 B |      0 |
-|  **V3**  |       117.30 |    0 B |      0 |
-|  **V4**  |        44.28 |    0 B |      0 |
-|  **V5**  |       152.60 |    0 B |      0 |
-|  **V6**  |        85.78 |    0 B |      0 |
-|  **V7**  |       109.50 |    0 B |      0 |
-|  **V8**  |       109.10 |    0 B |      0 |
