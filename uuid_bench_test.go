@@ -80,7 +80,7 @@ func Benchmark_Validate(b *testing.B) {
 		_ = uuid.Validate()
 	}
 }
-func Benchmark_UUIDV1_Info(b *testing.B) {
+func Benchmark_V1_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -117,7 +117,7 @@ func Benchmark_UUIDV1_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV1_Multi(b *testing.B) {
+func Benchmark_V1_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
@@ -125,13 +125,13 @@ func Benchmark_UUIDV1_Multi(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV1_Single(b *testing.B) {
+func Benchmark_V1_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_ = V1()
 	}
 }
-func Benchmark_UUIDV2_Info(b *testing.B) {
+func Benchmark_V2_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
@@ -140,7 +140,7 @@ func Benchmark_UUIDV2_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV2_Multi(b *testing.B) {
+func Benchmark_V2_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
@@ -148,13 +148,13 @@ func Benchmark_UUIDV2_Multi(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV2_Single(b *testing.B) {
+func Benchmark_V2_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_ = V2(testPOSType)
 	}
 }
-func Benchmark_UUIDV3_Info(b *testing.B) {
+func Benchmark_V3_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
@@ -163,7 +163,7 @@ func Benchmark_UUIDV3_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV3_Multi(b *testing.B) {
+func Benchmark_V3_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
@@ -171,13 +171,13 @@ func Benchmark_UUIDV3_Multi(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV3_Single(b *testing.B) {
+func Benchmark_V3_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_ = V3(NameSpaceDNS, testNameString+strconv.Itoa(i))
 	}
 }
-func Benchmark_UUIDV4_Info(b *testing.B) {
+func Benchmark_V4_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
@@ -186,7 +186,7 @@ func Benchmark_UUIDV4_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV4_Multi(b *testing.B) {
+func Benchmark_V4_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
@@ -194,13 +194,13 @@ func Benchmark_UUIDV4_Multi(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV4_Single(b *testing.B) {
+func Benchmark_V4_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_ = V4()
 	}
 }
-func Benchmark_UUIDV5_Info(b *testing.B) {
+func Benchmark_V5_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
@@ -209,7 +209,7 @@ func Benchmark_UUIDV5_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV5_Multi(b *testing.B) {
+func Benchmark_V5_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
@@ -217,13 +217,13 @@ func Benchmark_UUIDV5_Multi(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV5_Single(b *testing.B) {
+func Benchmark_V5_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_ = V5(NameSpaceDNS, testNameString+strconv.Itoa(i))
 	}
 }
-func Benchmark_UUIDV6_Info(b *testing.B) {
+func Benchmark_V6_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -260,7 +260,7 @@ func Benchmark_UUIDV6_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV6_Multi(b *testing.B) {
+func Benchmark_V6_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
@@ -268,13 +268,13 @@ func Benchmark_UUIDV6_Multi(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV6_Single(b *testing.B) {
+func Benchmark_V6_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_ = V6()
 	}
 }
-func Benchmark_UUIDV7_Info(b *testing.B) {
+func Benchmark_V7_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -311,7 +311,7 @@ func Benchmark_UUIDV7_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV7_Multi(b *testing.B) {
+func Benchmark_V7_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
@@ -319,13 +319,13 @@ func Benchmark_UUIDV7_Multi(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV7_Single(b *testing.B) {
+func Benchmark_V7_Single(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_ = V7()
 	}
 }
-func Benchmark_UUIDV8_Info(b *testing.B) {
+func Benchmark_V8_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -362,7 +362,7 @@ func Benchmark_UUIDV8_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_UUIDV8_Multi(b *testing.B) {
+func Benchmark_V8_Multi(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
