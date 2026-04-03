@@ -106,7 +106,7 @@ func (uuid UUID) Equal(other UUID) bool {
 func (uuid UUID) Info() string {
 	var info strings.Builder
 	var vn = uuid.Version()
-	var vt = "Unknown"
+	var vt string
 	info.Grow(256)
 	info.WriteString(fmt.Sprintf("UUID: %s\n", uuid.String()))
 	switch uuid.Variant() {

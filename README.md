@@ -1,7 +1,8 @@
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikhaildadaev/uuid/blob/main/LICENSE.md)
 [![Go Reference](https://pkg.go.dev/badge/github.com/mikhaildadaev/uuid.svg)](https://pkg.go.dev/github.com/mikhaildadaev/uuid)
 [![Go Report Card](https://goreportcard.com/badge/github.com/mikhaildadaev/uuid)](https://goreportcard.com/report/github.com/mikhaildadaev/uuid)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/mikhaildadaev/uuid)](https://github.com/mikhaildadaev/uuid)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikhaildadaev/uuid/blob/main/LICENSE.md)
+[![CI](https://github.com/mikhaildadaev/uuid/actions/workflows/ci.yml/badge.svg)](https://github.com/mikhaildadaev/uuid/actions/workflows/ci.yml)
 
 # UUID Generator
 
@@ -55,6 +56,12 @@ go get github.com/mikhaildadaev/uuid
 - uuid.UnmarshalBinary()
 - uuid.UnmarshalJSON()
 - uuid.UnmarshalText()
+- nulluuid.MarshalBinary()
+- nulluuid.MarshalJSON()
+- nulluuid.MarshalText()
+- nulluuid.UnmarshalBinary()
+- nulluuid.UnmarshalJSON()
+- nulluuid.UnmarshalText()
 
 ## Performance
 
