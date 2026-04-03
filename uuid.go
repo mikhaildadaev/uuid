@@ -211,6 +211,12 @@ func (uuid UUID) Node() int {
 		return 0
 	}
 }
+func (uuid UUID) Posix() uint32 {
+	if uuid.Version() != 2 {
+		return 0
+	}
+	return uint32(uuid[8])<<8 | uint32(uuid[9])
+}
 func (uuid UUID) Sequence() int64 {
 	switch uuid.Version() {
 	case bitV1 >> 4:
