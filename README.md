@@ -5,8 +5,6 @@
 
 Go package for generating, parsing, validating, and serializing UUIDs (versions 1-8) with optional NULL support.
 
----
-
 ## License / Лицензия
 
 MIT License - `LICENSE.md`
@@ -16,8 +14,6 @@ MIT License - `LICENSE.md`
 - [GoDoc](https://pkg.go.dev/github.com/mikhaildadaev/uuid)
 - [GitHub](https://github.com/mikhaildadaev/uuid)
 - [Report](https://goreportcard.com/report/github.com/mikhaildadaev/uuid)
-
----
 
 ## Installation
 
@@ -108,8 +104,6 @@ func main() {
 - V3/V5: `name` should be 0..36 symbols;
 - V8: `node` should be 0..16383;
 
----
-
 ## Tests and CI
 
 Run:
@@ -133,8 +127,6 @@ go test -bench=.
 | **V8**  |       109.10 |    0 B |      0 |
 
 Benchmarks are available in `uuid_bench_test.go`.
-
----
 
 ## Example
 
