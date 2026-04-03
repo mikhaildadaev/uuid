@@ -7,7 +7,7 @@ Go package for generating, parsing, validating, and serializing UUIDs (versions 
 
 ## License
 
-[MIT License](https://github.com/mikhaildadaev/uuid/LICENSE.md)
+[MIT License](https://github.com/mikhaildadaev/uuid/blob/main/LICENSE.md)
 
 ## Links
 
