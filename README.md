@@ -5,11 +5,11 @@
 
 Go package for generating, parsing, validating, and serializing UUIDs (versions 1-8) with optional NULL support.
 
-## License / Лицензия
+## License
 
-MIT License - `LICENSE.md`
+[MIT License](https://github.com/mikhaildadaev/uuid/LICENSE.md)
 
-## Links / Ссылки
+## Links
 
 - [GoDoc](https://pkg.go.dev/github.com/mikhaildadaev/uuid)
 - [GitHub](https://github.com/mikhaildadaev/uuid)
@@ -94,8 +94,8 @@ func main() {
 
 - Generate UUIDv1..v8 и null UUID;
 - Parse and validate standard and null UUID;
-- Serialize and deserialize via binary|text|json;
-- Extract metadata (version|variant|timestamp|node|POS|sequence);
+- Serialize and deserialize via binary/text/json;
+- Extract metadata UUID;
 - Fast, allocator-free core routines;
 
 ## Limits
@@ -115,18 +115,16 @@ go test -bench=.
 
 ## Benchmarks
 
-| Version | Time (ns/op) | Memory | Allocs |
-|---------|--------------|--------|--------|
-| **V1**  |        85.46 |    0 B |      0 |
-| **V2**  |        36.61 |    0 B |      0 |
-| **V3**  |       117.30 |    0 B |      0 |
-| **V4**  |        44.28 |    0 B |      0 |
-| **V5**  |       152.60 |    0 B |      0 |
-| **V6**  |        85.78 |    0 B |      0 |
-| **V7**  |       109.50 |    0 B |      0 |
-| **V8**  |       109.10 |    0 B |      0 |
-
-Benchmarks are available in `uuid_bench_test.go`.
+|  Version | Time (ns/op) | Memory | Allocs |
+|----------|--------------|--------|--------|
+|  **V1**  |        85.46 |    0 B |      0 |
+|  **V2**  |        36.61 |    0 B |      0 |
+|  **V3**  |       117.30 |    0 B |      0 |
+|  **V4**  |        44.28 |    0 B |      0 |
+|  **V5**  |       152.60 |    0 B |      0 |
+|  **V6**  |        85.78 |    0 B |      0 |
+|  **V7**  |       109.50 |    0 B |      0 |
+|  **V8**  |       109.10 |    0 B |      0 |
 
 ## Example
 
