@@ -1,5 +1,6 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/mikhaildadaev/uuid.svg)](https://pkg.go.dev/github.com/mikhaildadaev/uuid)
 [![Go Report Card](https://goreportcard.com/badge/github.com/mikhaildadaev/uuid)](https://goreportcard.com/report/github.com/mikhaildadaev/uuid)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/mikhaildadaev/uuid)](https://github.com/mikhaildadaev/uuid)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikhaildadaev/uuid/blob/main/LICENSE.md)
 # UUID Generator
 
@@ -8,12 +9,6 @@ Go package for generating, parsing, validating, and serializing UUIDs (versions 
 ## License
 
 [MIT License](https://github.com/mikhaildadaev/uuid/blob/main/LICENSE.md)
-
-## Links
-
-- [GoDoc](https://pkg.go.dev/github.com/mikhaildadaev/uuid)
-- [GitHub](https://github.com/mikhaildadaev/uuid)
-- [Report](https://goreportcard.com/report/github.com/mikhaildadaev/uuid)
 
 ## Installation
 
