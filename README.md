@@ -2,13 +2,10 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/mikhaildadaev/uuid)](https://goreportcard.com/report/github.com/mikhaildadaev/uuid)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/mikhaildadaev/uuid)](https://github.com/mikhaildadaev/uuid)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikhaildadaev/uuid/blob/main/LICENSE.md)
+
 # UUID Generator
 
-Go package for generating, parsing, validating, and serializing UUIDs (versions 1-8) with optional NULL support.
-
-## License
-
-[MIT License](https://github.com/mikhaildadaev/uuid/blob/main/LICENSE.md)
+A high-performance, zero-allocation UUID library for Go supporting versions 1 through 8, NULL UUID, and full serialization (Binary, JSON, Text) with SQL database integration.
 
 ## Installation
 
