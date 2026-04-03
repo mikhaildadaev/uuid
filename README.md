@@ -5,7 +5,7 @@
 
 Go package for generating, parsing, validating, and serializing UUIDs (versions 1-8) with optional NULL support.  
 
-Пакет на Go для генерации, разбора, валидации и сериализации UUID (версии 1-8), включая поддержу NULL-UUID.
+Go Пакет для генерации, разбора, валидации и сериализации UUID (версии 1-8), включая поддержу NULL-UUID.
 
 ---
 
