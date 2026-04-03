@@ -89,9 +89,9 @@ func (uuid *UUID) UnmarshalText(data []byte) error {
 	}
 	return nil
 }
-func (nu NullUUID) MarshalBinary() ([]byte, error) {
-	if nu.Valid {
-		return nu.UUID[:], nil
+func (nulluuid NullUUID) MarshalBinary() ([]byte, error) {
+	if nulluuid.Valid {
+		return nulluuid.UUID[:], nil
 	}
 	return []byte(nil), nil
 }
