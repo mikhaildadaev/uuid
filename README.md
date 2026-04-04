@@ -25,7 +25,7 @@ go get github.com/mikhaildadaev/uuid
 ## Quick API
 
 ### Functions
-#### Main
+#### API
 - uuid.Null()
 - uuid.Parse(uuid)
 - uuid.V1()
@@ -38,7 +38,7 @@ go get github.com/mikhaildadaev/uuid
 - uuid.V8(node)
 
 ### Methods
-#### Main
+#### API
 - uuid.Bytes()
 - uuid.Equal(other)
 - uuid.Info()
@@ -54,7 +54,7 @@ go get github.com/mikhaildadaev/uuid
 - nulluuid.IsZero()
 - nulluuid.String()
 - nulluuid.Validate()
-#### Marshal & Unmarshal
+#### Marshal
 - uuid.MarshalBinary()
 - uuid.MarshalJSON()
 - uuid.MarshalText()
@@ -85,6 +85,8 @@ go get github.com/mikhaildadaev/uuid
 |  **V6**  |      13.7M |        85.78 |             0 |                  0 |
 |  **V7**  |      10.7M |       109.50 |             0 |                  0 |
 |  **V8**  |      10.2M |       109.10 |             0 |                  0 |
+
+*Benchmarked on Intel Core i9-9880H (2.30 GHz)*
 
 ## Usage
 
