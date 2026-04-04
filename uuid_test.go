@@ -94,49 +94,49 @@ func Test_Parse(t *testing.T) {
 		want UUID
 	}{
 		{
-			name: "Nil UUID",
+			name: "Null UUID",
 			line: NilUUIDString,
-			want: NilUUIDByte,
+			want: NilUUIDBinary,
 		},
 		{
 			name: "V1 UUID",
 			line: testUUIDV1String,
-			want: testUUIDV1Byte,
+			want: testUUIDV1Binary,
 		},
 		{
 			name: "V2 UUID",
 			line: testUUIDV2String,
-			want: testUUIDV2Byte,
+			want: testUUIDV2Binary,
 		},
 		{
 			name: "V3 UUID",
 			line: testUUIDV3String,
-			want: testUUIDV3Byte,
+			want: testUUIDV3Binary,
 		},
 		{
 			name: "V4 UUID",
 			line: testUUIDV4String,
-			want: testUUIDV4Byte,
+			want: testUUIDV4Binary,
 		},
 		{
 			name: "V5 UUID",
 			line: testUUIDV5String,
-			want: testUUIDV5Byte,
+			want: testUUIDV5Binary,
 		},
 		{
 			name: "V6 UUID",
 			line: testUUIDV6String,
-			want: testUUIDV6Byte,
+			want: testUUIDV6Binary,
 		},
 		{
 			name: "V7 UUID",
 			line: testUUIDV7String,
-			want: testUUIDV7Byte,
+			want: testUUIDV7Binary,
 		},
 		{
 			name: "V8 UUID",
 			line: testUUIDV8String,
-			want: testUUIDV8Byte,
+			want: testUUIDV8Binary,
 		},
 	}
 	for _, tc := range validCases {
@@ -192,49 +192,49 @@ func Test_Scan(t *testing.T) {
 		{
 			name:    "Empty byte format UUID",
 			src:     testUUIDErrByteEmpty,
-			want:    NilUUIDByte,
+			want:    NilUUIDBinary,
 			wantErr: true,
 		},
 		{
 			name:    "Empty string format UUID",
 			src:     testUUIDErrStringEmpty,
-			want:    NilUUIDByte,
+			want:    NilUUIDBinary,
 			wantErr: true,
 		},
 		{
 			name:    "Long byte format UUID",
 			src:     testUUIDErrByteLengthLong,
-			want:    NilUUIDByte,
+			want:    NilUUIDBinary,
 			wantErr: true,
 		},
 		{
 			name:    "Short byte format UUID",
 			src:     testUUIDErrByteLengthShort,
-			want:    NilUUIDByte,
+			want:    NilUUIDBinary,
 			wantErr: true,
 		},
 		{
 			name:    "Invalid type",
 			src:     testUUIDErrTypeInt,
-			want:    NilUUIDByte,
+			want:    NilUUIDBinary,
 			wantErr: true,
 		},
 		{
-			name:    "Nil input",
+			name:    "Null input",
 			src:     nil,
-			want:    NilUUIDByte,
+			want:    NilUUIDBinary,
 			wantErr: true,
 		},
 		{
 			name:    "Valid byte format UUID",
 			src:     must(Parse(testUUIDVUString)).Bytes(),
-			want:    testUUIDVUByte,
+			want:    testUUIDVUBinary,
 			wantErr: false,
 		},
 		{
 			name:    "Valid string format UUID",
 			src:     testUUIDVUString,
-			want:    testUUIDVUByte,
+			want:    testUUIDVUBinary,
 			wantErr: false,
 		},
 	}
@@ -259,48 +259,48 @@ func Test_String(t *testing.T) {
 		want string
 	}{
 		{
-			name: "Nil UUID",
-			uuid: NilUUIDByte,
+			name: "Null UUID",
+			uuid: NilUUIDBinary,
 			want: NilUUIDString,
 		},
 		{
 			name: "V1 UUID",
-			uuid: testUUIDV1Byte,
+			uuid: testUUIDV1Binary,
 			want: testUUIDV1String,
 		},
 		{
 			name: "V2 UUID",
-			uuid: testUUIDV2Byte,
+			uuid: testUUIDV2Binary,
 			want: testUUIDV2String,
 		},
 		{
 			name: "V3 UUID",
-			uuid: testUUIDV3Byte,
+			uuid: testUUIDV3Binary,
 			want: testUUIDV3String,
 		},
 		{
 			name: "V4 UUID",
-			uuid: testUUIDV4Byte,
+			uuid: testUUIDV4Binary,
 			want: testUUIDV4String,
 		},
 		{
 			name: "V5 UUID",
-			uuid: testUUIDV5Byte,
+			uuid: testUUIDV5Binary,
 			want: testUUIDV5String,
 		},
 		{
 			name: "V6 UUID",
-			uuid: testUUIDV6Byte,
+			uuid: testUUIDV6Binary,
 			want: testUUIDV6String,
 		},
 		{
 			name: "V7 UUID",
-			uuid: testUUIDV7Byte,
+			uuid: testUUIDV7Binary,
 			want: testUUIDV7String,
 		},
 		{
 			name: "V8 UUID",
-			uuid: testUUIDV8Byte,
+			uuid: testUUIDV8Binary,
 			want: testUUIDV8String,
 		},
 	}
@@ -319,9 +319,9 @@ func Test_TextFormatVariations(t *testing.T) {
 		input  string
 		expect UUID
 	}{
-		{"Long_format_UUID", testUUIDErrStringLong, testUUIDVUByte},
-		{"Short_format_UUID", testUUIDErrStringShort, testUUIDVUByte},
-		{"Standard_format_UUID", testUUIDVUString, testUUIDVUByte},
+		{"Long_format_UUID", testUUIDErrStringLong, testUUIDVUBinary},
+		{"Short_format_UUID", testUUIDErrStringShort, testUUIDVUBinary},
+		{"Standard_format_UUID", testUUIDVUString, testUUIDVUBinary},
 	}
 	for _, tt := range formats {
 		t.Run(tt.name, func(t *testing.T) {
@@ -454,12 +454,12 @@ func Test_Validate(t *testing.T) {
 				wantErr: ErrInvalidUUIDVersion,
 			},
 			{
-				name:    "Nil UUID",
-				uuid:    NilUUIDByte,
+				name:    "Null UUID",
+				uuid:    NilUUIDBinary,
 				wantErr: ErrNullUUID,
 			},
 			{
-				name:    "Nil MAC UUIDV1",
+				name:    "Null MAC UUIDV1",
 				uuid:    func() UUID { u := validV1; copy(u[10:16], make([]byte, 6)); return u }(),
 				wantErr: ErrInvalidUUIDMAC,
 			},
@@ -483,13 +483,13 @@ func Test_Value(t *testing.T) {
 	}{
 		{
 			name:    "Null UUID",
-			u:       NilUUIDByte,
+			u:       NilUUIDBinary,
 			want:    nil,
 			wantErr: false,
 		},
 		{
 			name:    "Valid UUID",
-			u:       testUUIDVUByte,
+			u:       testUUIDVUBinary,
 			want:    testUUIDVUString,
 			wantErr: false,
 		},
@@ -513,8 +513,8 @@ func Test_MarshalUnmarshalBinary(t *testing.T) {
 		uuid    UUID
 		wantErr bool
 	}{
-		{"Nil UUID", NilUUIDByte, false},
-		{"Valid UUID", testUUIDVUByte, false},
+		{"Null UUID", NilUUIDBinary, false},
+		{"Valid UUID", testUUIDVUBinary, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -525,7 +525,7 @@ func Test_MarshalUnmarshalBinary(t *testing.T) {
 				return
 			}
 			if tt.uuid.IsZero() && data != nil {
-				t.Error("nil UUID should marshal to nil slice")
+				t.Error("null UUID should marshal to nil slice")
 			}
 			if !tt.uuid.IsZero() && !bytes.Equal(data, tt.uuid[:]) {
 				t.Error("marshaled data doesn't match UUID bytes")
@@ -559,13 +559,13 @@ func Test_MarshalUnmarshalJson(t *testing.T) {
 	}{
 		{
 			name:    "Null UUID",
-			u:       NilUUIDByte,
+			u:       NilUUIDBinary,
 			want:    "null",
 			wantErr: false,
 		},
 		{
 			name:    "Valid UUID",
-			u:       testUUIDVUByte,
+			u:       testUUIDVUBinary,
 			want:    testUUIDVUJson,
 			wantErr: false,
 		},
@@ -600,7 +600,7 @@ func Test_MarshalUnmarshalJson(t *testing.T) {
 		var u UUID
 		err := u.UnmarshalJson([]byte(`"invalid"`))
 		if err == nil {
-			t.Error("UnmarshalJson() expected error, got nil")
+			t.Error("UnmarshalJson() expected error, got null")
 		}
 	})
 }
@@ -613,13 +613,13 @@ func Test_MarshalUnmarshalText(t *testing.T) {
 	}{
 		{
 			name:    "Null UUID",
-			u:       NilUUIDByte,
+			u:       NilUUIDBinary,
 			want:    testUUIDVUNull,
 			wantErr: false,
 		},
 		{
 			name:    "Valid UUID",
-			u:       testUUIDVUByte,
+			u:       testUUIDVUBinary,
 			want:    testUUIDVUText,
 			wantErr: false,
 		},
@@ -1346,23 +1346,23 @@ var (
 	testUUIDErrStringLong        = "{01968727-8c7e-8000-87cb-bdba4f634d9f}"
 	testUUIDErrStringShort       = "019687278c7e800087cbbdba4f634d9f"
 	testUUIDErrTypeInt           = 19687278
-	testUUIDV1Byte               = [16]byte{0x2b, 0xa0, 0x17, 0x4a, 0x20, 0x9d, 0x11, 0xf0, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
+	testUUIDV1Binary             = [16]byte{0x2b, 0xa0, 0x17, 0x4a, 0x20, 0x9d, 0x11, 0xf0, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
 	testUUIDV1String             = "2ba0174a-209d-11f0-8000-acde48001122"
-	testUUIDV2Byte               = [16]byte{0x00, 0x00, 0x01, 0xf5, 0x2b, 0xa0, 0x20, 0x9d, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
+	testUUIDV2Binary             = [16]byte{0x00, 0x00, 0x01, 0xf5, 0x2b, 0xa0, 0x20, 0x9d, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
 	testUUIDV2String             = "000001f5-2ba0-209d-8000-acde48001122"
-	testUUIDV3Byte               = [16]byte{0x90, 0x73, 0x92, 0x6b, 0x92, 0x9f, 0x31, 0xc2, 0xab, 0xc9, 0xfa, 0xd7, 0x7a, 0xe3, 0xe8, 0xeb}
+	testUUIDV3Binary             = [16]byte{0x90, 0x73, 0x92, 0x6b, 0x92, 0x9f, 0x31, 0xc2, 0xab, 0xc9, 0xfa, 0xd7, 0x7a, 0xe3, 0xe8, 0xeb}
 	testUUIDV3String             = "9073926b-929f-31c2-abc9-fad77ae3e8eb"
-	testUUIDV4Byte               = [16]byte{0xae, 0x68, 0x2b, 0x8f, 0x49, 0xff, 0x46, 0x9c, 0x85, 0x28, 0xa3, 0xed, 0xe0, 0x52, 0xc6, 0x90}
+	testUUIDV4Binary             = [16]byte{0xae, 0x68, 0x2b, 0x8f, 0x49, 0xff, 0x46, 0x9c, 0x85, 0x28, 0xa3, 0xed, 0xe0, 0x52, 0xc6, 0x90}
 	testUUIDV4String             = "ae682b8f-49ff-469c-8528-a3ede052c690"
-	testUUIDV5Byte               = [16]byte{0x4f, 0xd3, 0x5a, 0x71, 0x71, 0xef, 0x5a, 0x55, 0xa9, 0xd9, 0xaa, 0x75, 0xc8, 0x89, 0xa6, 0xd0}
+	testUUIDV5Binary             = [16]byte{0x4f, 0xd3, 0x5a, 0x71, 0x71, 0xef, 0x5a, 0x55, 0xa9, 0xd9, 0xaa, 0x75, 0xc8, 0x89, 0xa6, 0xd0}
 	testUUIDV5String             = "4fd35a71-71ef-5a55-a9d9-aa75c889a6d0"
-	testUUIDV6Byte               = [16]byte{0x1f, 0x02, 0x09, 0xd2, 0xba, 0x01, 0x67, 0x9a, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
+	testUUIDV6Binary             = [16]byte{0x1f, 0x02, 0x09, 0xd2, 0xba, 0x01, 0x67, 0x9a, 0x80, 0x00, 0xac, 0xde, 0x48, 0x00, 0x11, 0x22}
 	testUUIDV6String             = "1f0209d2-ba01-679a-8000-acde48001122"
-	testUUIDV7Byte               = [16]byte{0x01, 0x96, 0x65, 0x0b, 0xad, 0x3b, 0x70, 0x00, 0x82, 0xb1, 0xce, 0x73, 0x41, 0x49, 0x23, 0x30}
+	testUUIDV7Binary             = [16]byte{0x01, 0x96, 0x65, 0x0b, 0xad, 0x3b, 0x70, 0x00, 0x82, 0xb1, 0xce, 0x73, 0x41, 0x49, 0x23, 0x30}
 	testUUIDV7String             = "0196650b-ad3b-7000-82b1-ce7341492330"
-	testUUIDV8Byte               = [16]byte{0xaa, 0xbb, 0xcc, 0xdd, 0x11, 0x22, 0x83, 0x44, 0x95, 0x66, 0x4c, 0x84, 0xeb, 0x01, 0x58, 0x16}
+	testUUIDV8Binary             = [16]byte{0xaa, 0xbb, 0xcc, 0xdd, 0x11, 0x22, 0x83, 0x44, 0x95, 0x66, 0x4c, 0x84, 0xeb, 0x01, 0x58, 0x16}
 	testUUIDV8String             = "aabbccdd-1122-8344-9566-4c84eb015816"
-	testUUIDVUByte               = [16]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+	testUUIDVUBinary             = [16]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
 	testUUIDVUJson               = `"01968727-8c7e-8000-87cb-bdba4f634d9f"`
 	testUUIDVUNull               = "00000000-0000-0000-0000-000000000000"
 	testUUIDVUString             = "01968727-8c7e-8000-87cb-bdba4f634d9f"

@@ -42,7 +42,7 @@ func (uuid *UUID) MarshalText() ([]byte, error) {
 }
 func (uuid *UUID) UnmarshalBinary(data []byte) error {
 	if len(data) == 0 {
-		*uuid = NilUUIDByte
+		*uuid = NilUUIDBinary
 		return nil
 	}
 	if len(data) != 16 {
@@ -53,7 +53,7 @@ func (uuid *UUID) UnmarshalBinary(data []byte) error {
 }
 func (uuid *UUID) UnmarshalJson(data []byte) error {
 	if len(data) == 4 && string(data) == "null" {
-		*uuid = NilUUIDByte
+		*uuid = NilUUIDBinary
 		return nil
 	}
 	if len(data) < 2 || data[0] != '"' || data[len(data)-1] != '"' {
@@ -63,7 +63,7 @@ func (uuid *UUID) UnmarshalJson(data []byte) error {
 }
 func (uuid *UUID) UnmarshalText(data []byte) error {
 	if len(data) == 0 {
-		*uuid = NilUUIDByte
+		*uuid = NilUUIDBinary
 		return nil
 	}
 	j := 0
@@ -133,7 +133,7 @@ func (nulluuid *NullUUID) UnmarshalJson(data []byte) error {
 }
 func (nulluuid *NullUUID) UnmarshalText(data []byte) error {
 	if len(data) == 0 {
-		nulluuid.UUID, nulluuid.Valid = NilUUIDByte, false
+		nulluuid.UUID, nulluuid.Valid = NilUUIDBinary, false
 		return nil
 	}
 	if err := nulluuid.UUID.UnmarshalText(data); err != nil {
