@@ -106,26 +106,14 @@ func (uuid UUID) Equal(other UUID) bool {
 func (uuid UUID) Info() string {
 	var info strings.Builder
 	var vn = uuid.Version()
-	var vt string
+	var vt = uuid.Variant()
 	info.Grow(256)
 	info.WriteString(fmt.Sprintf("UUID: %s\n", uuid.String()))
-	switch uuid.Variant() {
-	case variantNCS:
-		vt = "NCS"
-	case variantRFC4122:
-		vt = "RFC4122"
-	case variantMicrosoft:
-		vt = "Microsoft"
-	case variantReserved:
-		vt = "Reserved"
-	default:
-		vt = "Invalid"
-	}
 	switch uuid.Version() {
 	case bitV1 >> 4:
 		ts := uuid.Timestamp()
 		sq := uuid.Sequence()
-		info.WriteString(fmt.Sprintf("VAR.: %s\n", vt))
+		info.WriteString(fmt.Sprintf("VAR.: %s\n", transformVariant(vt)))
 		info.WriteString(fmt.Sprintf("VER.: %d\n", vn))
 		info.WriteString("FORM: TTTTTTTT-TTTT-1TTT-VSSS-MMMMMMMMMMMM\n")
 		info.WriteString("INFO: TIME (100-nanoseconds interval since 1582-10-15) + SEQUENCE (0-16383) + MAC\n")
@@ -133,7 +121,7 @@ func (uuid UUID) Info() string {
 		info.WriteString(fmt.Sprintf("SEQ.: %d\n", sq))
 		info.WriteString(fmt.Sprintf("MAC.: %02x:%02x:%02x:%02x:%02x:%02x\n", uuid[10], uuid[11], uuid[12], uuid[13], uuid[14], uuid[15]))
 	case bitV2 >> 4:
-		info.WriteString(fmt.Sprintf("VAR.: %s\n", vt))
+		info.WriteString(fmt.Sprintf("VAR.: %s\n", transformVariant(vt)))
 		info.WriteString(fmt.Sprintf("VER.: %d\n", vn))
 		info.WriteString("FORM: PPPPPPPP-RRRR-1RRR-VRXX-MMMMMMMMMMMM\n")
 		info.WriteString("INFO: POSID + RANDOM + POSTYPE + MAC\n")
@@ -148,19 +136,19 @@ func (uuid UUID) Info() string {
 		info.WriteString(fmt.Sprintf("RAND: %x\n", uuid[4:10]))
 		info.WriteString(fmt.Sprintf("MAC.: %02x:%02x:%02x:%02x:%02x:%02x\n", uuid[10], uuid[11], uuid[12], uuid[13], uuid[14], uuid[15]))
 	case bitV3 >> 4:
-		info.WriteString(fmt.Sprintf("VAR.: %s\n", vt))
+		info.WriteString(fmt.Sprintf("VAR.: %s\n", transformVariant(vt)))
 		info.WriteString(fmt.Sprintf("VER.: %d\n", vn))
 		info.WriteString("FORM: HHHHHHHH-HHHH-3HHH-VHHH-HHHHHHHHHHHH\n")
 		info.WriteString("INFO: HASH-MD5 (namespase+nameline)\n")
 		info.WriteString(fmt.Sprintf("HASH: %x\n", uuid[0:16]))
 	case bitV4 >> 4:
-		info.WriteString(fmt.Sprintf("VAR.: %s\n", vt))
+		info.WriteString(fmt.Sprintf("VAR.: %s\n", transformVariant(vt)))
 		info.WriteString(fmt.Sprintf("VER.: %d\n", vn))
 		info.WriteString("FORM: RRRRRRRR-RRRR-4RRR-VRRR-RRRRRRRRRRRR\n")
 		info.WriteString("INFO: RANDOM\n")
 		info.WriteString(fmt.Sprintf("RAND: %x\n", uuid[0:16]))
 	case bitV5 >> 4:
-		info.WriteString(fmt.Sprintf("VAR.: %s\n", vt))
+		info.WriteString(fmt.Sprintf("VAR.: %s\n", transformVariant(vt)))
 		info.WriteString(fmt.Sprintf("VER.: %d\n", vn))
 		info.WriteString("FORM: HHHHHHHH-HHHH-5HHH-VHHH-HHHHHHHHHHHH\n")
 		info.WriteString("INFO: HASH-SHA1 (namespase+nameline)\n")
@@ -168,7 +156,7 @@ func (uuid UUID) Info() string {
 	case bitV6 >> 4:
 		ts := uuid.Timestamp()
 		sq := uuid.Sequence()
-		info.WriteString(fmt.Sprintf("VAR.: %s\n", vt))
+		info.WriteString(fmt.Sprintf("VAR.: %s\n", transformVariant(vt)))
 		info.WriteString(fmt.Sprintf("VER.: %d\n", vn))
 		info.WriteString("FORM: TTTTTTTT-TTTT-6TTT-VSSS-MMMMMMMMMMMM\n")
 		info.WriteString("INFO: TIME (Reordered 100-nanoseconds interval since 1582-10-15) + SEQUENCE (0-16383) + MAC\n")
@@ -178,7 +166,7 @@ func (uuid UUID) Info() string {
 	case bitV7 >> 4:
 		ts := uuid.Timestamp()
 		sq := uuid.Sequence()
-		info.WriteString(fmt.Sprintf("VAR.: %s\n", vt))
+		info.WriteString(fmt.Sprintf("VAR.: %s\n", transformVariant(vt)))
 		info.WriteString(fmt.Sprintf("VER.: %d\n", vn))
 		info.WriteString("FORM: TTTTTTTT-TTTT-7SSS-VRRR-RRRRRRRRRRRR\n")
 		info.WriteString("INFO: TIME (1-milliseconds interval since 1970-01-01) + SEQUENCE (0-4095) + RANDOM\n")
@@ -189,7 +177,7 @@ func (uuid UUID) Info() string {
 		ts := uuid.Timestamp()
 		sq := uuid.Sequence()
 		nd := uuid.Node()
-		info.WriteString(fmt.Sprintf("VAR.: %s\n", vt))
+		info.WriteString(fmt.Sprintf("VAR.: %s\n", transformVariant(vt)))
 		info.WriteString(fmt.Sprintf("VER.: %d\n", vn))
 		info.WriteString("FORM: TTTTTTTT-TTTT-8SSS-VNNN-RRRRRRRRRRRR\n")
 		info.WriteString("INFO: TIME (1-milliseconds interval since 1970-01-01) + SEQUENCE (0-4095) + NODE (0-16383) + RANDOM\n")
@@ -607,6 +595,20 @@ func initSequences() {
 	v6.lastSequence.Store(binary.BigEndian.Uint32(buf[4:8]) % (maxV6Sequence + 1))
 	v7.lastSequence.Store(binary.BigEndian.Uint32(buf[8:12]) % (maxV7Sequence + 1))
 	v8.lastSequence.Store(binary.BigEndian.Uint32(buf[12:16]) % (maxV8Sequence + 1))
+}
+func transformVariant(variant int) string {
+	switch variant {
+	case variantNCS:
+		return "NCS"
+	case variantRFC4122:
+		return "RFC4122"
+	case variantMicrosoft:
+		return "Microsoft"
+	case variantReserved:
+		return "Reserved"
+	default:
+		return "Invalid"
+	}
 }
 func waitTime(d time.Duration) {
 	start := time.Now()
