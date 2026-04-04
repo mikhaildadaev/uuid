@@ -101,31 +101,34 @@ func main() {
     name := "github.com/mikhaildadaev/uuid"
     node := 1995
     posix := 0
+    uid := "01968727-8c7e-8000-87cb-bdba4f634d9f"
     // Generate all UUID versions
-    u1 := uuid.V1()
-    fmt.Println(u1.String())
-    u2 := uuid.V2(posix)
-    fmt.Println(u2.String())
-    u3 := uuid.V3(uuid.NameSpaceURL,name)
-    fmt.Println(u3.String())
-    u4 := uuid.V4()
-    fmt.Println(u4.String())
-    u5 := uuid.V5(uuid.NameSpaceURL,name)
-    fmt.Println(u5.String())
-    u6 := uuid.V6()
-    fmt.Println(u6.String())
-    u7 := uuid.V7()
-    fmt.Println(u7.String())
-    u8 := uuid.V8(node)
-    fmt.Println(u8.String())
+    fmt.Println(uuid.V1())
+    fmt.Println(uuid.V2(posix))
+    fmt.Println(uuid.V3(uuid.NameSpaceURL,name))
+    fmt.Println(uuid.V4())
+    fmt.Println(uuid.V5(uuid.NameSpaceURL,name))
+    fmt.Println(uuid.V6())
+    fmt.Println(uuid.V7())
+    fmt.Println(uuid.V8(node))
     // Parse existing UUID
-    parsed, err := uuid.Parse("01968727-8c7e-8000-87cb-bdba4f634d9f")
+    parsed, err := uuid.Parse(uid)
     if err != nil {
         log.Fatal(err)
     }
     fmt.Println("Parsed:", parsed)
-    // Check if UUID is zero (nil)
+    // Check if UUID is zero
     fmt.Println("Is zero:", parsed.IsZero())
+    // Using NullUUID for database NULL values
+    var nu uuid.NullUUID
+    if err := nu.Scan(nil); err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println("NULL valid:", nu.Valid)
+    if err := nu.Scan(uid); err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println("UUID valid:", nu.Valid)
 }
 ```
 
@@ -141,5 +144,7 @@ Run:
 
 ```bash
 go test ./...
-go test -bench=.
+go test -bench=. ./...
+go test -cover ./...
+go test -race ./...
 ```
