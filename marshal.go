@@ -33,7 +33,7 @@ func (uuid *UUID) MarshalJson() ([]byte, error) {
 }
 func (uuid *UUID) MarshalText() ([]byte, error) {
 	if uuid.IsZero() {
-		return []byte(NilUUIDString), nil
+		return []byte(NullUUIDString), nil
 	}
 	buf := initCachePool.Get().(*[36]byte)
 	defer initCachePool.Put(buf)
@@ -42,7 +42,7 @@ func (uuid *UUID) MarshalText() ([]byte, error) {
 }
 func (uuid *UUID) UnmarshalBinary(data []byte) error {
 	if len(data) == 0 {
-		*uuid = NilUUIDBinary
+		*uuid = NullUUIDBinary
 		return nil
 	}
 	if len(data) != 16 {
@@ -53,7 +53,7 @@ func (uuid *UUID) UnmarshalBinary(data []byte) error {
 }
 func (uuid *UUID) UnmarshalJson(data []byte) error {
 	if len(data) == 4 && string(data) == "null" {
-		*uuid = NilUUIDBinary
+		*uuid = NullUUIDBinary
 		return nil
 	}
 	if len(data) < 2 || data[0] != '"' || data[len(data)-1] != '"' {
@@ -63,7 +63,7 @@ func (uuid *UUID) UnmarshalJson(data []byte) error {
 }
 func (uuid *UUID) UnmarshalText(data []byte) error {
 	if len(data) == 0 {
-		*uuid = NilUUIDBinary
+		*uuid = NullUUIDBinary
 		return nil
 	}
 	j := 0
@@ -137,7 +137,7 @@ func (nulluuid *NullUUID) UnmarshalJson(data []byte) error {
 }
 func (nulluuid *NullUUID) UnmarshalText(data []byte) error {
 	if len(data) == 0 {
-		nulluuid.UUID, nulluuid.Valid = NilUUIDBinary, false
+		nulluuid.UUID, nulluuid.Valid = NullUUIDBinary, false
 		return nil
 	}
 	if err := nulluuid.UUID.UnmarshalText(data); err != nil {

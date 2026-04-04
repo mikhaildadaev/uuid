@@ -77,14 +77,14 @@ func Test_Info(t *testing.T) {
 		})
 	}
 }
-func Test_Nil(t *testing.T) {
-	uinil, _ := Parse(NilUUIDString)
+func Test_Null(t *testing.T) {
+	uinil, _ := Parse(NullUUIDString)
 	uinonil, _ := Parse(testUUIDVUString)
 	if !uinil.IsZero() {
-		t.Error("returned false nil UUID")
+		t.Error("returned false null UUID")
 	}
 	if uinonil.IsZero() {
-		t.Error("returned true nil UUID")
+		t.Error("returned true null UUID")
 	}
 }
 func Test_Parse(t *testing.T) {
@@ -93,51 +93,15 @@ func Test_Parse(t *testing.T) {
 		line string
 		want UUID
 	}{
-		{
-			name: "Null UUID",
-			line: NilUUIDString,
-			want: NilUUIDBinary,
-		},
-		{
-			name: "V1 UUID",
-			line: testUUIDV1String,
-			want: testUUIDV1Binary,
-		},
-		{
-			name: "V2 UUID",
-			line: testUUIDV2String,
-			want: testUUIDV2Binary,
-		},
-		{
-			name: "V3 UUID",
-			line: testUUIDV3String,
-			want: testUUIDV3Binary,
-		},
-		{
-			name: "V4 UUID",
-			line: testUUIDV4String,
-			want: testUUIDV4Binary,
-		},
-		{
-			name: "V5 UUID",
-			line: testUUIDV5String,
-			want: testUUIDV5Binary,
-		},
-		{
-			name: "V6 UUID",
-			line: testUUIDV6String,
-			want: testUUIDV6Binary,
-		},
-		{
-			name: "V7 UUID",
-			line: testUUIDV7String,
-			want: testUUIDV7Binary,
-		},
-		{
-			name: "V8 UUID",
-			line: testUUIDV8String,
-			want: testUUIDV8Binary,
-		},
+		{"Null UUID", NullUUIDString, NullUUIDBinary},
+		{"V1 UUID", testUUIDV1String, testUUIDV1Binary},
+		{"V2 UUID", testUUIDV2String, testUUIDV2Binary},
+		{"V3 UUID", testUUIDV3String, testUUIDV3Binary},
+		{"V4 UUID", testUUIDV4String, testUUIDV4Binary},
+		{"V5 UUID", testUUIDV5String, testUUIDV5Binary},
+		{"V6 UUID", testUUIDV6String, testUUIDV6Binary},
+		{"V7 UUID", testUUIDV7String, testUUIDV7Binary},
+		{"V8 UUID", testUUIDV8String, testUUIDV8Binary},
 	}
 	for _, tc := range validCases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -147,37 +111,38 @@ func Test_Parse(t *testing.T) {
 			}
 		})
 	}
+	formatCases := []struct {
+		name   string
+		input  string
+		expect UUID
+	}{
+		{"Long_format_UUID (with braces)", testUUIDErrStringLong, testUUIDVUBinary},
+		{"Short_format_UUID (no hyphens)", testUUIDErrStringShort, testUUIDVUBinary},
+		{"Standard_format_UUID", testUUIDVUString, testUUIDVUBinary},
+	}
+	for _, tc := range formatCases {
+		t.Run(tc.name, func(t *testing.T) {
+			u := must(Parse(tc.input))
+			if u != tc.expect {
+				t.Errorf("Parse(%q) = %v, want %v", tc.input, u, tc.expect)
+			}
+		})
+	}
 	invalidCases := []struct {
 		name string
 		line string
-		want UUID
 	}{
-		{
-			name: "Empty string UUID",
-			line: testUUIDErrStringEmpty,
-		},
-		{
-			name: "Invalid string UUID",
-			line: testUUIDErrStringInvalid,
-		},
-		{
-			name: "Incorrect string character UUID",
-			line: testUUIDErrStringCharacter,
-		},
-		{
-			name: "Long string UUID",
-			line: testUUIDErrStringLengthLong,
-		},
-		{
-			name: "Short string UUID",
-			line: testUUIDErrStringLengthShort,
-		},
+		{"Empty string", testUUIDErrStringEmpty},
+		{"Invalid characters", testUUIDErrStringInvalid},
+		{"Invalid character 'x' in UUID", testUUIDErrStringCharacter},
+		{"Too long string", testUUIDErrStringLengthLong},
+		{"Too short string", testUUIDErrStringLengthShort},
 	}
 	for _, tc := range invalidCases {
 		t.Run(tc.name, func(t *testing.T) {
 			_, err := Parse(tc.line)
 			if err == nil {
-				t.Errorf("Expected error for invalid UUID %s", tc.line)
+				t.Errorf("Expected error for invalid UUID %q", tc.line)
 			}
 		})
 	}
@@ -192,37 +157,37 @@ func Test_Scan(t *testing.T) {
 		{
 			name:    "Empty byte format UUID",
 			src:     testUUIDErrByteEmpty,
-			want:    NilUUIDBinary,
+			want:    NullUUIDBinary,
 			wantErr: true,
 		},
 		{
 			name:    "Empty string format UUID",
 			src:     testUUIDErrStringEmpty,
-			want:    NilUUIDBinary,
+			want:    NullUUIDBinary,
 			wantErr: true,
 		},
 		{
 			name:    "Long byte format UUID",
 			src:     testUUIDErrByteLengthLong,
-			want:    NilUUIDBinary,
+			want:    NullUUIDBinary,
 			wantErr: true,
 		},
 		{
 			name:    "Short byte format UUID",
 			src:     testUUIDErrByteLengthShort,
-			want:    NilUUIDBinary,
+			want:    NullUUIDBinary,
 			wantErr: true,
 		},
 		{
 			name:    "Invalid type",
 			src:     testUUIDErrTypeInt,
-			want:    NilUUIDBinary,
+			want:    NullUUIDBinary,
 			wantErr: true,
 		},
 		{
 			name:    "Null input",
 			src:     nil,
-			want:    NilUUIDBinary,
+			want:    NullUUIDBinary,
 			wantErr: true,
 		},
 		{
@@ -260,8 +225,8 @@ func Test_String(t *testing.T) {
 	}{
 		{
 			name: "Null UUID",
-			uuid: NilUUIDBinary,
-			want: NilUUIDString,
+			uuid: NullUUIDBinary,
+			want: NullUUIDString,
 		},
 		{
 			name: "V1 UUID",
@@ -313,96 +278,44 @@ func Test_String(t *testing.T) {
 		})
 	}
 }
-func Test_TextFormatVariations(t *testing.T) {
-	formats := []struct {
-		name   string
-		input  string
-		expect UUID
-	}{
-		{"Long_format_UUID", testUUIDErrStringLong, testUUIDVUBinary},
-		{"Short_format_UUID", testUUIDErrStringShort, testUUIDVUBinary},
-		{"Standard_format_UUID", testUUIDVUString, testUUIDVUBinary},
-	}
-	for _, tt := range formats {
-		t.Run(tt.name, func(t *testing.T) {
-			u := must(Parse(tt.input))
-			if u != tt.expect {
-				t.Errorf("UnmarshalText() = %v, want %v", u, tt.expect)
-			}
-		})
-	}
-}
-func Test_Timestamp(t *testing.T) {
-	t.Run("V1 UUID", func(t *testing.T) {
-		var prevUUID UUID
-		for i := 0; i < 10; i++ {
-			uuid := V1()
-			if i > 0 {
-				currentTime := uuid.Timestamp()
-				prevTime := prevUUID.Timestamp()
-				currentSequence := binary.BigEndian.Uint16(uuid[8:10])
-				prevSequence := binary.BigEndian.Uint16(prevUUID[8:10])
-				if currentTime < prevTime {
-					t.Errorf("Timestamps decreased: %d < %d", currentTime, prevTime)
-				} else if currentTime == prevTime {
-					if currentSequence <= prevSequence {
-						t.Errorf("Same timestamp but sequence not increased: %d <= %d", currentSequence, prevSequence)
-					}
-				}
-			}
-			prevUUID = uuid
-		}
-	})
-	t.Run("V6 UUID", func(t *testing.T) {
-		var prevUUID UUID
-		for i := 0; i < 10; i++ {
-			uuid := V6()
-			if i > 0 {
-				currentTime := uuid.Timestamp()
-				prevTime := prevUUID.Timestamp()
-				currentSequence := binary.BigEndian.Uint16(uuid[8:10])
-				prevSequence := binary.BigEndian.Uint16(prevUUID[8:10])
-				if currentTime < prevTime {
-					t.Errorf("Timestamps decreased: %d < %d", currentTime, prevTime)
-				} else if currentTime == prevTime {
-					if currentSequence <= prevSequence {
-						t.Errorf("Same timestamp but sequence not increased: %d <= %d", currentSequence, prevSequence)
-					}
-				}
-			}
-			prevUUID = uuid
-		}
-	})
-	t.Run("V7 UUID", func(t *testing.T) {
-		var prevUUID UUID
-		for i := 0; i < 10; i++ {
-			uuid := V7()
-			if i > 0 {
-				currentTime := uuid.Timestamp()
-				prevTime := prevUUID.Timestamp()
-				if currentTime < prevTime {
-					t.Errorf("Timestamps decreased: %d < %d", currentTime, prevTime)
-				}
-			}
-			prevUUID = uuid
-		}
-	})
-	t.Run("V8 UUID", func(t *testing.T) {
-		var prevUUID UUID
-		for i := 0; i < 10; i++ {
-			uuid := V8(testNodeID)
-			if i > 0 {
-				currentTime := uuid.Timestamp()
-				prevTime := prevUUID.Timestamp()
-				if currentTime < prevTime {
-					t.Errorf("Timestamps decreased: %d < %d", currentTime, prevTime)
-				}
-			}
-			prevUUID = uuid
-		}
-	})
-}
 func Test_Validate(t *testing.T) {
+	t.Run("Invalid UUID", func(t *testing.T) {
+		validV1 := V1()
+		tests := []struct {
+			name    string
+			uuid    UUID
+			wantErr error
+		}{
+			{
+				name:    "Invalid variant",
+				uuid:    func() UUID { u := validV1; u[8] = 0x00; return u }(),
+				wantErr: ErrInvalidUUIDVariant,
+			},
+			{
+				name:    "Invalid version",
+				uuid:    func() UUID { u := validV1; u[6] = 0x00; return u }(),
+				wantErr: ErrInvalidUUIDVersion,
+			},
+			{
+				name:    "Null UUID",
+				uuid:    NullUUIDBinary,
+				wantErr: ErrNullUUID,
+			},
+			{
+				name:    "Null MAC UUIDV1",
+				uuid:    func() UUID { u := validV1; copy(u[10:16], make([]byte, 6)); return u }(),
+				wantErr: ErrInvalidUUIDMAC,
+			},
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				err := tt.uuid.Validate()
+				if !errors.Is(err, tt.wantErr) {
+					t.Errorf("Validate() error = %v, want %v", err, tt.wantErr)
+				}
+			})
+		}
+	})
 	t.Run("Valid UUID", func(t *testing.T) {
 		tests := []struct {
 			name string
@@ -436,43 +349,6 @@ func Test_Validate(t *testing.T) {
 			})
 		}
 	})
-	t.Run("Invalid UUID", func(t *testing.T) {
-		validV1 := V1()
-		tests := []struct {
-			name    string
-			uuid    UUID
-			wantErr error
-		}{
-			{
-				name:    "Invalid variant",
-				uuid:    func() UUID { u := validV1; u[8] = 0x00; return u }(),
-				wantErr: ErrInvalidUUIDVariant,
-			},
-			{
-				name:    "Invalid version",
-				uuid:    func() UUID { u := validV1; u[6] = 0x00; return u }(),
-				wantErr: ErrInvalidUUIDVersion,
-			},
-			{
-				name:    "Null UUID",
-				uuid:    NilUUIDBinary,
-				wantErr: ErrNullUUID,
-			},
-			{
-				name:    "Null MAC UUIDV1",
-				uuid:    func() UUID { u := validV1; copy(u[10:16], make([]byte, 6)); return u }(),
-				wantErr: ErrInvalidUUIDMAC,
-			},
-		}
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				err := tt.uuid.Validate()
-				if !errors.Is(err, tt.wantErr) {
-					t.Errorf("Validate() error = %v, want %v", err, tt.wantErr)
-				}
-			})
-		}
-	})
 }
 func Test_Value(t *testing.T) {
 	tests := []struct {
@@ -483,7 +359,7 @@ func Test_Value(t *testing.T) {
 	}{
 		{
 			name:    "Null UUID",
-			u:       NilUUIDBinary,
+			u:       NullUUIDBinary,
 			want:    nil,
 			wantErr: false,
 		},
@@ -513,7 +389,7 @@ func Test_MarshalUnmarshalBinary(t *testing.T) {
 		uuid    UUID
 		wantErr bool
 	}{
-		{"Null UUID", NilUUIDBinary, false},
+		{"Null UUID", NullUUIDBinary, false},
 		{"Valid UUID", testUUIDVUBinary, false},
 	}
 	for _, tt := range tests {
@@ -559,7 +435,7 @@ func Test_MarshalUnmarshalJson(t *testing.T) {
 	}{
 		{
 			name:    "Null UUID",
-			u:       NilUUIDBinary,
+			u:       NullUUIDBinary,
 			want:    "null",
 			wantErr: false,
 		},
@@ -613,7 +489,7 @@ func Test_MarshalUnmarshalText(t *testing.T) {
 	}{
 		{
 			name:    "Null UUID",
-			u:       NilUUIDBinary,
+			u:       NullUUIDBinary,
 			want:    testUUIDVUNull,
 			wantErr: false,
 		},
@@ -796,6 +672,26 @@ func Test_UUIDV1_Sequence(t *testing.T) {
 			t.Errorf("Failed to overflow sequence: sq1=%d sq2=%d", sq1, sq2)
 		}
 	})
+}
+func Test_UUIDV1_Timestamp(t *testing.T) {
+	var prevUUID UUID
+	for i := 0; i < 10; i++ {
+		uuid := V1()
+		if i > 0 {
+			currentTime := uuid.Timestamp()
+			prevTime := prevUUID.Timestamp()
+			currentSequence := binary.BigEndian.Uint16(uuid[8:10])
+			prevSequence := binary.BigEndian.Uint16(prevUUID[8:10])
+			if currentTime < prevTime {
+				t.Errorf("Timestamps decreased: %d < %d", currentTime, prevTime)
+			} else if currentTime == prevTime {
+				if currentSequence <= prevSequence {
+					t.Errorf("Same timestamp but sequence not increased: %d <= %d", currentSequence, prevSequence)
+				}
+			}
+		}
+		prevUUID = uuid
+	}
 }
 func Test_UUIDV2_Generate(t *testing.T) {
 	for i := int(0); i < 2; i++ {
@@ -1055,6 +951,26 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 		}
 	})
 }
+func Test_UUIDV6_Timestamp(t *testing.T) {
+	var prevUUID UUID
+	for i := 0; i < 10; i++ {
+		uuid := V6()
+		if i > 0 {
+			currentTime := uuid.Timestamp()
+			prevTime := prevUUID.Timestamp()
+			currentSequence := binary.BigEndian.Uint16(uuid[8:10])
+			prevSequence := binary.BigEndian.Uint16(prevUUID[8:10])
+			if currentTime < prevTime {
+				t.Errorf("Timestamps decreased: %d < %d", currentTime, prevTime)
+			} else if currentTime == prevTime {
+				if currentSequence <= prevSequence {
+					t.Errorf("Same timestamp but sequence not increased: %d <= %d", currentSequence, prevSequence)
+				}
+			}
+		}
+		prevUUID = uuid
+	}
+}
 func Test_UUIDV7_Generate(t *testing.T) {
 	// Ленивая инициализация глобального состояния
 	initSync.Do(func() {
@@ -1187,6 +1103,20 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 			t.Errorf("Failed to overflow sequence: sq1=%d sq2=%d", sq1, sq2)
 		}
 	})
+}
+func Test_UUIDV7_Timestamp(t *testing.T) {
+	var prevUUID UUID
+	for i := 0; i < 10; i++ {
+		uuid := V7()
+		if i > 0 {
+			currentTime := uuid.Timestamp()
+			prevTime := prevUUID.Timestamp()
+			if currentTime < prevTime {
+				t.Errorf("Timestamps decreased: %d < %d", currentTime, prevTime)
+			}
+		}
+		prevUUID = uuid
+	}
 }
 func Test_UUIDV8_Generate(t *testing.T) {
 	// Ленивая инициализация глобального состояния
@@ -1328,6 +1258,20 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 			t.Errorf("Failed to overflow sequence: sq1=%d sq2=%d", sq1, sq2)
 		}
 	})
+}
+func Test_UUIDV8_Timestamp(t *testing.T) {
+	var prevUUID UUID
+	for i := 0; i < 10; i++ {
+		uuid := V8(testNodeID)
+		if i > 0 {
+			currentTime := uuid.Timestamp()
+			prevTime := prevUUID.Timestamp()
+			if currentTime < prevTime {
+				t.Errorf("Timestamps decreased: %d < %d", currentTime, prevTime)
+			}
+		}
+		prevUUID = uuid
+	}
 }
 
 // Приватные переменные
