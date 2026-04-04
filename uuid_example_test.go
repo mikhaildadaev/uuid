@@ -23,7 +23,7 @@ func ExampleNull() {
 	// 00000000-0000-0000-0000-000000000000
 }
 func ExampleParse() {
-	u, err := uuid.Parse(uuidStringV8)
+	u, err := uuid.Parse(uuidV8String)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -82,7 +82,7 @@ func ExampleV8() {
 
 // Example methods
 func ExampleUUID_Bytes() {
-	u, err := uuid.Parse(uuidStringV8)
+	u, err := uuid.Parse(uuidV8String)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -92,7 +92,7 @@ func ExampleUUID_Bytes() {
 	// 019687278c7e800087cbbdba4f634d9f
 }
 func ExampleUUID_Equal() {
-	u, err := uuid.Parse(uuidStringV8)
+	u, err := uuid.Parse(uuidV8String)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -102,7 +102,7 @@ func ExampleUUID_Equal() {
 	// true
 }
 func ExampleUUID_Info() {
-	u, err := uuid.Parse(uuidStringV8)
+	u, err := uuid.Parse(uuidV8String)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -132,7 +132,7 @@ func ExampleUUID_Node() {
 	// 1995
 }
 func ExampleUUID_Posix() {
-	u, err := uuid.Parse(uuidStringV2)
+	u, err := uuid.Parse(uuidV2String)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -141,7 +141,7 @@ func ExampleUUID_Posix() {
 	// UID 501
 }
 func ExampleUUID_Sequence() {
-	u, err := uuid.Parse(uuidStringV8)
+	u, err := uuid.Parse(uuidV8String)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -158,7 +158,7 @@ func ExampleUUID_String() {
 	// 36
 }
 func ExampleUUID_Timestamp() {
-	u, err := uuid.Parse(uuidStringV8)
+	u, err := uuid.Parse(uuidV8String)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -167,7 +167,7 @@ func ExampleUUID_Timestamp() {
 	// 1746024238206
 }
 func ExampleUUID_Variant() {
-	u, err := uuid.Parse(uuidStringV8)
+	u, err := uuid.Parse(uuidV8String)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -176,7 +176,7 @@ func ExampleUUID_Variant() {
 	// 1
 }
 func ExampleUUID_Version() {
-	u, err := uuid.Parse(uuidStringV8)
+	u, err := uuid.Parse(uuidV8String)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -184,12 +184,134 @@ func ExampleUUID_Version() {
 	// Output:
 	// 8
 }
+func ExampleUUID_MarshalBinary() {
+	u, err := uuid.Parse(uuidV8String)
+	if err != nil {
+		log.Fatal(err)
+	}
+	data, err := u.MarshalBinary()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%x", data)
+	// Output: 019687278c7e800087cbbdba4f634d9f
+}
+func ExampleUUID_MarshalJson() {
+	u, err := uuid.Parse(uuidV8String)
+	if err != nil {
+		log.Fatal(err)
+	}
+	json, err := u.MarshalJson()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(json))
+	// Output: "01968727-8c7e-8000-87cb-bdba4f634d9f"
+}
+func ExampleUUID_MarshalText() {
+	u, err := uuid.Parse(uuidV8String)
+	if err != nil {
+		log.Fatal(err)
+	}
+	text, err := u.MarshalText()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(text))
+	// Output: 01968727-8c7e-8000-87cb-bdba4f634d9f
+}
+func ExampleUUID_UnmarshalBinary() {
+	var u uuid.UUID
+	binary := uuidBinary
+	if err := u.UnmarshalBinary(binary); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(u.String())
+	// Output: 01968727-8c7e-8000-87cb-bdba4f634d9f
+}
+func ExampleUUID_UnmarshalJson() {
+	var u uuid.UUID
+	json := uuidJson
+	if err := u.UnmarshalJson(json); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(u.String())
+	// Output: 01968727-8c7e-8000-87cb-bdba4f634d9f
+}
+func ExampleUUID_UnmarshalText() {
+	var u uuid.UUID
+	text := uuidText
+	if err := u.UnmarshalText(text); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(u.String())
+	// Output: 01968727-8c7e-8000-87cb-bdba4f634d9f
+}
+func ExampleUUID_Scan() {
+	var u uuid.UUID
+	err := u.Scan(uuidV8String)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(u.String())
+	// Output: 01968727-8c7e-8000-87cb-bdba4f634d9f
+}
+func ExampleUUID_Value() {
+	var nilUUID uuid.UUID
+	u, err := uuid.Parse(uuidV8String)
+	if err != nil {
+		log.Fatal(err)
+	}
+	value, err := u.Value()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(value)
+	value, err = nilUUID.Value()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(value)
+	// Output:
+	// 01968727-8c7e-8000-87cb-bdba4f634d9f
+	// <nil>
+}
+func ExampleNullUUID_Scan() {
+	var nu uuid.NullUUID
+	if err := nu.Scan(nil); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Valid:", nu.Valid)
+	if err := nu.Scan(uuidV8String); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Valid:", nu.Valid)
+	fmt.Println("UUID:", nu.UUID)
+	// Output:
+	// Valid: false
+	// Valid: true
+	// UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
+}
+func ExampleNullUUID_Value() {
+	var nu uuid.NullUUID
+	value, _ := nu.Value()
+	fmt.Println("NULL value:", value)
+	nu.Scan(uuidV8String)
+	value, _ = nu.Value()
+	fmt.Println("UUID value:", value)
+	// Output:
+	// NULL value: <nil>
+	// UUID value: 01968727-8c7e-8000-87cb-bdba4f634d9f
+}
 
 // Приватные переменные
 var (
 	name         = "github.com/mikhaildadaev/uuid"
 	node         = 1995
 	posix        = 0
-	uuidStringV2 = "000001f5-dd95-2565-9600-acde48001122"
-	uuidStringV8 = "01968727-8c7e-8000-87cb-bdba4f634d9f"
+	uuidBinary   = []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+	uuidJson     = []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
+	uuidText     = []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
+	uuidV2String = "000001f5-dd95-2565-9600-acde48001122"
+	uuidV8String = "01968727-8c7e-8000-87cb-bdba4f634d9f"
 )
