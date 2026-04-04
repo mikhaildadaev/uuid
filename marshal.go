@@ -17,7 +17,7 @@ func (uuid *UUID) MarshalBinary() ([]byte, error) {
 	}
 	return uuid[:], nil
 }
-func (uuid *UUID) MarshalJSON() ([]byte, error) {
+func (uuid *UUID) MarshalJson() ([]byte, error) {
 	if uuid.IsZero() {
 		return []byte("null"), nil
 	}
@@ -25,11 +25,11 @@ func (uuid *UUID) MarshalJSON() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	jsonData := make([]byte, 1, 38)
-	jsonData[0] = '"'
-	jsonData = append(jsonData, text...)
-	jsonData = append(jsonData, '"')
-	return jsonData, nil
+	json := make([]byte, 1, 38)
+	json[0] = '"'
+	json = append(json, text...)
+	json = append(json, '"')
+	return json, nil
 }
 func (uuid *UUID) MarshalText() ([]byte, error) {
 	if uuid.IsZero() {
@@ -51,7 +51,7 @@ func (uuid *UUID) UnmarshalBinary(data []byte) error {
 	copy(uuid[:], data)
 	return nil
 }
-func (uuid *UUID) UnmarshalJSON(data []byte) error {
+func (uuid *UUID) UnmarshalJson(data []byte) error {
 	if len(data) == 4 && string(data) == "null" {
 		*uuid = NilUUIDByte
 		return nil
@@ -95,7 +95,7 @@ func (nulluuid NullUUID) MarshalBinary() ([]byte, error) {
 	}
 	return []byte(nil), nil
 }
-func (nulluuid NullUUID) MarshalJSON() ([]byte, error) {
+func (nulluuid NullUUID) MarshalJson() ([]byte, error) {
 	if !nulluuid.Valid {
 		return []byte("null"), nil
 	}
@@ -115,7 +115,7 @@ func (nulluuid *NullUUID) UnmarshalBinary(data []byte) error {
 	nulluuid.Valid = true
 	return nil
 }
-func (nulluuid *NullUUID) UnmarshalJSON(data []byte) error {
+func (nulluuid *NullUUID) UnmarshalJson(data []byte) error {
 	if string(data) == "null" {
 		nulluuid.UUID, nulluuid.Valid = UUID{}, false
 		return nil
