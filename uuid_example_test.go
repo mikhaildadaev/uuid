@@ -23,7 +23,7 @@ func ExampleNull() {
 	// 00000000-0000-0000-0000-000000000000
 }
 func ExampleParse() {
-	u, err := uuid.Parse(uuidString)
+	u, err := uuid.Parse(uuidStringV8)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -82,7 +82,7 @@ func ExampleV8() {
 
 // Example methods
 func ExampleUUID_Bytes() {
-	u, err := uuid.Parse(uuidString)
+	u, err := uuid.Parse(uuidStringV8)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -92,7 +92,7 @@ func ExampleUUID_Bytes() {
 	// 019687278c7e800087cbbdba4f634d9f
 }
 func ExampleUUID_Equal() {
-	u, err := uuid.Parse(uuidString)
+	u, err := uuid.Parse(uuidStringV8)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -102,7 +102,7 @@ func ExampleUUID_Equal() {
 	// true
 }
 func ExampleUUID_Info() {
-	u, err := uuid.Parse(uuidString)
+	u, err := uuid.Parse(uuidStringV8)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -132,13 +132,16 @@ func ExampleUUID_Node() {
 	// 1995
 }
 func ExampleUUID_Posix() {
-	u2 := uuid.V2(posix)
-	fmt.Println(u2.Posix())
+	u, err := uuid.Parse(uuidStringV2)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(u.Posix())
 	// Output:
 	// UID 501
 }
 func ExampleUUID_Sequence() {
-	u, err := uuid.Parse(uuidString)
+	u, err := uuid.Parse(uuidStringV8)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -155,7 +158,7 @@ func ExampleUUID_String() {
 	// 36
 }
 func ExampleUUID_Timestamp() {
-	u, err := uuid.Parse(uuidString)
+	u, err := uuid.Parse(uuidStringV8)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -164,7 +167,7 @@ func ExampleUUID_Timestamp() {
 	// 1746024238206
 }
 func ExampleUUID_Variant() {
-	u, err := uuid.Parse(uuidString)
+	u, err := uuid.Parse(uuidStringV8)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -173,7 +176,7 @@ func ExampleUUID_Variant() {
 	// 1
 }
 func ExampleUUID_Version() {
-	u, err := uuid.Parse(uuidString)
+	u, err := uuid.Parse(uuidStringV8)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -184,9 +187,9 @@ func ExampleUUID_Version() {
 
 // Приватные переменные
 var (
-	name           = "github.com/mikhaildadaev/uuid"
-	node           = 1995
-	posix          = 0
-	uuidString     = "01968727-8c7e-8000-87cb-bdba4f634d9f"
-	nulluuidString = "00000000-0000-0000-0000-000000000000"
+	name         = "github.com/mikhaildadaev/uuid"
+	node         = 1995
+	posix        = 0
+	uuidStringV2 = "000001f5-dd95-2565-9600-acde48001122"
+	uuidStringV8 = "01968727-8c7e-8000-87cb-bdba4f634d9f"
 )
