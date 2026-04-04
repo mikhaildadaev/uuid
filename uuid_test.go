@@ -15,7 +15,7 @@ import (
 	"time"
 )
 
-// Публичные функции
+// Tests
 func Test_Init(t *testing.T) {
 	initSync.Do(func() {
 		initError = initGlobal()

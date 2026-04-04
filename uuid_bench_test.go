@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-// Публичные функции
+// Benchmarks
 func Benchmark_Parse(b *testing.B) {
 	UUID := testUUIDVUString
 	b.ResetTimer()
