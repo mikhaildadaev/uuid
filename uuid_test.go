@@ -482,7 +482,7 @@ func Test_Value(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "Nil UUID",
+			name:    "Null UUID",
 			u:       NilUUIDByte,
 			want:    nil,
 			wantErr: false,
@@ -558,7 +558,7 @@ func Test_MarshalUnmarshalJson(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "Nil UUID",
+			name:    "Null UUID",
 			u:       NilUUIDByte,
 			want:    "null",
 			wantErr: false,
@@ -612,9 +612,9 @@ func Test_MarshalUnmarshalText(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "Nil UUID",
+			name:    "Null UUID",
 			u:       NilUUIDByte,
-			want:    testUUIDVUText,
+			want:    testUUIDVUNull,
 			wantErr: false,
 		},
 		{
@@ -1364,6 +1364,7 @@ var (
 	testUUIDV8String             = "aabbccdd-1122-8344-9566-4c84eb015816"
 	testUUIDVUByte               = [16]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
 	testUUIDVUJson               = `"01968727-8c7e-8000-87cb-bdba4f634d9f"`
+	testUUIDVUNull               = "00000000-0000-0000-0000-000000000000"
 	testUUIDVUString             = "01968727-8c7e-8000-87cb-bdba4f634d9f"
 	testUUIDVUText               = "01968727-8c7e-8000-87cb-bdba4f634d9f"
 )
