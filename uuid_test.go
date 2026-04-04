@@ -675,16 +675,16 @@ func Test_UUIDV1_Generate(t *testing.T) {
 		t.Fatal(initError)
 	}
 	// Фиксация текущего состояние
-	realClock := initClock
-	realTime := v1.lastTime.Load()
-	realSequence := v1.lastSequence.Load()
+	savedClock := initClock
+	savedTime := v1.lastTime.Load()
+	savedSequence := v1.lastSequence.Load()
 	t.Cleanup(func() {
-		initClock = realClock
-		v1.lastTime.Store(realTime)
-		v1.lastSequence.Store(realSequence)
+		initClock = savedClock
+		v1.lastTime.Store(savedTime)
+		v1.lastSequence.Store(savedSequence)
 	})
 	// Мокирование
-	initClock = &RealClock{}
+	initClock = realClock{}
 	v1.lastTime.Store(0)
 	v1.lastSequence.Store(0)
 	// Генерация идентификаторов
@@ -741,7 +741,7 @@ func Test_UUIDV1_Sequence(t *testing.T) {
 			v1.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v1.lastTime.Store(uint64((initClock.Now().UnixNano() / 100) + offsetTime))
 		v1.lastSequence.Store(0)
@@ -777,7 +777,7 @@ func Test_UUIDV1_Sequence(t *testing.T) {
 			v1.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v1.lastTime.Store(uint64((initClock.Now().UnixNano() / 100) + offsetTime))
 		v1.lastSequence.Store(maxV1Sequence - 1)
@@ -933,16 +933,16 @@ func Test_UUIDV6_Generate(t *testing.T) {
 		t.Fatal(initError)
 	}
 	// Фиксация текущего состояние
-	realClock := initClock
-	realTime := v6.lastTime.Load()
-	realSequence := v6.lastSequence.Load()
+	savedClock := initClock
+	savedTime := v6.lastTime.Load()
+	savedSequence := v6.lastSequence.Load()
 	t.Cleanup(func() {
-		initClock = realClock
-		v6.lastTime.Store(realTime)
-		v6.lastSequence.Store(realSequence)
+		initClock = savedClock
+		v6.lastTime.Store(savedTime)
+		v6.lastSequence.Store(savedSequence)
 	})
 	// Мокирование
-	initClock = &RealClock{}
+	initClock = realClock{}
 	v6.lastTime.Store(0)
 	v6.lastSequence.Store(0)
 	// Генерация идентификаторов
@@ -999,7 +999,7 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 			v6.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v6.lastTime.Store(uint64((initClock.Now().UnixNano() / 100) + offsetTime))
 		v6.lastSequence.Store(0)
@@ -1035,7 +1035,7 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 			v6.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v6.lastTime.Store(uint64((initClock.Now().UnixNano() / 100) + offsetTime))
 		v6.lastSequence.Store(maxV6Sequence - 1)
@@ -1064,16 +1064,16 @@ func Test_UUIDV7_Generate(t *testing.T) {
 		t.Fatal(initError)
 	}
 	// Фиксация текущего состояние
-	realClock := initClock
-	realTime := v7.lastTime.Load()
-	realSequence := v7.lastSequence.Load()
+	savedClock := initClock
+	savedTime := v7.lastTime.Load()
+	savedSequence := v7.lastSequence.Load()
 	t.Cleanup(func() {
-		initClock = realClock
-		v7.lastTime.Store(realTime)
-		v7.lastSequence.Store(realSequence)
+		initClock = savedClock
+		v7.lastTime.Store(savedTime)
+		v7.lastSequence.Store(savedSequence)
 	})
 	// Мокирование
-	initClock = &RealClock{}
+	initClock = realClock{}
 	v7.lastTime.Store(0)
 	v7.lastSequence.Store(0)
 	// Генерация идентификаторов
@@ -1131,7 +1131,7 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 			v7.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v7.lastTime.Store(uint64(initClock.Now().UnixMilli()))
 		v7.lastSequence.Store(0)
@@ -1168,7 +1168,7 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 			v7.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v7.lastTime.Store(uint64(initClock.Now().UnixMilli()))
 		v7.lastSequence.Store(maxV7Sequence - 1)
@@ -1206,7 +1206,7 @@ func Test_UUIDV8_Generate(t *testing.T) {
 		v8.lastSequence.Store(realSequence)
 	})
 	// Мокирование
-	mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+	mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 	initClock = mockClock
 	v8.lastTime.Store(uint64(initClock.Now().UnixMilli()))
 	v8.lastSequence.Store(0)
@@ -1273,7 +1273,7 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 			v8.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v8.lastTime.Store(uint64(initClock.Now().UnixMilli()))
 		v8.lastSequence.Store(0)
@@ -1309,7 +1309,7 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 			v8.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v8.lastTime.Store(uint64(initClock.Now().UnixMilli()))
 		v8.lastSequence.Store(maxV8Sequence - 1)

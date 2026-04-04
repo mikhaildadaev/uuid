@@ -7,24 +7,24 @@ package uuid
 
 import "time"
 
-// Публичные интерфейсы
-type Clock interface {
+// Публичные методы
+func (mockClock *mockClock) Add(d time.Duration) {
+	mockClock.time = mockClock.time.Add(d)
+}
+func (mockClock *mockClock) Now() time.Time {
+	return mockClock.time
+}
+func (realClock) Now() time.Time {
+	return time.Now().UTC()
+}
+
+// Приватные интерфейсы
+type clock interface {
 	Now() time.Time
 }
 
-// Публичные структуры
-type MockClock struct {
+// Приватные структуры
+type mockClock struct {
 	time time.Time
 }
-type RealClock struct{}
-
-// Публичные методы
-func (mockClock *MockClock) Add(d time.Duration) {
-	mockClock.time = mockClock.time.Add(d)
-}
-func (mockClock *MockClock) Now() time.Time {
-	return mockClock.time
-}
-func (realClock *RealClock) Now() time.Time {
-	return time.Now().UTC()
-}
+type realClock struct{}

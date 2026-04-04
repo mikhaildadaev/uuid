@@ -99,7 +99,7 @@ func Benchmark_V1_Info(b *testing.B) {
 			v1.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v1.lastTime.Store(uint64((initClock.Now().UnixNano() / 100) + offsetTime))
 		v1.lastSequence.Store(0)
@@ -242,7 +242,7 @@ func Benchmark_V6_Info(b *testing.B) {
 			v6.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v6.lastTime.Store(uint64((initClock.Now().UnixNano() / 100) + offsetTime))
 		v6.lastSequence.Store(0)
@@ -293,7 +293,7 @@ func Benchmark_V7_Info(b *testing.B) {
 			v7.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v7.lastTime.Store(uint64(initClock.Now().UnixMicro()))
 		v7.lastSequence.Store(0)
@@ -344,7 +344,7 @@ func Benchmark_V8_Info(b *testing.B) {
 			v8.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &MockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
 		initClock = mockClock
 		v8.lastTime.Store(uint64(initClock.Now().UnixMicro()))
 		v8.lastSequence.Store(0)

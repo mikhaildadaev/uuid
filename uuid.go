@@ -123,7 +123,7 @@ var (
 			return new([36]byte)
 		},
 	}
-	initClock    Clock = &RealClock{}
+	initClock    clock = realClock{}
 	initError    error
 	initMAC      atomic.Value
 	initRandPool = sync.Pool{
@@ -298,7 +298,7 @@ func getTimeNanoAndSequence(v string) (ts uint64, sq uint32) {
 		if ts == prevTime {
 			sq := lastSequence.Add(1)
 			if sq > maxSequence {
-				if _, isMock := initClock.(*MockClock); !isMock {
+				if _, isMock := initClock.(*mockClock); !isMock {
 					waitTime(100 * time.Nanosecond)
 					ts = uint64(initClock.Now().UnixNano()/100 + offsetTime)
 					continue
