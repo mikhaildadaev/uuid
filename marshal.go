@@ -108,6 +108,10 @@ func (nulluuid NullUUID) MarshalText() ([]byte, error) {
 	return nulluuid.UUID.MarshalText()
 }
 func (nulluuid *NullUUID) UnmarshalBinary(data []byte) error {
+	if len(data) == 0 {
+		nulluuid.Valid = false
+		return nil
+	}
 	if len(data) != 16 {
 		return ErrInvalidUUIDLength
 	}
