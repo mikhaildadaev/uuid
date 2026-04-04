@@ -295,11 +295,20 @@ func (uuid UUID) Version() int {
 	}
 	return int(uuid[6] >> 4)
 }
-func (nulluuid NullUUID) Validate() error {
+func (nulluuid NullUUID) IsZero() bool {
+	return !nulluuid.Valid || nulluuid.UUID.IsZero()
+}
+func (nulluuid NullUUID) String() string {
 	if !nulluuid.Valid {
-		return ErrNullUUID
+		return NilUUIDString
 	}
-	return nulluuid.UUID.Validate()
+	return nulluuid.UUID.String()
+}
+func (nulluuid NullUUID) Validate() error {
+	if nulluuid.Valid {
+		return nulluuid.UUID.Validate()
+	}
+	return nil
 }
 
 // Приватные константы
