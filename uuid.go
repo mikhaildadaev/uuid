@@ -257,7 +257,7 @@ func getTimeMilliAndSequence(v string) (ts uint64, sq uint32) {
 	default:
 		return 0, 0
 	}
-	ts = uint64(initClock.Now().UnixMilli())
+	ts = uint64(initClock.now().UnixMilli())
 	if prev := lastTime.Load(); ts != prev {
 		if ts > prev && lastTime.CompareAndSwap(prev, ts) {
 			lastSequence.Store(0)
@@ -288,11 +288,11 @@ func getTimeNanoAndSequence(v string) (ts uint64, sq uint32) {
 	default:
 		return 0, 0
 	}
-	ts = uint64(initClock.Now().UnixNano()/100) + offsetTime
+	ts = uint64(initClock.now().UnixNano()/100) + offsetTime
 	for {
 		prevTime := lastTime.Load()
 		if ts < prevTime {
-			ts = uint64(initClock.Now().UnixNano()/100 + offsetTime)
+			ts = uint64(initClock.now().UnixNano()/100 + offsetTime)
 			continue
 		}
 		if ts == prevTime {
@@ -300,7 +300,7 @@ func getTimeNanoAndSequence(v string) (ts uint64, sq uint32) {
 			if sq > maxSequence {
 				if _, isMock := initClock.(*mockClock); !isMock {
 					waitTime(100 * time.Nanosecond)
-					ts = uint64(initClock.Now().UnixNano()/100 + offsetTime)
+					ts = uint64(initClock.now().UnixNano()/100 + offsetTime)
 					continue
 				}
 			}
