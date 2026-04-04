@@ -113,7 +113,7 @@ func (uuid UUID) Info() string {
 	case variantNCS:
 		vt = "NCS"
 	case variantRFC4122:
-		vt = "RFC 4122"
+		vt = "RFC4122"
 	case variantMicrosoft:
 		vt = "Microsoft"
 	case variantReserved:
