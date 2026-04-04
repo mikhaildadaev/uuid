@@ -264,7 +264,7 @@ func (uuid UUID) Info() string {
 	return info.String()
 }
 func (uuid UUID) IsZero() bool {
-	return uuid == NilUUIDByte
+	return uuid == NilUUIDBinary
 }
 func (uuid UUID) Node() int {
 	switch uuid.Version() {
@@ -354,7 +354,7 @@ func (uuid UUID) Validate() error {
 	return nil
 }
 func (uuid UUID) Variant() int {
-	if uuid == NilUUIDByte {
+	if uuid == NilUUIDBinary {
 		return variantInvalid
 	}
 	switch {
@@ -371,7 +371,7 @@ func (uuid UUID) Variant() int {
 	}
 }
 func (uuid UUID) Version() int {
-	if uuid == NilUUIDByte {
+	if uuid == NilUUIDBinary {
 		return 0
 	}
 	return int(uuid[6] >> 4)
