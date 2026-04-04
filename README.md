@@ -37,6 +37,7 @@ go get github.com/mikhaildadaev/uuid
 - uuid.V8(node)
 
 ### Methods
+#### Main
 - uuid.Bytes()
 - uuid.Equal(other)
 - uuid.Info()
@@ -49,7 +50,10 @@ go get github.com/mikhaildadaev/uuid
 - uuid.Validate()
 - uuid.Variant()
 - uuid.Version()
-
+- nulluuid.IsZero()
+- nulluuid.String()
+- nulluuid.Validate()
+#### Marshal & Unmarshal
 - uuid.MarshalBinary()
 - uuid.MarshalJSON()
 - uuid.MarshalText()
@@ -62,6 +66,11 @@ go get github.com/mikhaildadaev/uuid
 - nulluuid.UnmarshalBinary()
 - nulluuid.UnmarshalJSON()
 - nulluuid.UnmarshalText()
+#### SQL
+- uuid.Scan()
+- uuid.Value()
+- nulluuid.Scan()
+- nulluuid.Value()
 
 ## Performance
 
