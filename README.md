@@ -25,6 +25,7 @@ go get github.com/mikhaildadaev/uuid
 ## Quick API
 
 ### Functions
+#### Main
 - uuid.Null()
 - uuid.Parse(uuid)
 - uuid.V1()
