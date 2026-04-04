@@ -121,18 +121,12 @@ func (uuid UUID) Info() string {
 		info.WriteString(fmt.Sprintf("SEQ.: %d\n", sq))
 		info.WriteString(fmt.Sprintf("MAC.: %02x:%02x:%02x:%02x:%02x:%02x\n", uuid[10], uuid[11], uuid[12], uuid[13], uuid[14], uuid[15]))
 	case bitV2 >> 4:
+		psstr, psuint := uuid.Posix()
 		info.WriteString(fmt.Sprintf("VAR.: %s\n", transformVariant(vt)))
 		info.WriteString(fmt.Sprintf("VER.: %d\n", vn))
 		info.WriteString("FORM: PPPPPPPP-RRRR-1RRR-VRXX-MMMMMMMMMMMM\n")
 		info.WriteString("INFO: POSID + RANDOM + POSTYPE + MAC\n")
-		switch uuid[9] {
-		case 0:
-			info.WriteString(fmt.Sprintf("POS.: %d (UID)\n", binary.BigEndian.Uint32(uuid[0:4])))
-		case 1:
-			info.WriteString(fmt.Sprintf("POS.: %d (GID)\n", binary.BigEndian.Uint32(uuid[0:4])))
-		default:
-			info.WriteString(fmt.Sprintf("POS.: %d (ReservedID)\n", binary.BigEndian.Uint32(uuid[0:4])))
-		}
+		info.WriteString(fmt.Sprintf("POS.: %d (%s)\n", psuint, psstr))
 		info.WriteString(fmt.Sprintf("RAND: %x\n", uuid[4:10]))
 		info.WriteString(fmt.Sprintf("MAC.: %02x:%02x:%02x:%02x:%02x:%02x\n", uuid[10], uuid[11], uuid[12], uuid[13], uuid[14], uuid[15]))
 	case bitV3 >> 4:
@@ -199,11 +193,15 @@ func (uuid UUID) Node() int {
 		return 0
 	}
 }
-func (uuid UUID) Posix() uint32 {
-	if uuid.Version() != 2 {
-		return 0
+func (uuid UUID) Posix() (string, uint32) {
+	switch uuid[9] {
+	case 0:
+		return "UID", binary.BigEndian.Uint32(uuid[0:4])
+	case 1:
+		return "UID", binary.BigEndian.Uint32(uuid[0:4])
+	default:
+		return "RID", binary.BigEndian.Uint32(uuid[0:4])
 	}
-	return uint32(uuid[8])<<8 | uint32(uuid[9])
 }
 func (uuid UUID) Sequence() int64 {
 	switch uuid.Version() {
