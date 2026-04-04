@@ -550,7 +550,7 @@ func Test_MarshalUnmarshalBinary(t *testing.T) {
 		}
 	})
 }
-func Test_MarshalUnmarshalJSON(t *testing.T) {
+func Test_MarshalUnmarshalJson(t *testing.T) {
 	tests := []struct {
 		name    string
 		u       UUID
@@ -566,41 +566,41 @@ func Test_MarshalUnmarshalJSON(t *testing.T) {
 		{
 			name:    "Valid UUID",
 			u:       testUUIDVUByte,
-			want:    testUUIDVUStringJSON,
+			want:    testUUIDVUJson,
 			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// MarshalJSON
-			jsonData, err := tt.u.MarshalJSON()
+			// MarshalJson
+			json, err := tt.u.MarshalJson()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("MarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if string(jsonData) != tt.want {
-				t.Errorf("MarshalJSON() = %s, want %s", jsonData, tt.want)
+			if string(json) != tt.want {
+				t.Errorf("MarshalJson() = %s, want %s", json, tt.want)
 			}
 			if tt.u.IsZero() {
 				return
 			}
-			// UnmarshalJSON
+			// UnmarshalJson
 			var u UUID
-			err = u.UnmarshalJSON(jsonData)
+			err = u.UnmarshalJson(json)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("UnmarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("UnmarshalJson() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if u != tt.u {
-				t.Errorf("UnmarshalJSON() = %v, want %v", u, tt.u)
+				t.Errorf("UnmarshalJson() = %v, want %v", u, tt.u)
 			}
 		})
 	}
 	t.Run("Invalid UUID", func(t *testing.T) {
 		var u UUID
-		err := u.UnmarshalJSON([]byte(`"invalid"`))
+		err := u.UnmarshalJson([]byte(`"invalid"`))
 		if err == nil {
-			t.Error("UnmarshalJSON() expected error, got nil")
+			t.Error("UnmarshalJson() expected error, got nil")
 		}
 	})
 }
@@ -614,13 +614,13 @@ func Test_MarshalUnmarshalText(t *testing.T) {
 		{
 			name:    "Nil UUID",
 			u:       NilUUIDByte,
-			want:    NilUUIDString,
+			want:    testUUIDVUText,
 			wantErr: false,
 		},
 		{
 			name:    "Valid UUID",
 			u:       testUUIDVUByte,
-			want:    testUUIDVUString,
+			want:    testUUIDVUText,
 			wantErr: false,
 		},
 	}
@@ -1363,8 +1363,9 @@ var (
 	testUUIDV8Byte               = [16]byte{0xaa, 0xbb, 0xcc, 0xdd, 0x11, 0x22, 0x83, 0x44, 0x95, 0x66, 0x4c, 0x84, 0xeb, 0x01, 0x58, 0x16}
 	testUUIDV8String             = "aabbccdd-1122-8344-9566-4c84eb015816"
 	testUUIDVUByte               = [16]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+	testUUIDVUJson               = `"01968727-8c7e-8000-87cb-bdba4f634d9f"`
 	testUUIDVUString             = "01968727-8c7e-8000-87cb-bdba4f634d9f"
-	testUUIDVUStringJSON         = `"01968727-8c7e-8000-87cb-bdba4f634d9f"`
+	testUUIDVUText               = "01968727-8c7e-8000-87cb-bdba4f634d9f"
 )
 
 // Приватные функции
