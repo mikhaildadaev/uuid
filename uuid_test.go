@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-// Tests
+// Тесты проверок копонентов
 func Test_Init(t *testing.T) {
 	initSync.Do(func() {
 		initError = initGlobal()

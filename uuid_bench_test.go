@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// Benchmarks
+// Бенчмарки компонентов
 func Benchmark_Parse(b *testing.B) {
 	UUID := testUUIDVUString
 	b.ResetTimer()

@@ -7,7 +7,7 @@ import (
 	"github.com/mikhaildadaev/uuid"
 )
 
-// Example functions
+// Примеры использования публичных функций
 func ExampleNull() {
 	u := uuid.Null()
 	fmt.Println(u.IsZero())
@@ -74,7 +74,7 @@ func ExampleV8() {
 	// 8
 }
 
-// Example methods
+// Примеры использования публичных методов
 func ExampleUUID_Bytes() {
 	u, err := uuid.Parse(uuidV8String)
 	if err != nil {

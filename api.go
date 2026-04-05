@@ -47,12 +47,12 @@ func V2(postype int) UUID {
 	// Проверка POSType (UID/GID и др.)
 	postype = max(0, min(postype, maxV2POSType))
 	// Извлечение POS-идентификатора
-	pi := getPOSID(postype)
+	pi := getPOSIX(postype)
 	// Получение MAC-адреса
 	mac := initMAC.Load().([6]byte)
 	// Установка рандомных данных
 	genRandCrypto(uuid[4:9])
-	// Установка POSID
+	// Установка POSIX
 	binary.BigEndian.PutUint32(uuid[0:4], pi)
 	// Установка версии UUID
 	uuid[6] = (uuid[6] & 0x0F) | bitV2
@@ -201,7 +201,7 @@ func (uuid UUID) Info() string {
 		info.WriteString(fmt.Sprintf("VAR.: %s\n", transformVariant(vt)))
 		info.WriteString(fmt.Sprintf("VER.: %d\n", vn))
 		info.WriteString("FORM: PPPPPPPP-RRRR-1RRR-VRXX-MMMMMMMMMMMM\n")
-		info.WriteString("INFO: POSID + RANDOM + POSTYPE + MAC\n")
+		info.WriteString("INFO: POSIX + RANDOM + POSTYPE + MAC\n")
 		info.WriteString(fmt.Sprintf("POS.: %d (%s)\n", psuint, psstr))
 		info.WriteString(fmt.Sprintf("RAND: %x\n", uuid[4:10]))
 		info.WriteString(fmt.Sprintf("MAC.: %02x:%02x:%02x:%02x:%02x:%02x\n", uuid[10], uuid[11], uuid[12], uuid[13], uuid[14], uuid[15]))

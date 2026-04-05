@@ -6,13 +6,13 @@
 
 # UUID Generator
 
-A high-performance, zero-allocation UUID library for Go supporting versions 1 through 8, NULL UUID, and full serialization (Binary, JSON, Text) with SQL database integration.
+A high-performance, zero-allocation UUID library for Go supporting versions 1 through 8, NULL UUID, and full serialization (Binary, Json, Text) with SQL database integration.
 
 ## Features
 
 - Generate UUIDv1..v8 and null UUID;
 - Parse and validate standard and null UUID;
-- Serialize and deserialize via binary/text/json;
+- Serialize and deserialize via Binary/Json/Text;
 - Extract metadata UUID;
 - Fast, allocator-free core routines;
 
@@ -56,16 +56,16 @@ go get github.com/mikhaildadaev/uuid
 - nulluuid.Validate()
 #### Marshal
 - uuid.MarshalBinary()
-- uuid.MarshalJSON()
+- uuid.MarshalJson()
 - uuid.MarshalText()
 - uuid.UnmarshalBinary(data)
-- uuid.UnmarshalJSON(data)
+- uuid.UnmarshalJson(data)
 - uuid.UnmarshalText(data)
 - nulluuid.MarshalBinary()
-- nulluuid.MarshalJSON()
+- nulluuid.MarshalJson()
 - nulluuid.MarshalText()
 - nulluuid.UnmarshalBinary(data)
-- nulluuid.UnmarshalJSON(data)
+- nulluuid.UnmarshalJson(data)
 - nulluuid.UnmarshalText(data)
 #### SQL
 - uuid.Scan(src)

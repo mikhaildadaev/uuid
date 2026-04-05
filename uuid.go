@@ -24,7 +24,7 @@ import (
 // Публичные константы
 const (
 	Author  = "Mikhail Dadaev"
-	Version = "1.26.4"
+	Version = "1.26.8"
 )
 
 // Публичные переменные
@@ -116,9 +116,8 @@ type version struct {
 
 // Приватные переменные
 var (
-	cacheGID atomic.Uint32
-	cacheUID atomic.Uint32
-
+	cacheGID      atomic.Uint32
+	cacheUID      atomic.Uint32
 	initCachePool = sync.Pool{
 		New: func() any {
 			return new([36]byte)
@@ -136,7 +135,6 @@ var (
 	}
 	initRandPos atomic.Uint32
 	initSync    sync.Once
-
 	hashMD5Pool = sync.Pool{
 		New: func() any {
 			return &struct {
@@ -153,7 +151,6 @@ var (
 			}{}
 		},
 	}
-
 	v1 = &version{
 		lastSequence: new(atomic.Uint32),
 		lastTime:     new(atomic.Uint64),
@@ -313,7 +310,7 @@ func getTimeNanoAndSequence(v string) (ts uint64, sq uint32) {
 		}
 	}
 }
-func getPOSID(p int) (pi uint32) {
+func getPOSIX(p int) (pi uint32) {
 	initSync.Do(func() {
 		initError = initGlobal()
 	})
@@ -331,7 +328,7 @@ func getPOSID(p int) (pi uint32) {
 }
 func initGlobal() error {
 	initMACAddress()
-	initPOSID()
+	initPOSIX()
 	initSequences()
 	return nil
 }
@@ -354,7 +351,7 @@ func initMACAddress() {
 	}
 	initMAC.Store(mac)
 }
-func initPOSID() {
+func initPOSIX() {
 	cacheGID.Store(uint32(os.Getgid()))
 	cacheUID.Store(uint32(os.Getuid()))
 }
