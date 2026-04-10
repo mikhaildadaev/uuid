@@ -24,7 +24,7 @@ import (
 // Публичные константы
 const (
 	Author  = "Mikhail Dadaev"
-	Version = "1.26.8"
+	Version = "1.26.9"
 )
 
 // Публичные переменные
@@ -109,6 +109,10 @@ const (
 )
 
 // Приватные типы
+type poolBuffer struct {
+	buf []byte
+	pos atomic.Uint32
+}
 type version struct {
 	lastSequence *atomic.Uint32
 	lastTime     *atomic.Uint64
@@ -130,10 +134,12 @@ var (
 		New: func() any {
 			buf := make([]byte, randbufSize)
 			_, _ = rand.Read(buf)
-			return &buf
+			return &poolBuffer{
+				buf: buf,
+				pos: atomic.Uint32{},
+			}
 		},
 	}
-	initRandPos atomic.Uint32
 	initSync    sync.Once
 	hashMD5Pool = sync.Pool{
 		New: func() any {
@@ -218,19 +224,19 @@ func genRandCrypto(b []byte) {
 		}
 		return
 	}
-	buf := initRandPool.Get().(*[]byte)
-	defer initRandPool.Put(buf)
+	poolBuffer := initRandPool.Get().(*poolBuffer)
+	defer initRandPool.Put(poolBuffer)
 	for {
-		pos := initRandPos.Load()
+		pos := poolBuffer.pos.Load()
 		if pos+uint32(len(b)) > randbufSize {
-			if _, err := rand.Read((*buf)); err != nil {
+			if _, err := rand.Read((poolBuffer.buf)); err != nil {
 				clear(b)
 			}
-			initRandPos.Store(0)
+			poolBuffer.pos.Store(0)
 			continue
 		}
-		if initRandPos.CompareAndSwap(pos, pos+uint32(len(b))) {
-			copy(b, (*buf)[pos:pos+uint32(len(b))])
+		if poolBuffer.pos.CompareAndSwap(pos, pos+uint32(len(b))) {
+			copy(b, poolBuffer.buf[pos:pos+uint32(len(b))])
 			return
 		}
 	}
