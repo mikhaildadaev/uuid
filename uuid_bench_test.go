@@ -26,54 +26,28 @@ func Benchmark_Time(b *testing.B) {
 		waitTime(time.Nanosecond * 100)
 	}
 }
-func Benchmark_UUIDs(b *testing.B) {
-	b.Run("v1 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V1()
-		}
-	})
-	b.Run("v2 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V2(testPOSType)
-		}
-	})
-	b.Run("v3 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V3(NameSpaceDNS, testNameString)
-		}
-	})
-	b.Run("v4 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V4()
-		}
-	})
-	b.Run("v5 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V5(NameSpaceDNS, testNameString)
-		}
-	})
-	b.Run("v6 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V6()
-		}
-	})
-	b.Run("v7 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V7()
-		}
-	})
-	b.Run("v8 UUID", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			_ = V8(testNodeID)
-		}
-	})
-}
 func Benchmark_Validate(b *testing.B) {
 	uuid, _ := Parse(testUUIDVUString)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_ = uuid.Validate()
 	}
+}
+func Benchmark_V1(b *testing.B) {
+	b.Run("Multi", func(b *testing.B) {
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				_ = V1()
+			}
+		})
+	})
+	b.Run("Single", func(b *testing.B) {
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			_ = V1()
+		}
+	})
 }
 func Benchmark_V1_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
@@ -112,19 +86,21 @@ func Benchmark_V1_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V1_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V1()
+func Benchmark_V2(b *testing.B) {
+	b.Run("Multi", func(b *testing.B) {
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				_ = V2(testPOSType)
+			}
+		})
+	})
+	b.Run("Single", func(b *testing.B) {
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			_ = V2(testPOSType)
 		}
 	})
-}
-func Benchmark_V1_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V1()
-	}
 }
 func Benchmark_V2_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
@@ -135,19 +111,21 @@ func Benchmark_V2_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V2_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V2(testPOSType)
+func Benchmark_V3(b *testing.B) {
+	b.Run("Multi", func(b *testing.B) {
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				_ = V3(NameSpaceDNS, testNameString)
+			}
+		})
+	})
+	b.Run("Single", func(b *testing.B) {
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			_ = V3(NameSpaceDNS, testNameString+strconv.Itoa(i))
 		}
 	})
-}
-func Benchmark_V2_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V2(testPOSType)
-	}
 }
 func Benchmark_V3_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
@@ -158,19 +136,21 @@ func Benchmark_V3_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V3_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V3(NameSpaceDNS, testNameString)
+func Benchmark_V4(b *testing.B) {
+	b.Run("Multi", func(b *testing.B) {
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				_ = V4()
+			}
+		})
+	})
+	b.Run("Single", func(b *testing.B) {
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			_ = V4()
 		}
 	})
-}
-func Benchmark_V3_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V3(NameSpaceDNS, testNameString+strconv.Itoa(i))
-	}
 }
 func Benchmark_V4_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
@@ -181,19 +161,21 @@ func Benchmark_V4_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V4_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V4()
+func Benchmark_V5(b *testing.B) {
+	b.Run("Multi", func(b *testing.B) {
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				_ = V5(NameSpaceDNS, testNameString)
+			}
+		})
+	})
+	b.Run("Single", func(b *testing.B) {
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			_ = V5(NameSpaceDNS, testNameString+strconv.Itoa(i))
 		}
 	})
-}
-func Benchmark_V4_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V4()
-	}
 }
 func Benchmark_V5_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
@@ -204,19 +186,21 @@ func Benchmark_V5_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V5_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V5(NameSpaceDNS, testNameString)
+func Benchmark_V6(b *testing.B) {
+	b.Run("Multi", func(b *testing.B) {
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				_ = V6()
+			}
+		})
+	})
+	b.Run("Single", func(b *testing.B) {
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			_ = V6()
 		}
 	})
-}
-func Benchmark_V5_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V5(NameSpaceDNS, testNameString+strconv.Itoa(i))
-	}
 }
 func Benchmark_V6_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
@@ -255,19 +239,21 @@ func Benchmark_V6_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V6_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V6()
+func Benchmark_V7(b *testing.B) {
+	b.Run("Multi", func(b *testing.B) {
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				_ = V7()
+			}
+		})
+	})
+	b.Run("Single", func(b *testing.B) {
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			_ = V7()
 		}
 	})
-}
-func Benchmark_V6_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V6()
-	}
 }
 func Benchmark_V7_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
@@ -306,19 +292,21 @@ func Benchmark_V7_Info(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V7_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V7()
+func Benchmark_V8(b *testing.B) {
+	b.Run("Multi", func(b *testing.B) {
+		b.ResetTimer()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				_ = V8(testNodeID)
+			}
+		})
+	})
+	b.Run("Single", func(b *testing.B) {
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			_ = V8(testNodeID)
 		}
 	})
-}
-func Benchmark_V7_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V7()
-	}
 }
 func Benchmark_V8_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
@@ -356,18 +344,4 @@ func Benchmark_V8_Info(b *testing.B) {
 			b.Logf("UUIDv8-%d: %s", i, ui)
 		}
 	})
-}
-func Benchmark_V8_Multi(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = V8(testNodeID)
-		}
-	})
-}
-func Benchmark_v8_Single(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = V8(testNodeID)
-	}
 }
