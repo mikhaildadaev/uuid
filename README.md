@@ -104,8 +104,8 @@ go get github.com/mikhaildadaev/uuid
 > **Note:**
 > - All benchmarks measure pure generation and parsing overhead.
 > - Zero allocations (`0 B/op`, `0 allocs/op`) indicate that no heap memory is allocated during hot-path operations.
-> - Real-world performance may vary based on CPU frequency, memory latency, and concurrency level.
 > - The `Info` benchmarks (e.g., `Benchmark_VX_Info`) include logging of generated UUIDs via `b.Logf`, which adds measurable overhead and is primarily used for debugging and validation, not for performance comparisons.
+> - Real-world performance may vary based on CPU frequency, memory latency, and concurrency level.
 > - *Benchmarked on Intel Core i9-9880H (2.30 GHz)*
 
 ## Usage
