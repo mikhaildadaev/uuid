@@ -92,6 +92,7 @@ const (
 	bitVRFC4122      = 0x80
 	bitVMS           = 0xC0
 	bitVReserved     = 0xE0
+	bufSize          = 512
 	hexTable         = "0123456789abcdef"
 	maxV1Sequence    = 0x3FFF
 	maxV2POSType     = 0xFF
@@ -100,7 +101,6 @@ const (
 	maxV8NodeID      = 0x3FFF
 	maxV8Sequence    = 0xFFF
 	offsetTime       = 0x01B21DD213814000
-	randbufSize      = 512
 	variantInvalid   = -1
 	variantNCS       = 0
 	variantRFC4122   = 1
@@ -132,7 +132,7 @@ var (
 	initMAC      atomic.Value
 	initRandPool = sync.Pool{
 		New: func() any {
-			buf := make([]byte, randbufSize)
+			buf := make([]byte, bufSize)
 			_, _ = rand.Read(buf)
 			return &poolBuffer{
 				buf: buf,
@@ -218,7 +218,7 @@ func genRandCrypto(b []byte) {
 	if len(b) == 0 {
 		return
 	}
-	if len(b) > randbufSize {
+	if len(b) > bufSize {
 		if _, err := rand.Read(b); err != nil {
 			clear(b)
 		}
@@ -228,7 +228,7 @@ func genRandCrypto(b []byte) {
 	defer initRandPool.Put(poolBuffer)
 	for {
 		pos := poolBuffer.pos.Load()
-		if pos+uint32(len(b)) > randbufSize {
+		if pos+uint32(len(b)) > bufSize {
 			if _, err := rand.Read((poolBuffer.buf)); err != nil {
 				clear(b)
 			}
