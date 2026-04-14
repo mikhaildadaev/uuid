@@ -24,7 +24,7 @@ import (
 // Публичные константы
 const (
 	Author  = "Mikhail Dadaev"
-	Version = "1.26.9"
+	Version = "1.26.10"
 )
 
 // Публичные переменные
