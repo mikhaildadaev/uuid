@@ -103,7 +103,7 @@ go get github.com/mikhaildadaev/uuid
 
 > **Note:**
 > - All benchmarks measure pure generation and parsing overhead.
-> - Zero allocations (`0 B/op`, `0 allocs/op`) indicate that no heap memory is allocated during hot-path operations.
+> - Zero allocations (`0 B/op`, `0 allocs/op`) indicate that no heap memory is allocated during hot-path operations. The 7 B/op in single-threaded V3/V5 benchmarks is an artifact of the Go testing framework's string allocation for the benchmark loop itself, not an allocation within the UUID generation hot path. This is confirmed by `0 allocs/op` and the absence of this memory in multi-threaded benchmarks.
 > - The `Info` benchmarks (e.g., `Benchmark_VX_Info`) include logging of generated UUIDs via `b.Logf`, which adds measurable overhead and is primarily used for debugging and validation, not for performance comparisons.
 > - Real-world performance may vary based on CPU frequency, memory latency, and concurrency level.
 > - *Benchmarked on Intel Core i9-9880H (2.30 GHz)*
