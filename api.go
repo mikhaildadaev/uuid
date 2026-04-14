@@ -42,12 +42,12 @@ func V1() UUID {
 	copy(uuid[10:16], mac[:])
 	return uuid
 }
-func V2(postype int) UUID {
+func V2(posType int) UUID {
 	var uuid UUID
 	// Проверка POSType (UID/GID и др.)
-	postype = max(0, min(postype, maxV2POSType))
+	posType = max(0, min(posType, maxV2POSType))
 	// Извлечение POS-идентификатора
-	pi := getPOSIX(postype)
+	pi := getPOSIX(posType)
 	// Получение MAC-адреса
 	mac := initMAC.Load().([6]byte)
 	// Установка рандомных данных
@@ -59,25 +59,26 @@ func V2(postype int) UUID {
 	// Установка варианта RFC 4122
 	uuid[8] = (uuid[8] & 0x3F) | bitVRFC4122
 	// Установка POSTypeID
-	uuid[9] = uint8(postype & 0x03)
+	uuid[9] = uint8(posType & 0x03)
 	// Установка MAC-адреса
 	copy(uuid[10:16], mac[:])
 	return uuid
 }
-func V3(namespace UUID, nameline string) UUID {
+func V3(nameSpace UUID, nameString string) UUID {
 	var uuid UUID
 	var hashBufPool = hashMD5Pool.Get().(*struct {
-		buf  [md5.Size + 36]byte
+		buf  [md5.Size + bufSize]byte
 		hash [md5.Size]byte
 	})
 	defer hashMD5Pool.Put(hashBufPool)
-	// Формирование данных и хеша
-	if len(nameline) == 0 || len(nameline) > 36 {
-		nameline = "default_nameline"
+	// Проверка nameString
+	if len(nameString) == 0 || len(nameString) > bufSize {
+		return NullUUIDBinary
 	}
+	// Формирование данных и хеша
 	buf := hashBufPool.buf[:0]
-	buf = append(buf, namespace[:]...)
-	buf = append(buf, nameline...)
+	buf = append(buf, nameSpace[:]...)
+	buf = append(buf, nameString...)
 	hash := md5.Sum(buf)
 	// Установка хеша
 	copy(uuid[:], hash[:])
@@ -97,20 +98,21 @@ func V4() UUID {
 	uuid[8] = (uuid[8] & 0x3F) | bitVRFC4122
 	return uuid
 }
-func V5(namespace UUID, nameline string) UUID {
+func V5(nameSpace UUID, nameString string) UUID {
 	var uuid UUID
 	var hashBufPool = hashSHA1Pool.Get().(*struct {
-		buf  [sha1.Size + 36]byte
+		buf  [sha1.Size + bufSize]byte
 		hash [sha1.Size]byte
 	})
 	defer hashSHA1Pool.Put(hashBufPool)
-	// Формирование данных и хеша
-	if len(nameline) == 0 || len(nameline) > 36 {
-		nameline = "default_nameline"
+	// Проверка nameString
+	if len(nameString) == 0 || len(nameString) > bufSize {
+		return NullUUIDBinary
 	}
+	// Формирование данных и хеша
 	buf := hashBufPool.buf[:0]
-	buf = append(buf, namespace[:]...)
-	buf = append(buf, nameline...)
+	buf = append(buf, nameSpace[:]...)
+	buf = append(buf, nameString...)
 	hash := sha1.Sum(buf)
 	// Установка хеша
 	copy(uuid[:], hash[:])
@@ -150,12 +152,12 @@ func V7() UUID {
 	uuid[8] = (uuid[8]&0x3F | bitVRFC4122)
 	return uuid
 }
-func V8(nodeid int) UUID {
+func V8(nodeID int) UUID {
 	var uuid UUID
 	// Получение временной метки и последовательности
 	ts, sq := getTimeMilliAndSequence("v8")
 	// Получение идентификатора ноды
-	nodeid = max(0, min(nodeid, maxV8NodeID))
+	nodeID = max(0, min(nodeID, maxV8NodeID))
 	// Установка рандомных данных
 	genRandCrypto(uuid[10:])
 	// Установка временной метки
@@ -163,7 +165,7 @@ func V8(nodeid int) UUID {
 	// Установка последовательности и версии UUID
 	binary.BigEndian.PutUint16(uuid[6:8], uint16(sq)&maxV8Sequence|bitV8<<8)
 	// Установка идентификатора ноды и варианта RFC 4122
-	binary.BigEndian.PutUint16(uuid[8:10], uint16(nodeid)&maxV8NodeID|bitVRFC4122<<8)
+	binary.BigEndian.PutUint16(uuid[8:10], uint16(nodeID)&maxV8NodeID|bitVRFC4122<<8)
 	return uuid
 }
 

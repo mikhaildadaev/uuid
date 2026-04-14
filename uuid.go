@@ -144,7 +144,7 @@ var (
 	hashMD5Pool = sync.Pool{
 		New: func() any {
 			return &struct {
-				buf  [md5.Size + 36]byte
+				buf  [md5.Size + bufSize]byte
 				hash [md5.Size]byte
 			}{}
 		},
@@ -152,7 +152,7 @@ var (
 	hashSHA1Pool = sync.Pool{
 		New: func() any {
 			return &struct {
-				buf  [sha1.Size + 36]byte
+				buf  [sha1.Size + bufSize]byte
 				hash [sha1.Size]byte
 			}{}
 		},
