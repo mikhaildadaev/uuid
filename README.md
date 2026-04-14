@@ -156,8 +156,8 @@ func main() {
 
 - V2: `posix` should be 0..255;
 - V3/V5: `name` should be `1..512` symbols (byte length). 
-> **Note:** Strings exceeding 512 bytes will return a Nil UUID to prevent allocation.*
 - V8: `node` should be 0..16383;
+> **Note:** Strings exceeding 512 bytes will return a Nil UUID to prevent allocation.
 
 ## Tests and Benchmarks
 
