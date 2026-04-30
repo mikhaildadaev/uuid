@@ -28,13 +28,9 @@ const (
 
 // Публичные переменные
 var (
-	ErrInvalidNameLine     = errors.New("invalid nameline")
-	ErrInvalidNameSpase    = errors.New("invalid namespace")
 	ErrInvalidUUIDLength   = errors.New("invalid UUID length")
 	ErrInvalidUUIDMAC      = errors.New("invalid UUID mac")
-	ErrInvalidUUIDNode     = errors.New("invalid UUID node")
 	ErrInvalidUUIDPOSIX    = errors.New("invalid UUID posix")
-	ErrInvalidUUIDPosType  = errors.New("invalid UUID postype")
 	ErrInvalidUUIDString   = errors.New("invalid UUID string")
 	ErrInvalidUUIDVariant  = errors.New("invalid UUID variant")
 	ErrInvalidUUIDVersion  = errors.New("invalid UUID version")
