@@ -69,6 +69,44 @@ go test -race ./...
 > - Real-world performance may vary based on CPU frequency, memory latency, and concurrency level.
 > - *Benchmarked on Intel Core i9-9880H (2.30 GHz)*
 
+## Usage
+```go
+import (
+    "fmt"
+    "log"
+    "github.com/mikhaildadaev/uuid"
+)
+func main() {
+    name := "github.com/mikhaildadaev/uuid"
+    node := 1995
+    posix := 0
+    uid := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+    fmt.Println(uuid.V1())
+    fmt.Println(uuid.V2(posix))
+    fmt.Println(uuid.V3(uuid.NameSpaceURL,name))
+    fmt.Println(uuid.V4())
+    fmt.Println(uuid.V5(uuid.NameSpaceURL,name))
+    fmt.Println(uuid.V6())
+    fmt.Println(uuid.V7())
+    fmt.Println(uuid.V8(node))
+    parsed, err := uuid.Parse(uid)
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println("Parsed:", parsed)
+    fmt.Println("Is zero:", parsed.IsZero())
+    var nu uuid.NullUUID
+    if err := nu.Scan(nil); err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println("NULL valid:", nu.Valid)
+    if err := nu.Scan(uid); err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println("UUID valid:", nu.Valid)
+}
+```
+
 ## Quick API
 
 ### Functions
@@ -117,41 +155,3 @@ go test -race ./...
 - uuid.Value()
 - nulluuid.Scan(src)
 - nulluuid.Value()
-
-## Usage
-```go
-import (
-    "fmt"
-    "log"
-    "github.com/mikhaildadaev/uuid"
-)
-func main() {
-    name := "github.com/mikhaildadaev/uuid"
-    node := 1995
-    posix := 0
-    uid := "01968727-8c7e-8000-87cb-bdba4f634d9f"
-    fmt.Println(uuid.V1())
-    fmt.Println(uuid.V2(posix))
-    fmt.Println(uuid.V3(uuid.NameSpaceURL,name))
-    fmt.Println(uuid.V4())
-    fmt.Println(uuid.V5(uuid.NameSpaceURL,name))
-    fmt.Println(uuid.V6())
-    fmt.Println(uuid.V7())
-    fmt.Println(uuid.V8(node))
-    parsed, err := uuid.Parse(uid)
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Println("Parsed:", parsed)
-    fmt.Println("Is zero:", parsed.IsZero())
-    var nu uuid.NullUUID
-    if err := nu.Scan(nil); err != nil {
-        log.Fatal(err)
-    }
-    fmt.Println("NULL valid:", nu.Valid)
-    if err := nu.Scan(uid); err != nil {
-        log.Fatal(err)
-    }
-    fmt.Println("UUID valid:", nu.Valid)
-}
-```
