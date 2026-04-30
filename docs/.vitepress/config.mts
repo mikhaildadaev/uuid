@@ -13,7 +13,7 @@ export default defineConfig({
       label: 'English',
       lang: 'en',
       link: '/en/',
-      title: 'uuid',
+      title: 'UUID',
       themeConfig: {
         nav: [
           { 
@@ -113,7 +113,7 @@ export default defineConfig({
       label: 'Русский',
       lang: 'ru',
       link: '/ru/',
-      title: 'uuid',
+      title: 'UUID',
       themeConfig: {
         nav: [
           { 
@@ -207,7 +207,7 @@ export default defineConfig({
       label: '简体中文',
       lang: 'zh',
       link: '/zh/',
-      title: 'uuid',
+      title: 'UUID',
       themeConfig: {
         nav: [
           { 
