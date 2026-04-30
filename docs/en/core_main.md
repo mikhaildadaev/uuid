@@ -4,8 +4,8 @@ outline: deep
 
 # API / Core / Main
 
-::: info Info
-...
+::: warning Warn
+This page is under development
 :::
 
 ## NewV1

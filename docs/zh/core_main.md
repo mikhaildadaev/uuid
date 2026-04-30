@@ -4,8 +4,8 @@ outline: deep
 
 # API / 核心 / 主要
 
-::: info 关于
-...
+::: warning 警告
+本页正在开发中
 :::
 
 ## NewV1

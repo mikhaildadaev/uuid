@@ -4,8 +4,8 @@ outline: deep
 
 # API / Marshal / Основное
 
-::: info Информация
-...
+::: warning Предупреждение
+Эта страница находится в стадии разработки
 :::
 
 ## MarshalBinary
