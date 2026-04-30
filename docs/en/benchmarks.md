@@ -10,76 +10,34 @@ I recommend that you test `ulog` alongside other libraries and choose the tool t
 :::
 
 ## Core Performance
-These benchmarks measure the **cost of formatting and extracting context** by writing to `io.Discard`.
+Pure generation and serialization overhead. Benchmarks write to `io.Discard` — no I/O involved.
 
-### MultiThread
-| Mode  | Level                | Operations | Time (ns/op) | Memory (B/op) | Allocs |
-|-------|----------------------|------------|--------------|---------------|--------|
-| Async | **DebugWithContext** |       5.8M |        180.7 |           536 |      3 |
-| Async | **ErrorWithContext** |       2.0M |        578.3 |          1922 |      6 |
-| Async | **InfoWithContext**  |       2.3M |        555.9 |          1922 |      6 |
-| Async | **WarnWithContext**  |       2.4M |        470.7 |          1922 |      6 |
-| Sync  | **DebugWithContext** |       6.3M |        203.3 |           536 |      3 |
-| Sync  | **ErrorWithContext** |       3.2M |        372.1 |          1794 |      5 |
-| Sync  | **InfoWithContext**  |       3.7M |        326.7 |          1794 |      5 |
-| Sync  | **WarnWithContext**  |       4.0M |        299.9 |          1794 |      5 |
+#### MultiThread
+| Version | Operations | Time (ns/op) | Memory (B/op) | Allocs |
+|---------|------------|--------------|---------------|--------|
+| **V1**  |      34.1M |        29.29 |             0 |      0 |
+| **V2**  |      59.6M |        16.79 |             0 |      0 |
+| **V3**  |      84.7M |        11.81 |             0 |      0 |
+| **V4**  |      18.9M |        52.88 |             0 |      0 |
+| **V5**  |      51.2M |        19.51 |             0 |      0 |
+| **V6**  |      32.5M |        30.75 |             0 |      0 |
+| **V7**  |      22.5M |        44.45 |             0 |      0 |
+| **V8**  |      32.0M |        31.21 |             0 |      0 |
 
-### SingleThread
-| Mode  | Level                | Operations | Time (ns/op) | Memory (B/op) | Allocs |
-|-------|----------------------|------------|--------------|---------------|--------|
-| Async | **DebugWithContext** |       2.1M |        567.1 |           536 |      3 |
-| Async | **ErrorWithContext** |       1.0M |         1045 |          1922 |      6 |
-| Async | **InfoWithContext**  |       1.0M |         1006 |          1922 |      6 |
-| Async | **WarnWithContext**  |       1.2M |        953.6 |          1922 |      6 |
-| Sync  | **DebugWithContext** |       2.1M |        562.6 |           536 |      3 |
-| Sync  | **ErrorWithContext** |       1.4M |        875.1 |          1794 |      5 |
-| Sync  | **InfoWithContext**  |       1.5M |        810.0 |          1794 |      5 |
-| Sync  | **WarnWithContext**  |       1.5M |        790.5 |          1794 |      5 |
-
-::: tip Note
-Uses `WithExtractor("node_id", "trace_id")` to automatically extract from context. All tests write to `io.Discard` (equivalent to `/dev/null` on Unix or `NUL` on Windows). This measures only the logging overhead (field formatting, JSON encoding, context extraction) without disk or network I/O. Real-world performance will depend on your output destination (file, network, etc.). 
-
-*Benchmarked on Intel Core i9-9880H (2.30 GHz).*
-:::
-
-## SinkFile Performance
-Benchmark data writes structured JSON logs to a **real file** with **atomic rotation** enabled.
-
-### MultiThread
-| Mode  | Level                | Operations | Time (ns/op) | Memory (B/op) | Allocs |
-|-------|----------------------|------------|--------------|---------------|--------|
-| Async | **AllSupportLevels** |     999.9K |        6,900 |          1962 |      6 |
-| Sync  | **AllSupportLevels** |     152.7K |        7,800 |          1801 |      5 |
-
-### SingleThread
-| Mode  | Level                | Operations | Time (ns/op) | Memory (B/op) | Allocs |
-|-------|----------------------|------------|--------------|---------------|--------|
-| Async | **AllSupportLevels** |     969.7K |        6,000 |          1962 |      6 |
-| Sync  | **AllSupportLevels** |     234.4K |        5,500 |          1798 |      5 |
+#### SingleThread
+| Version | Operations | Time (ns/op) | Memory (B/op) | Allocs |
+|---------|------------|--------------|---------------|--------|
+| **V1**  |      13.5M |        85.46 |             0 |      0 |
+| **V2**  |      32.1M |        36.61 |             0 |      0 |
+| **V3**  |       9.9M |       117.30 |             7 |      0 |
+| **V4**  |      26.7M |        44.28 |             0 |      0 |
+| **V5**  |       7.7M |       152.60 |             7 |      0 |
+| **V6**  |      13.7M |        85.78 |             0 |      0 |
+| **V7**  |      10.7M |       109.50 |             0 |      0 |
+| **V8**  |      10.2M |       109.10 |             0 |      0 |
 
 ::: tip Note
-Uses `WithExtractor("node_id", "trace_id")` to automatically extract from context. Writes structured JSON logs to a **real file** with **atomic rotation** enabled (`WithFileMaxSize(15)`). Includes full overhead: JSON formatting, context extraction, file I/O, and non-blocking rotation checks. 
-
-*Benchmarked on Intel Core i9-9880H (2.30 GHz).*
-:::
-
-## SinkHttp Performance
-Benchmark data that measures the internal costs of the `ulog` HTTP receiver using `httptest.Server` without network latency.
-
-### MultiThread
-| Mode  | Level                | Operations | Time (ns/op) | Memory (B/op) | Allocs |
-|-------|----------------------|------------|--------------|---------------|--------|
-| Async | **AllSupportLevels** |     999.9K |       27,000 |         8,400 |     82 |
-| Sync  | **AllSupportLevels** |      45.4K |       26,400 |         9,100 |     89 |
-
-### SingleThread
-| Mode  | Level                | Operations | Time (ns/op) | Memory (B/op) | Allocs |
-|-------|----------------------|------------|--------------|---------------|--------|
-| Async | **AllSupportLevels** |     555.2K |       42,100 |         9,100 |     82 |
-| Sync  | **AllSupportLevels** |      13.6K |       82,500 |         9,400 |     85 |
-
-::: tip Note
-Uses `httptest.Server` to simulate HTTP endpoint. Measures full overhead: JSON formatting, context extraction, HTTP request/response. In a real environment, the delay is mainly determined by network I/O (usually 10-100 times higher). These numbers only reflect the internal costs of `ulog`. *Multi* benchmarks use `b.RunParallel` to simulate real-world concurrent load. 
+All benchmarks measure pure generation and parsing overhead. Benchmarks marked as zero-allocation (`0 B/op`, `0 allocs/op`) perform no heap allocations in hot-path operations — minor artifacts in single-threaded V3/V5 are from the Go testing framework itself, not from UUID generation. Real-world performance depends on CPU, memory latency, and concurrency.
 
 *Benchmarked on Intel Core i9-9880H (2.30 GHz).*
 :::
