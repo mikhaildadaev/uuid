@@ -54,28 +54,28 @@ go test -race ./...
 Pure generation and serialization overhead. Benchmarks write to `io.Discard` — no I/O involved.
 
 #### MultiThread
-|  Version | Operations | Time (ns/op) | Memory (B/op) | Allocs (allocs/op) |
-|----------|------------|--------------|---------------|--------------------|
-|  **V1**  |      34.1M |        29.29 |             0 |                  0 |
-|  **V2**  |      59.6M |        16.79 |             0 |                  0 |
-|  **V3**  |      84.7M |        11.81 |             0 |                  0 |
-|  **V4**  |      18.9M |        52.88 |             0 |                  0 |
-|  **V5**  |      51.2M |        19.51 |             0 |                  0 |
-|  **V6**  |      32.5M |        30.75 |             0 |                  0 |
-|  **V7**  |      22.5M |        44.45 |             0 |                  0 |
-|  **V8**  |      32.0M |        31.21 |             0 |                  0 |
+| Version | Operations | Time (ns/op) | Memory (B/op) | Allocs (allocs/op) |
+|---------|------------|--------------|---------------|--------------------|
+| **V1**  |      34.1M |        29.29 |             0 |                  0 |
+| **V2**  |      59.6M |        16.79 |             0 |                  0 |
+| **V3**  |      84.7M |        11.81 |             0 |                  0 |
+| **V4**  |      18.9M |        52.88 |             0 |                  0 |
+| **V5**  |      51.2M |        19.51 |             0 |                  0 |
+| **V6**  |      32.5M |        30.75 |             0 |                  0 |
+| **V7**  |      22.5M |        44.45 |             0 |                  0 |
+| **V8**  |      32.0M |        31.21 |             0 |                  0 |
 
 #### SingleThread
-|  Version | Operations | Time (ns/op) | Memory (B/op) | Allocs (allocs/op) |
-|----------|------------|--------------|---------------|--------------------|
-|  **V1**  |      13.5M |        85.46 |             0 |                  0 |
-|  **V2**  |      32.1M |        36.61 |             0 |                  0 |
-|  **V3**  |       9.9M |       117.30 |             7 |                  0 |
-|  **V4**  |      26.7M |        44.28 |             0 |                  0 |
-|  **V5**  |       7.7M |       152.60 |             7 |                  0 |
-|  **V6**  |      13.7M |        85.78 |             0 |                  0 |
-|  **V7**  |      10.7M |       109.50 |             0 |                  0 |
-|  **V8**  |      10.2M |       109.10 |             0 |                  0 |
+| Version | Operations | Time (ns/op) | Memory (B/op) | Allocs (allocs/op) |
+|---------|------------|--------------|---------------|--------------------|
+| **V1**  |      13.5M |        85.46 |             0 |                  0 |
+| **V2**  |      32.1M |        36.61 |             0 |                  0 |
+| **V3**  |       9.9M |       117.30 |             7 |                  0 |
+| **V4**  |      26.7M |        44.28 |             0 |                  0 |
+| **V5**  |       7.7M |       152.60 |             7 |                  0 |
+| **V6**  |      13.7M |        85.78 |             0 |                  0 |
+| **V7**  |      10.7M |       109.50 |             0 |                  0 |
+| **V8**  |      10.2M |       109.10 |             0 |                  0 |
 
 > **Note**
 > 
@@ -95,14 +95,14 @@ func main() {
     node := 1995
     posix := 0
     uid := "01968727-8c7e-8000-87cb-bdba4f634d9f"
-    fmt.Println(uuid.V1())
-    fmt.Println(uuid.V2(posix))
-    fmt.Println(uuid.V3(uuid.NameSpaceURL,name))
-    fmt.Println(uuid.V4())
-    fmt.Println(uuid.V5(uuid.NameSpaceURL,name))
-    fmt.Println(uuid.V6())
-    fmt.Println(uuid.V7())
-    fmt.Println(uuid.V8(node))
+    fmt.Println(uuid.NewV1())
+    fmt.Println(uuid.NewV2(posix))
+    fmt.Println(uuid.NewV3(uuid.NameSpaceURL,name))
+    fmt.Println(uuid.NewV4())
+    fmt.Println(uuid.NewV5(uuid.NameSpaceURL,name))
+    fmt.Println(uuid.NewV6())
+    fmt.Println(uuid.NewV7())
+    fmt.Println(uuid.NewV8(node))
     parsed, err := uuid.Parse(uid)
     if err != nil {
         log.Fatal(err)
@@ -126,13 +126,13 @@ func main() {
 ### Functions
 - uuid.Null()
 - uuid.Parse(uuid)
-- uuid.V1()
-- uuid.V2(posix)
-- uuid.V3(namespace, name)
-- uuid.V4()
-- uuid.V5(namespace, name)
-- uuid.V6()
-- uuid.V7()
+- uuid.NewV1()
+- uuid.NewV2(posix)
+- uuid.NewV3(namespace, name)
+- uuid.NewV4()
+- uuid.NewV5(namespace, name)
+- uuid.NewV6()
+- uuid.NewV7()
 - uuid.V8(node)
 
 ### Methods
