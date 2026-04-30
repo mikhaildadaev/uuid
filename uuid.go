@@ -332,7 +332,7 @@ func initPOSIX() {
 func initSequences() {
 	buf := make([]byte, 4*4)
 	if _, err := rand.Read(buf); err != nil {
-		clear(buf)
+		fallbackSeed(buf)
 	}
 	v1.lastSequence.Store(binary.BigEndian.Uint32(buf[0:4]) % (maxV1Sequence + 1))
 	v6.lastSequence.Store(binary.BigEndian.Uint32(buf[4:8]) % (maxV6Sequence + 1))
