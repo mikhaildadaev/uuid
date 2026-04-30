@@ -6,7 +6,7 @@ hero:
   actions:
     - theme: brand
       text: 开始使用
-      link: /zh/go#get-started
+      link: /zh/go
 features:
   - title: 所有版本
     details: 支持 UUID 1 至 8 版本。基于时间、名称、随机和自定义 — 一个库包含所有标准 UUID 版本。

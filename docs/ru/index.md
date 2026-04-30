@@ -6,7 +6,7 @@ hero:
   actions:
     - theme: brand
       text: Начать использование
-      link: /ru/go#get-started
+      link: /ru/go
 features:
   - title: Все версии
     details: Поддержка UUID версий с 1 по 8. Основанные на времени, имени, случайные и пользовательские — все стандартные версии UUID в одной библиотеке.

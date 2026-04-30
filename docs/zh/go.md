@@ -8,7 +8,6 @@ outline: deep
 `uuid` 的最新稳定版本是 **v1.26.11**.
 :::
 
-## Get Started
 ```bash
 go get github.com/mikhaildadaev/uuid
 ```

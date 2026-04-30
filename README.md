@@ -14,7 +14,6 @@ A high-performance, zero-allocation platform for UUID versions 1-8.
 > 
 > The latest stable version of `uuid` is **v1.26.11**.
 
-### Get Started
 ```bash
 go get github.com/mikhaildadaev/uuid
 ```

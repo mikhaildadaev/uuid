@@ -6,7 +6,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /en/go#get-started
+      link: /en/go
 features:
   - title: All Versions
     details: Support for UUID versions 1 through 8. Time-based, name-based, random, and custom — every standard UUID version in one library.
