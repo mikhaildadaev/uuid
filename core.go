@@ -28,9 +28,6 @@ const (
 
 // Публичные переменные
 var (
-	ErrFailedCryptoRand    = errors.New("failed crypto/rand")
-	ErrFailedGenMAC        = errors.New("failed gen/mac")
-	ErrFailedGenSequences  = errors.New("failed gen/sequences")
 	ErrInvalidNameLine     = errors.New("invalid nameline")
 	ErrInvalidNameSpase    = errors.New("invalid namespace")
 	ErrInvalidUUIDLength   = errors.New("invalid UUID length")
