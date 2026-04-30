@@ -6,7 +6,7 @@
 
 # UUID
 
-A high-performance, zero-allocation UUID library for Go supporting versions 1 through 8, NULL UUID, and full serialization (Binary, Json, Text) with SQL database integration.
+A high-performance, zero-allocation platform for UUID versions 1-8.
 
 ## Get Started
 ```bash
