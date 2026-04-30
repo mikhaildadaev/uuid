@@ -20,11 +20,11 @@ func (uuid *UUID) MarshalJson() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	json := make([]byte, 1, 38)
-	json[0] = '"'
-	json = append(json, text...)
-	json = append(json, '"')
-	return json, nil
+	buf := make([]byte, 1, 38)
+	buf[0] = '"'
+	buf = append(buf, text...)
+	buf = append(buf, '"')
+	return buf, nil
 }
 func (uuid *UUID) MarshalText() ([]byte, error) {
 	if uuid.IsZero() {
