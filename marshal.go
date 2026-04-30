@@ -96,7 +96,14 @@ func (nulluuid NullUUID) MarshalJson() ([]byte, error) {
 	if !nulluuid.Valid {
 		return []byte("null"), nil
 	}
-	return json.Marshal(nulluuid.UUID.String())
+	buf := initCachePool.Get().(*[36]byte)
+	defer initCachePool.Put(buf)
+	encodeHex(buf[:], nulluuid.UUID)
+	out := make([]byte, 38)
+	out[0] = '"'
+	copy(out[1:], buf[:])
+	out[37] = '"'
+	return out, nil
 }
 func (nulluuid NullUUID) MarshalText() ([]byte, error) {
 	if !nulluuid.Valid {
