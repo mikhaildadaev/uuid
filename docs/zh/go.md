@@ -42,8 +42,8 @@ go test -race ./...
 - [基准测试](/en/benchmarks) - 核心、文件和网络的性能数据。
 - **API**
     - **核心**
-        - [主要](/en/core_main) — 遥测设置、配置和标准日志适配器。
+        - [主要](/en/core_main) — 。。。。
     - **Marshal**
-        - [主要](/en/marshal_main) — 创建文件接收器和基本设置。
+        - [主要](/en/marshal_main) — 。。。。
     - **SQL**
-        - [主要](/en/sql_main) — 创建 HTTP 接收器和基本设置。
+        - [主要](/en/sql_main) — 。。。。
