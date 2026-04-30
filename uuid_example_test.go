@@ -8,22 +8,13 @@ import (
 )
 
 // Примеры использования публичных функций
-func ExampleNull() {
-	u := uuid.Null()
+func ExampleNewNull() {
+	u := uuid.NewNull()
 	fmt.Println(u.IsZero())
 	fmt.Println(u.String())
 	// Output:
 	// true
 	// 00000000-0000-0000-0000-000000000000
-}
-func ExampleParse() {
-	u, err := uuid.Parse(uuidV8String)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(u.IsZero())
-	// Output:
-	// false
 }
 func ExampleNewV1() {
 	u1 := uuid.NewV1()
@@ -72,6 +63,15 @@ func ExampleNewV8() {
 	fmt.Println(u8.Version())
 	// Output:
 	// 8
+}
+func ExampleParse() {
+	u, err := uuid.Parse(uuidV8String)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(u.IsZero())
+	// Output:
+	// false
 }
 
 // Примеры использования публичных методов

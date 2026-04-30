@@ -11,42 +11,19 @@ import (
 )
 
 // Тесты проверок копонентов
-func Test_Init(t *testing.T) {
-	initSync.Do(func() {
-		initError = initGlobal()
-	})
-	if initError != nil {
-		t.Error("Invalid initial global state")
-	}
-	if initMAC.Load().([6]byte) == [6]byte{} {
-		t.Error("MAC address was not initialized")
-	}
-	if sq1 := v1.lastSequence.Load(); sq1 > maxV1Sequence {
-		t.Errorf("Invalid initial v1 sequence: %d", sq1)
-	}
-	if sq6 := v6.lastSequence.Load(); sq6 > maxV6Sequence {
-		t.Errorf("Invalid initial v6 sequence: %d", sq6)
-	}
-	if sq7 := v7.lastSequence.Load(); sq7 > maxV7Sequence {
-		t.Errorf("Invalid initial v1 sequence: %d", sq7)
-	}
-	if sq8 := v8.lastSequence.Load(); sq8 > maxV8Sequence {
-		t.Errorf("Invalid initial v6 sequence: %d", sq8)
-	}
-}
-func Test_Info(t *testing.T) {
+func Test_Core_Info(t *testing.T) {
 	testCases := []struct {
 		name string
 		uuid UUID
 	}{
-		{"V1 UUID", func() UUID { u := NewV1(); return u }()},
-		{"V2 UUID", func() UUID { u := NewV2(testPOSType); return u }()},
-		{"V3 UUID", func() UUID { u := NewV3(NameSpaceDNS, testNameString); return u }()},
-		{"V4 UUID", func() UUID { u := NewV4(); return u }()},
-		{"V5 UUID", func() UUID { u := NewV5(NameSpaceDNS, testNameString); return u }()},
-		{"V6 UUID", func() UUID { u := NewV6(); return u }()},
-		{"V7 UUID", func() UUID { u := NewV7(); return u }()},
-		{"V8 UUID", func() UUID { u := NewV8(testNodeID); return u }()},
+		{"V1", func() UUID { u := NewV1(); return u }()},
+		{"V2", func() UUID { u := NewV2(testPOSType); return u }()},
+		{"V3", func() UUID { u := NewV3(NameSpaceDNS, testNameString); return u }()},
+		{"V4", func() UUID { u := NewV4(); return u }()},
+		{"V5", func() UUID { u := NewV5(NameSpaceDNS, testNameString); return u }()},
+		{"V6", func() UUID { u := NewV6(); return u }()},
+		{"V7", func() UUID { u := NewV7(); return u }()},
+		{"V8", func() UUID { u := NewV8(testNodeID); return u }()},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -72,7 +49,7 @@ func Test_Info(t *testing.T) {
 		})
 	}
 }
-func Test_Null(t *testing.T) {
+func Test_Core_NewNull(t *testing.T) {
 	uinil, _ := Parse(NullUUIDString)
 	uinonil, _ := Parse(testUUIDVUString)
 	if !uinil.IsZero() {
@@ -82,462 +59,7 @@ func Test_Null(t *testing.T) {
 		t.Error("returned true null UUID")
 	}
 }
-func Test_Parse(t *testing.T) {
-	validCases := []struct {
-		name string
-		line string
-		want UUID
-	}{
-		{"Null UUID", NullUUIDString, NullUUIDBinary},
-		{"V1 UUID", testUUIDV1String, testUUIDV1Binary},
-		{"V2 UUID", testUUIDV2String, testUUIDV2Binary},
-		{"V3 UUID", testUUIDV3String, testUUIDV3Binary},
-		{"V4 UUID", testUUIDV4String, testUUIDV4Binary},
-		{"V5 UUID", testUUIDV5String, testUUIDV5Binary},
-		{"V6 UUID", testUUIDV6String, testUUIDV6Binary},
-		{"V7 UUID", testUUIDV7String, testUUIDV7Binary},
-		{"V8 UUID", testUUIDV8String, testUUIDV8Binary},
-	}
-	for _, tc := range validCases {
-		t.Run(tc.name, func(t *testing.T) {
-			got := must(Parse(tc.line))
-			if got != tc.want {
-				t.Errorf("Parse() = %v, want %v", got, tc.want)
-			}
-		})
-	}
-	formatCases := []struct {
-		name   string
-		input  string
-		expect UUID
-	}{
-		{"Long_format_UUID (with braces)", testUUIDErrStringLong, testUUIDVUBinary},
-		{"Short_format_UUID (no hyphens)", testUUIDErrStringShort, testUUIDVUBinary},
-		{"Standard_format_UUID", testUUIDVUString, testUUIDVUBinary},
-	}
-	for _, tc := range formatCases {
-		t.Run(tc.name, func(t *testing.T) {
-			u := must(Parse(tc.input))
-			if u != tc.expect {
-				t.Errorf("Parse(%q) = %v, want %v", tc.input, u, tc.expect)
-			}
-		})
-	}
-	invalidCases := []struct {
-		name string
-		line string
-	}{
-		{"Empty string", testUUIDErrStringEmpty},
-		{"Invalid characters", testUUIDErrStringInvalid},
-		{"Invalid character 'x' in UUID", testUUIDErrStringCharacter},
-		{"Too long string", testUUIDErrStringLengthLong},
-		{"Too short string", testUUIDErrStringLengthShort},
-	}
-	for _, tc := range invalidCases {
-		t.Run(tc.name, func(t *testing.T) {
-			_, err := Parse(tc.line)
-			if err == nil {
-				t.Errorf("Expected error for invalid UUID %q", tc.line)
-			}
-		})
-	}
-}
-func Test_Scan(t *testing.T) {
-	tests := []struct {
-		name    string
-		src     any
-		want    UUID
-		wantErr bool
-	}{
-		{
-			name:    "Empty byte format UUID",
-			src:     testUUIDErrByteEmpty,
-			want:    NullUUIDBinary,
-			wantErr: true,
-		},
-		{
-			name:    "Empty string format UUID",
-			src:     testUUIDErrStringEmpty,
-			want:    NullUUIDBinary,
-			wantErr: true,
-		},
-		{
-			name:    "Long byte format UUID",
-			src:     testUUIDErrByteLengthLong,
-			want:    NullUUIDBinary,
-			wantErr: true,
-		},
-		{
-			name:    "Short byte format UUID",
-			src:     testUUIDErrByteLengthShort,
-			want:    NullUUIDBinary,
-			wantErr: true,
-		},
-		{
-			name:    "Invalid type",
-			src:     testUUIDErrTypeInt,
-			want:    NullUUIDBinary,
-			wantErr: true,
-		},
-		{
-			name:    "Null input",
-			src:     nil,
-			want:    NullUUIDBinary,
-			wantErr: true,
-		},
-		{
-			name:    "Valid byte format UUID",
-			src:     must(Parse(testUUIDVUString)).Bytes(),
-			want:    testUUIDVUBinary,
-			wantErr: false,
-		},
-		{
-			name:    "Valid string format UUID",
-			src:     testUUIDVUString,
-			want:    testUUIDVUBinary,
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			var u UUID
-			err := u.Scan(tt.src)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Scan() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if u != tt.want {
-				t.Errorf("Scan() = %v, want %v", u, tt.want)
-			}
-		})
-	}
-}
-func Test_String(t *testing.T) {
-	validCases := []struct {
-		name string
-		uuid UUID
-		want string
-	}{
-		{
-			name: "Null UUID",
-			uuid: NullUUIDBinary,
-			want: NullUUIDString,
-		},
-		{
-			name: "V1 UUID",
-			uuid: testUUIDV1Binary,
-			want: testUUIDV1String,
-		},
-		{
-			name: "V2 UUID",
-			uuid: testUUIDV2Binary,
-			want: testUUIDV2String,
-		},
-		{
-			name: "V3 UUID",
-			uuid: testUUIDV3Binary,
-			want: testUUIDV3String,
-		},
-		{
-			name: "V4 UUID",
-			uuid: testUUIDV4Binary,
-			want: testUUIDV4String,
-		},
-		{
-			name: "V5 UUID",
-			uuid: testUUIDV5Binary,
-			want: testUUIDV5String,
-		},
-		{
-			name: "V6 UUID",
-			uuid: testUUIDV6Binary,
-			want: testUUIDV6String,
-		},
-		{
-			name: "V7 UUID",
-			uuid: testUUIDV7Binary,
-			want: testUUIDV7String,
-		},
-		{
-			name: "V8 UUID",
-			uuid: testUUIDV8Binary,
-			want: testUUIDV8String,
-		},
-	}
-	for _, tc := range validCases {
-		t.Run(tc.name, func(t *testing.T) {
-			got := tc.uuid.String()
-			if got != tc.want {
-				t.Errorf("String() = %v, want %v", got, tc.want)
-			}
-		})
-	}
-}
-func Test_Validate(t *testing.T) {
-	t.Run("Invalid UUID", func(t *testing.T) {
-		validV1 := NewV1()
-		tests := []struct {
-			name    string
-			uuid    UUID
-			wantErr error
-		}{
-			{
-				name:    "Invalid variant",
-				uuid:    func() UUID { u := validV1; u[8] = 0x00; return u }(),
-				wantErr: ErrInvalidUUIDVariant,
-			},
-			{
-				name:    "Invalid version",
-				uuid:    func() UUID { u := validV1; u[6] = 0x00; return u }(),
-				wantErr: ErrInvalidUUIDVersion,
-			},
-			{
-				name:    "Null UUID",
-				uuid:    NullUUIDBinary,
-				wantErr: ErrNullUUID,
-			},
-			{
-				name:    "Null MAC UUIDV1",
-				uuid:    func() UUID { u := validV1; copy(u[10:16], make([]byte, 6)); return u }(),
-				wantErr: ErrInvalidUUIDMAC,
-			},
-		}
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				err := tt.uuid.Validate()
-				if !errors.Is(err, tt.wantErr) {
-					t.Errorf("Validate() error = %v, want %v", err, tt.wantErr)
-				}
-			})
-		}
-	})
-	t.Run("Valid UUID", func(t *testing.T) {
-		tests := []struct {
-			name string
-			uuid UUID
-		}{
-			{"V1 UUID", NewV1()},
-			{"V2 UUID", NewV2(testPOSType)},
-			{"V3 UUID", NewV3(NameSpaceDNS, testNameString)},
-			{"V4 UUID", NewV4()},
-			{"V5 UUID", NewV5(NameSpaceDNS, testNameString)},
-			{"V6 UUID", NewV6()},
-			{"V7 UUID", NewV7()},
-			{"V8 UUID", NewV8(testNodeID)},
-		}
-
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				if err := tt.uuid.Validate(); err != nil {
-					t.Errorf("Validate() error = %v", err)
-				}
-				switch tt.uuid.Version() {
-				case 1, 6:
-					if tt.uuid[8]&0xC0 != 0x80 {
-						t.Error("Invalid variant bits")
-					}
-				case 7, 8:
-					if tt.uuid.Timestamp() == 0 {
-						t.Error("Zero timestamp")
-					}
-				}
-			})
-		}
-	})
-}
-func Test_Value(t *testing.T) {
-	tests := []struct {
-		name    string
-		u       UUID
-		want    driver.Value
-		wantErr bool
-	}{
-		{
-			name:    "Null UUID",
-			u:       NullUUIDBinary,
-			want:    nil,
-			wantErr: false,
-		},
-		{
-			name:    "Valid UUID",
-			u:       testUUIDVUBinary,
-			want:    testUUIDVUString,
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := tt.u.Value()
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Value() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if got != tt.want {
-				t.Errorf("Value() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-func Test_MarshalUnmarshalBinary(t *testing.T) {
-	tests := []struct {
-		name    string
-		uuid    UUID
-		wantErr bool
-	}{
-		{"Null UUID", NullUUIDBinary, false},
-		{"Valid UUID", testUUIDVUBinary, false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			// Marshal
-			data, err := tt.uuid.MarshalBinary()
-			if (err != nil) != tt.wantErr {
-				t.Errorf("MarshalBinary() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if tt.uuid.IsZero() && data != nil {
-				t.Error("null UUID should marshal to nil slice")
-			}
-			if !tt.uuid.IsZero() && !bytes.Equal(data, tt.uuid[:]) {
-				t.Error("marshaled data doesn't match UUID bytes")
-			}
-			// Unmarshal
-			var u UUID
-			err = u.UnmarshalBinary(data)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("UnmarshalBinary() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if u != tt.uuid {
-				t.Errorf("Unmarshaled UUID = %v, want %v", u, tt.uuid)
-			}
-		})
-	}
-	t.Run("Invalid UUID", func(t *testing.T) {
-		var u UUID
-		err := u.UnmarshalBinary([]byte{1, 2, 3})
-		if err == nil {
-			t.Error("expected error for invalid length")
-		}
-	})
-}
-func Test_MarshalUnmarshalJson(t *testing.T) {
-	tests := []struct {
-		name    string
-		u       UUID
-		want    string
-		wantErr bool
-	}{
-		{
-			name:    "Null UUID",
-			u:       NullUUIDBinary,
-			want:    "null",
-			wantErr: false,
-		},
-		{
-			name:    "Valid UUID",
-			u:       testUUIDVUBinary,
-			want:    testUUIDVUJson,
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			// MarshalJson
-			json, err := tt.u.MarshalJson()
-			if (err != nil) != tt.wantErr {
-				t.Errorf("MarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if string(json) != tt.want {
-				t.Errorf("MarshalJson() = %s, want %s", json, tt.want)
-			}
-			if tt.u.IsZero() {
-				return
-			}
-			// UnmarshalJson
-			var u UUID
-			err = u.UnmarshalJson(json)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("UnmarshalJson() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if u != tt.u {
-				t.Errorf("UnmarshalJson() = %v, want %v", u, tt.u)
-			}
-		})
-	}
-	t.Run("Invalid UUID", func(t *testing.T) {
-		var u UUID
-		err := u.UnmarshalJson([]byte(`"invalid"`))
-		if err == nil {
-			t.Error("UnmarshalJson() expected error, got null")
-		}
-	})
-}
-func Test_MarshalUnmarshalText(t *testing.T) {
-	tests := []struct {
-		name    string
-		u       UUID
-		want    string
-		wantErr bool
-	}{
-		{
-			name:    "Null UUID",
-			u:       NullUUIDBinary,
-			want:    testUUIDVUNull,
-			wantErr: false,
-		},
-		{
-			name:    "Valid UUID",
-			u:       testUUIDVUBinary,
-			want:    testUUIDVUText,
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			// MarshalText
-			textData, err := tt.u.MarshalText()
-			if (err != nil) != tt.wantErr {
-				t.Errorf("MarshalText() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if string(textData) != tt.want {
-				t.Errorf("MarshalText() = %s, want %s", textData, tt.want)
-			}
-			// UnmarshalText
-			var u UUID
-			err = u.UnmarshalText(textData)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("UnmarshalText() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if u != tt.u {
-				t.Errorf("UnmarshalText() = %v, want %v", u, tt.u)
-			}
-		})
-	}
-	invalidTests := []struct {
-		name    string
-		data    []byte
-		wantErr bool
-	}{
-		{"Invalid chars UUID", []byte(testUUIDErrStringCharacter), true},
-		{"Long format UUID", []byte(testUUIDErrStringLong), false},
-		{"Short format UUID", []byte(testUUIDErrStringLengthShort), true},
-	}
-	for _, tt := range invalidTests {
-		t.Run(tt.name, func(t *testing.T) {
-			var u UUID
-			err := u.UnmarshalText(tt.data)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("UnmarshalText() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
-func Test_UUIDV1_Generate(t *testing.T) {
+func Test_Core_NewV1(t *testing.T) {
 	// Ленивая инициализация глобального состояния
 	initSync.Do(func() {
 		initError = initGlobal()
@@ -593,7 +115,7 @@ func Test_UUIDV1_Generate(t *testing.T) {
 		t.Error("Failed to generate different UUIDs")
 	}
 }
-func Test_UUIDV1_Sequence(t *testing.T) {
+func Test_Core_NewV1_Sequence(t *testing.T) {
 	t.Run("Sequence_Increment", func(t *testing.T) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -668,7 +190,7 @@ func Test_UUIDV1_Sequence(t *testing.T) {
 		}
 	})
 }
-func Test_UUIDV1_Timestamp(t *testing.T) {
+func Test_Core_NewV1_Timestamp(t *testing.T) {
 	var prevUUID UUID
 	for i := 0; i < 10; i++ {
 		uuid := NewV1()
@@ -688,7 +210,7 @@ func Test_UUIDV1_Timestamp(t *testing.T) {
 		prevUUID = uuid
 	}
 }
-func Test_UUIDV2_Generate(t *testing.T) {
+func Test_Core_NewV2(t *testing.T) {
 	for i := int(0); i < 2; i++ {
 		// Генерация идентификаторов
 		ui := NewV2(i)
@@ -708,7 +230,7 @@ func Test_UUIDV2_Generate(t *testing.T) {
 		}
 	}
 }
-func Test_UUIDV3_Generate(t *testing.T) {
+func Test_Core_NewV3(t *testing.T) {
 	testCases := []struct {
 		namespace UUID
 		name      string
@@ -733,7 +255,7 @@ func Test_UUIDV3_Generate(t *testing.T) {
 		}
 	}
 }
-func Test_UUIDV3_Hash(t *testing.T) {
+func Test_Core_NewV3_Hash(t *testing.T) {
 	// Генерация идентификаторов
 	ui1a := NewV3(NameSpaceDNS, testNameString+"/TestA")
 	ui1b := NewV3(NameSpaceDNS, testNameString+"/TestB")
@@ -748,7 +270,7 @@ func Test_UUIDV3_Hash(t *testing.T) {
 		t.Error("Invalid UUIDv3 with the same value for different TestNameString")
 	}
 }
-func Test_UUIDV4_Generate(t *testing.T) {
+func Test_Core_NewV4(t *testing.T) {
 	// Генерация идентификаторов
 	ui1 := NewV4()
 	ui2 := NewV4()
@@ -775,7 +297,7 @@ func Test_UUIDV4_Generate(t *testing.T) {
 		t.Error("Generated same UUIDv4 for different data")
 	}
 }
-func Test_UUIDV5_Generate(t *testing.T) {
+func Test_Core_NewV5(t *testing.T) {
 	testCases := []struct {
 		namespace UUID
 		name      string
@@ -800,7 +322,7 @@ func Test_UUIDV5_Generate(t *testing.T) {
 		}
 	}
 }
-func Test_UUIDV5_Hash(t *testing.T) {
+func Test_Core_NewV5_Hash(t *testing.T) {
 	// Генерация идентификаторов
 	ui1a := NewV5(NameSpaceDNS, testNameString+"/TestA")
 	ui1b := NewV5(NameSpaceDNS, testNameString+"/TestB")
@@ -815,7 +337,7 @@ func Test_UUIDV5_Hash(t *testing.T) {
 		t.Error("Invalid UUIDv5 with the same value for different TestNameString")
 	}
 }
-func Test_UUIDV6_Generate(t *testing.T) {
+func Test_Core_NewV6(t *testing.T) {
 	// Ленивая инициализация глобального состояния
 	initSync.Do(func() {
 		initError = initGlobal()
@@ -871,7 +393,7 @@ func Test_UUIDV6_Generate(t *testing.T) {
 		t.Error("Failed to generate different UUIDs")
 	}
 }
-func Test_UUIDV6_Sequence(t *testing.T) {
+func Test_Core_NewV6_Sequence(t *testing.T) {
 	t.Run("Sequence_Increment", func(t *testing.T) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -946,7 +468,7 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 		}
 	})
 }
-func Test_UUIDV6_Timestamp(t *testing.T) {
+func Test_Core_NewV6_Timestamp(t *testing.T) {
 	var prevUUID UUID
 	for i := 0; i < 10; i++ {
 		uuid := NewV6()
@@ -966,7 +488,7 @@ func Test_UUIDV6_Timestamp(t *testing.T) {
 		prevUUID = uuid
 	}
 }
-func Test_UUIDV7_Generate(t *testing.T) {
+func Test_Core_NewV7(t *testing.T) {
 	// Ленивая инициализация глобального состояния
 	initSync.Do(func() {
 		initError = initGlobal()
@@ -1022,7 +544,7 @@ func Test_UUIDV7_Generate(t *testing.T) {
 		t.Error("Failed to generate different UUIDs")
 	}
 }
-func Test_UUIDV7_Sequence(t *testing.T) {
+func Test_Core_NewV7_Sequence(t *testing.T) {
 	// Подтест 1: sequence увеличение
 	t.Run("Sequence_Increment", func(t *testing.T) {
 		// Ленивая инициализация глобального состояния
@@ -1099,7 +621,7 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 		}
 	})
 }
-func Test_UUIDV7_Timestamp(t *testing.T) {
+func Test_Core_NewV7_Timestamp(t *testing.T) {
 	var prevUUID UUID
 	for i := 0; i < 10; i++ {
 		uuid := NewV7()
@@ -1113,7 +635,7 @@ func Test_UUIDV7_Timestamp(t *testing.T) {
 		prevUUID = uuid
 	}
 }
-func Test_UUIDV8_Generate(t *testing.T) {
+func Test_Core_NewV8(t *testing.T) {
 	// Ленивая инициализация глобального состояния
 	initSync.Do(func() {
 		initError = initGlobal()
@@ -1179,7 +701,7 @@ func Test_UUIDV8_Generate(t *testing.T) {
 		t.Error("Failed to generate different UUIDs")
 	}
 }
-func Test_UUIDV8_Sequence(t *testing.T) {
+func Test_Core_NewV8_Sequence(t *testing.T) {
 	t.Run("Sequence_Increment", func(t *testing.T) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -1254,7 +776,7 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 		}
 	})
 }
-func Test_UUIDV8_Timestamp(t *testing.T) {
+func Test_Core_NewV8_Timestamp(t *testing.T) {
 	var prevUUID UUID
 	for i := 0; i < 10; i++ {
 		uuid := NewV8(testNodeID)
@@ -1266,6 +788,484 @@ func Test_UUIDV8_Timestamp(t *testing.T) {
 			}
 		}
 		prevUUID = uuid
+	}
+}
+func Test_Core_Parse(t *testing.T) {
+	validCases := []struct {
+		name string
+		line string
+		want UUID
+	}{
+		{"Null", NullUUIDString, NullUUIDBinary},
+		{"V1", testUUIDV1String, testUUIDV1Binary},
+		{"V2", testUUIDV2String, testUUIDV2Binary},
+		{"V3", testUUIDV3String, testUUIDV3Binary},
+		{"V4", testUUIDV4String, testUUIDV4Binary},
+		{"V5", testUUIDV5String, testUUIDV5Binary},
+		{"V6", testUUIDV6String, testUUIDV6Binary},
+		{"V7", testUUIDV7String, testUUIDV7Binary},
+		{"V8", testUUIDV8String, testUUIDV8Binary},
+	}
+	for _, tc := range validCases {
+		t.Run(tc.name, func(t *testing.T) {
+			got := must(Parse(tc.line))
+			if got != tc.want {
+				t.Errorf("Parse() = %v, want %v", got, tc.want)
+			}
+		})
+	}
+	formatCases := []struct {
+		name   string
+		input  string
+		expect UUID
+	}{
+		{"Long_format_New (with braces)", testUUIDErrStringLong, testUUIDVUBinary},
+		{"Short_format_New (no hyphens)", testUUIDErrStringShort, testUUIDVUBinary},
+		{"Standard_format_New", testUUIDVUString, testUUIDVUBinary},
+	}
+	for _, tc := range formatCases {
+		t.Run(tc.name, func(t *testing.T) {
+			u := must(Parse(tc.input))
+			if u != tc.expect {
+				t.Errorf("Parse(%q) = %v, want %v", tc.input, u, tc.expect)
+			}
+		})
+	}
+	invalidCases := []struct {
+		name string
+		line string
+	}{
+		{"Empty string", testUUIDErrStringEmpty},
+		{"Invalid characters", testUUIDErrStringInvalid},
+		{"Invalid character 'x' in UUID", testUUIDErrStringCharacter},
+		{"Too long string", testUUIDErrStringLengthLong},
+		{"Too short string", testUUIDErrStringLengthShort},
+	}
+	for _, tc := range invalidCases {
+		t.Run(tc.name, func(t *testing.T) {
+			_, err := Parse(tc.line)
+			if err == nil {
+				t.Errorf("Expected error for invalid UUID %q", tc.line)
+			}
+		})
+	}
+}
+func Test_Core_String(t *testing.T) {
+	validCases := []struct {
+		name string
+		uuid UUID
+		want string
+	}{
+		{
+			name: "Null",
+			uuid: NullUUIDBinary,
+			want: NullUUIDString,
+		},
+		{
+			name: "V1",
+			uuid: testUUIDV1Binary,
+			want: testUUIDV1String,
+		},
+		{
+			name: "V2",
+			uuid: testUUIDV2Binary,
+			want: testUUIDV2String,
+		},
+		{
+			name: "V3",
+			uuid: testUUIDV3Binary,
+			want: testUUIDV3String,
+		},
+		{
+			name: "V4",
+			uuid: testUUIDV4Binary,
+			want: testUUIDV4String,
+		},
+		{
+			name: "V5",
+			uuid: testUUIDV5Binary,
+			want: testUUIDV5String,
+		},
+		{
+			name: "V6",
+			uuid: testUUIDV6Binary,
+			want: testUUIDV6String,
+		},
+		{
+			name: "V7",
+			uuid: testUUIDV7Binary,
+			want: testUUIDV7String,
+		},
+		{
+			name: "V8",
+			uuid: testUUIDV8Binary,
+			want: testUUIDV8String,
+		},
+	}
+	for _, tc := range validCases {
+		t.Run(tc.name, func(t *testing.T) {
+			got := tc.uuid.String()
+			if got != tc.want {
+				t.Errorf("String() = %v, want %v", got, tc.want)
+			}
+		})
+	}
+}
+func Test_Core_Validate(t *testing.T) {
+	t.Run("Invalid", func(t *testing.T) {
+		validV1 := NewV1()
+		tests := []struct {
+			name    string
+			uuid    UUID
+			wantErr error
+		}{
+			{
+				name:    "Invalid Variant",
+				uuid:    func() UUID { u := validV1; u[8] = 0x00; return u }(),
+				wantErr: ErrInvalidUUIDVariant,
+			},
+			{
+				name:    "Invalid Version",
+				uuid:    func() UUID { u := validV1; u[6] = 0x00; return u }(),
+				wantErr: ErrInvalidUUIDVersion,
+			},
+			{
+				name:    "Null UUID",
+				uuid:    NullUUIDBinary,
+				wantErr: ErrNullUUID,
+			},
+			{
+				name:    "Null MAC",
+				uuid:    func() UUID { u := validV1; copy(u[10:16], make([]byte, 6)); return u }(),
+				wantErr: ErrInvalidUUIDMAC,
+			},
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				err := tt.uuid.Validate()
+				if !errors.Is(err, tt.wantErr) {
+					t.Errorf("Validate() error = %v, want %v", err, tt.wantErr)
+				}
+			})
+		}
+	})
+	t.Run("Valid", func(t *testing.T) {
+		tests := []struct {
+			name string
+			uuid UUID
+		}{
+			{"V1", NewV1()},
+			{"V2", NewV2(testPOSType)},
+			{"V3", NewV3(NameSpaceDNS, testNameString)},
+			{"V4", NewV4()},
+			{"V5", NewV5(NameSpaceDNS, testNameString)},
+			{"V6", NewV6()},
+			{"V7", NewV7()},
+			{"V8", NewV8(testNodeID)},
+		}
+
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				if err := tt.uuid.Validate(); err != nil {
+					t.Errorf("Validate() error = %v", err)
+				}
+				switch tt.uuid.Version() {
+				case 1, 6:
+					if tt.uuid[8]&0xC0 != 0x80 {
+						t.Error("Invalid variant bits")
+					}
+				case 7, 8:
+					if tt.uuid.Timestamp() == 0 {
+						t.Error("Zero timestamp")
+					}
+				}
+			})
+		}
+	})
+}
+func Test_Marshal_Binary(t *testing.T) {
+	tests := []struct {
+		name    string
+		uuid    UUID
+		wantErr bool
+	}{
+		{"Null", NullUUIDBinary, false},
+		{"Valid", testUUIDVUBinary, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Marshal
+			data, err := tt.uuid.MarshalBinary()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("MarshalBinary() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if tt.uuid.IsZero() && data != nil {
+				t.Error("null UUID should marshal to nil slice")
+			}
+			if !tt.uuid.IsZero() && !bytes.Equal(data, tt.uuid[:]) {
+				t.Error("marshaled data doesn't match UUID bytes")
+			}
+			// Unmarshal
+			var u UUID
+			err = u.UnmarshalBinary(data)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("UnmarshalBinary() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if u != tt.uuid {
+				t.Errorf("Unmarshaled UUID = %v, want %v", u, tt.uuid)
+			}
+		})
+	}
+	t.Run("Invalid", func(t *testing.T) {
+		var u UUID
+		err := u.UnmarshalBinary([]byte{1, 2, 3})
+		if err == nil {
+			t.Error("expected error for invalid length")
+		}
+	})
+}
+func Test_Marshal_Json(t *testing.T) {
+	tests := []struct {
+		name    string
+		u       UUID
+		want    string
+		wantErr bool
+	}{
+		{
+			name:    "Null",
+			u:       NullUUIDBinary,
+			want:    "null",
+			wantErr: false,
+		},
+		{
+			name:    "Valid",
+			u:       testUUIDVUBinary,
+			want:    testUUIDVUJson,
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// MarshalJson
+			json, err := tt.u.MarshalJson()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("MarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if string(json) != tt.want {
+				t.Errorf("MarshalJson() = %s, want %s", json, tt.want)
+			}
+			if tt.u.IsZero() {
+				return
+			}
+			// UnmarshalJson
+			var u UUID
+			err = u.UnmarshalJson(json)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("UnmarshalJson() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if u != tt.u {
+				t.Errorf("UnmarshalJson() = %v, want %v", u, tt.u)
+			}
+		})
+	}
+	t.Run("Invalid", func(t *testing.T) {
+		var u UUID
+		err := u.UnmarshalJson([]byte(`"invalid"`))
+		if err == nil {
+			t.Error("UnmarshalJson() expected error, got null")
+		}
+	})
+}
+func Test_Marshal_Text(t *testing.T) {
+	tests := []struct {
+		name    string
+		u       UUID
+		want    string
+		wantErr bool
+	}{
+		{
+			name:    "Null",
+			u:       NullUUIDBinary,
+			want:    testUUIDVUNull,
+			wantErr: false,
+		},
+		{
+			name:    "Valid",
+			u:       testUUIDVUBinary,
+			want:    testUUIDVUText,
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// MarshalText
+			textData, err := tt.u.MarshalText()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("MarshalText() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if string(textData) != tt.want {
+				t.Errorf("MarshalText() = %s, want %s", textData, tt.want)
+			}
+			// UnmarshalText
+			var u UUID
+			err = u.UnmarshalText(textData)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("UnmarshalText() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if u != tt.u {
+				t.Errorf("UnmarshalText() = %v, want %v", u, tt.u)
+			}
+		})
+	}
+	invalidTests := []struct {
+		name    string
+		data    []byte
+		wantErr bool
+	}{
+		{"Invalid chars", []byte(testUUIDErrStringCharacter), true},
+		{"Long format", []byte(testUUIDErrStringLong), false},
+		{"Short format", []byte(testUUIDErrStringLengthShort), true},
+	}
+	for _, tt := range invalidTests {
+		t.Run(tt.name, func(t *testing.T) {
+			var u UUID
+			err := u.UnmarshalText(tt.data)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("UnmarshalText() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+func Test_SQL_Scan(t *testing.T) {
+	tests := []struct {
+		name    string
+		src     any
+		want    UUID
+		wantErr bool
+	}{
+		{
+			name:    "Empty byte format",
+			src:     testUUIDErrByteEmpty,
+			want:    NullUUIDBinary,
+			wantErr: true,
+		},
+		{
+			name:    "Empty string format",
+			src:     testUUIDErrStringEmpty,
+			want:    NullUUIDBinary,
+			wantErr: true,
+		},
+		{
+			name:    "Long byte format",
+			src:     testUUIDErrByteLengthLong,
+			want:    NullUUIDBinary,
+			wantErr: true,
+		},
+		{
+			name:    "Short byte format",
+			src:     testUUIDErrByteLengthShort,
+			want:    NullUUIDBinary,
+			wantErr: true,
+		},
+		{
+			name:    "Invalid type",
+			src:     testUUIDErrTypeInt,
+			want:    NullUUIDBinary,
+			wantErr: true,
+		},
+		{
+			name:    "Null input",
+			src:     nil,
+			want:    NullUUIDBinary,
+			wantErr: true,
+		},
+		{
+			name:    "Valid byte format",
+			src:     must(Parse(testUUIDVUString)).Bytes(),
+			want:    testUUIDVUBinary,
+			wantErr: false,
+		},
+		{
+			name:    "Valid string format",
+			src:     testUUIDVUString,
+			want:    testUUIDVUBinary,
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var u UUID
+			err := u.Scan(tt.src)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Scan() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if u != tt.want {
+				t.Errorf("Scan() = %v, want %v", u, tt.want)
+			}
+		})
+	}
+}
+func Test_SQL_Value(t *testing.T) {
+	tests := []struct {
+		name    string
+		u       UUID
+		want    driver.Value
+		wantErr bool
+	}{
+		{
+			name:    "Null",
+			u:       NullUUIDBinary,
+			want:    nil,
+			wantErr: false,
+		},
+		{
+			name:    "Valid",
+			u:       testUUIDVUBinary,
+			want:    testUUIDVUString,
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := tt.u.Value()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Value() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Value() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+func Test_UUID_Init(t *testing.T) {
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
+	if initError != nil {
+		t.Error("Invalid initial global state")
+	}
+	if initMAC.Load().([6]byte) == [6]byte{} {
+		t.Error("MAC address was not initialized")
+	}
+	if sq1 := v1.lastSequence.Load(); sq1 > maxV1Sequence {
+		t.Errorf("Invalid initial v1 sequence: %d", sq1)
+	}
+	if sq6 := v6.lastSequence.Load(); sq6 > maxV6Sequence {
+		t.Errorf("Invalid initial v6 sequence: %d", sq6)
+	}
+	if sq7 := v7.lastSequence.Load(); sq7 > maxV7Sequence {
+		t.Errorf("Invalid initial v1 sequence: %d", sq7)
+	}
+	if sq8 := v8.lastSequence.Load(); sq8 > maxV8Sequence {
+		t.Errorf("Invalid initial v6 sequence: %d", sq8)
 	}
 }
 
