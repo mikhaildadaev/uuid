@@ -33,19 +33,19 @@ func Benchmark_Validate(b *testing.B) {
 		_ = uuid.Validate()
 	}
 }
-func Benchmark_V1(b *testing.B) {
+func Benchmark_NewV1(b *testing.B) {
 	b.Run("Multi", func(b *testing.B) {
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_ = V1()
+				_ = NewV1()
 			}
 		})
 	})
 	b.Run("Single", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			_ = V1()
+			_ = NewV1()
 		}
 	})
 }
@@ -74,31 +74,31 @@ func Benchmark_V1_Info(b *testing.B) {
 		v1.lastSequence.Store(0)
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V1()
+			ui := NewV1()
 			b.Logf("UUIDv1-%d: %s", i, ui)
 		}
 	})
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V1()
+			ui := NewV1()
 			b.Logf("UUIDv1-%d: %s", i, ui)
 		}
 	})
 }
-func Benchmark_V2(b *testing.B) {
+func Benchmark_NewV2(b *testing.B) {
 	b.Run("Multi", func(b *testing.B) {
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_ = V2(testPOSType)
+				_ = NewV2(testPOSType)
 			}
 		})
 	})
 	b.Run("Single", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			_ = V2(testPOSType)
+			_ = NewV2(testPOSType)
 		}
 	})
 }
@@ -106,24 +106,24 @@ func Benchmark_V2_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V2(testPOSType)
+			ui := NewV2(testPOSType)
 			b.Logf("UUIDv2-%d: %s", i, ui)
 		}
 	})
 }
-func Benchmark_V3(b *testing.B) {
+func Benchmark_NewV3(b *testing.B) {
 	b.Run("Multi", func(b *testing.B) {
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_ = V3(NameSpaceDNS, testNameString)
+				_ = NewV3(NameSpaceDNS, testNameString)
 			}
 		})
 	})
 	b.Run("Single", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			_ = V3(NameSpaceDNS, testNameString+strconv.Itoa(i))
+			_ = NewV3(NameSpaceDNS, testNameString+strconv.Itoa(i))
 		}
 	})
 }
@@ -131,24 +131,24 @@ func Benchmark_V3_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V3(NameSpaceDNS, testNameString+strconv.Itoa(i))
+			ui := NewV3(NameSpaceDNS, testNameString+strconv.Itoa(i))
 			b.Logf("UUIDv3-%d: %s", i, ui)
 		}
 	})
 }
-func Benchmark_V4(b *testing.B) {
+func Benchmark_NewV4(b *testing.B) {
 	b.Run("Multi", func(b *testing.B) {
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_ = V4()
+				_ = NewV4()
 			}
 		})
 	})
 	b.Run("Single", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			_ = V4()
+			_ = NewV4()
 		}
 	})
 }
@@ -156,24 +156,24 @@ func Benchmark_V4_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V4()
+			ui := NewV4()
 			b.Logf("UUIDv4-%d: %s", i, ui)
 		}
 	})
 }
-func Benchmark_V5(b *testing.B) {
+func Benchmark_NewV5(b *testing.B) {
 	b.Run("Multi", func(b *testing.B) {
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_ = V5(NameSpaceDNS, testNameString)
+				_ = NewV5(NameSpaceDNS, testNameString)
 			}
 		})
 	})
 	b.Run("Single", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			_ = V5(NameSpaceDNS, testNameString+strconv.Itoa(i))
+			_ = NewV5(NameSpaceDNS, testNameString+strconv.Itoa(i))
 		}
 	})
 }
@@ -181,24 +181,24 @@ func Benchmark_V5_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V5(NameSpaceDNS, testNameString+strconv.Itoa(i))
+			ui := NewV5(NameSpaceDNS, testNameString+strconv.Itoa(i))
 			b.Logf("UUIDv5-%d: %s", i, ui)
 		}
 	})
 }
-func Benchmark_V6(b *testing.B) {
+func Benchmark_NewV6(b *testing.B) {
 	b.Run("Multi", func(b *testing.B) {
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_ = V6()
+				_ = NewV6()
 			}
 		})
 	})
 	b.Run("Single", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			_ = V6()
+			_ = NewV6()
 		}
 	})
 }
@@ -227,31 +227,31 @@ func Benchmark_V6_Info(b *testing.B) {
 		v6.lastSequence.Store(0)
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V6()
+			ui := NewV6()
 			b.Logf("UUIDv6-%d: %s", i, ui)
 		}
 	})
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V6()
+			ui := NewV6()
 			b.Logf("UUIDv6-%d: %s", i, ui)
 		}
 	})
 }
-func Benchmark_V7(b *testing.B) {
+func Benchmark_NewV7(b *testing.B) {
 	b.Run("Multi", func(b *testing.B) {
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_ = V7()
+				_ = NewV7()
 			}
 		})
 	})
 	b.Run("Single", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			_ = V7()
+			_ = NewV7()
 		}
 	})
 }
@@ -280,31 +280,31 @@ func Benchmark_V7_Info(b *testing.B) {
 		v7.lastSequence.Store(0)
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V7()
+			ui := NewV7()
 			b.Logf("UUIDv7-%d: %s", i, ui)
 		}
 	})
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V7()
+			ui := NewV7()
 			b.Logf("UUIDv7-%d: %s", i, ui)
 		}
 	})
 }
-func Benchmark_V8(b *testing.B) {
+func Benchmark_NewV8(b *testing.B) {
 	b.Run("Multi", func(b *testing.B) {
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_ = V8(testNodeID)
+				_ = NewV8(testNodeID)
 			}
 		})
 	})
 	b.Run("Single", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			_ = V8(testNodeID)
+			_ = NewV8(testNodeID)
 		}
 	})
 }
@@ -333,14 +333,14 @@ func Benchmark_V8_Info(b *testing.B) {
 		v8.lastSequence.Store(0)
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V8(testNodeID)
+			ui := NewV8(testNodeID)
 			b.Logf("UUIDv8-%d: %s", i, ui)
 		}
 	})
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := V8(testNodeID)
+			ui := NewV8(testNodeID)
 			b.Logf("UUIDv8-%d: %s", i, ui)
 		}
 	})

@@ -39,14 +39,14 @@ func Test_Info(t *testing.T) {
 		name string
 		uuid UUID
 	}{
-		{"V1 UUID", func() UUID { u := V1(); return u }()},
-		{"V2 UUID", func() UUID { u := V2(testPOSType); return u }()},
-		{"V3 UUID", func() UUID { u := V3(NameSpaceDNS, testNameString); return u }()},
-		{"V4 UUID", func() UUID { u := V4(); return u }()},
-		{"V5 UUID", func() UUID { u := V5(NameSpaceDNS, testNameString); return u }()},
-		{"V6 UUID", func() UUID { u := V6(); return u }()},
-		{"V7 UUID", func() UUID { u := V7(); return u }()},
-		{"V8 UUID", func() UUID { u := V8(testNodeID); return u }()},
+		{"V1 UUID", func() UUID { u := NewV1(); return u }()},
+		{"V2 UUID", func() UUID { u := NewV2(testPOSType); return u }()},
+		{"V3 UUID", func() UUID { u := NewV3(NameSpaceDNS, testNameString); return u }()},
+		{"V4 UUID", func() UUID { u := NewV4(); return u }()},
+		{"V5 UUID", func() UUID { u := NewV5(NameSpaceDNS, testNameString); return u }()},
+		{"V6 UUID", func() UUID { u := NewV6(); return u }()},
+		{"V7 UUID", func() UUID { u := NewV7(); return u }()},
+		{"V8 UUID", func() UUID { u := NewV8(testNodeID); return u }()},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -275,7 +275,7 @@ func Test_String(t *testing.T) {
 }
 func Test_Validate(t *testing.T) {
 	t.Run("Invalid UUID", func(t *testing.T) {
-		validV1 := V1()
+		validV1 := NewV1()
 		tests := []struct {
 			name    string
 			uuid    UUID
@@ -316,14 +316,14 @@ func Test_Validate(t *testing.T) {
 			name string
 			uuid UUID
 		}{
-			{"V1 UUID", V1()},
-			{"V2 UUID", V2(testPOSType)},
-			{"V3 UUID", V3(NameSpaceDNS, testNameString)},
-			{"V4 UUID", V4()},
-			{"V5 UUID", V5(NameSpaceDNS, testNameString)},
-			{"V6 UUID", V6()},
-			{"V7 UUID", V7()},
-			{"V8 UUID", V8(testNodeID)},
+			{"V1 UUID", NewV1()},
+			{"V2 UUID", NewV2(testPOSType)},
+			{"V3 UUID", NewV3(NameSpaceDNS, testNameString)},
+			{"V4 UUID", NewV4()},
+			{"V5 UUID", NewV5(NameSpaceDNS, testNameString)},
+			{"V6 UUID", NewV6()},
+			{"V7 UUID", NewV7()},
+			{"V8 UUID", NewV8(testNodeID)},
 		}
 
 		for _, tt := range tests {
@@ -559,8 +559,8 @@ func Test_UUIDV1_Generate(t *testing.T) {
 	v1.lastTime.Store(0)
 	v1.lastSequence.Store(0)
 	// Генерация идентификаторов
-	ui1 := V1()
-	ui2 := V1()
+	ui1 := NewV1()
+	ui2 := NewV1()
 	// Проверка вариантов
 	vt1 := ui1.Variant()
 	vt2 := ui2.Variant()
@@ -617,8 +617,8 @@ func Test_UUIDV1_Sequence(t *testing.T) {
 		v1.lastTime.Store(uint64((initClock.now().UnixNano() / 100) + offsetTime))
 		v1.lastSequence.Store(0)
 		// Генерация идентификаторов
-		ui1 := V1()
-		ui2 := V1()
+		ui1 := NewV1()
+		ui2 := NewV1()
 		// Получение временных меток и последовательностей
 		ts1 := ui1.Timestamp()
 		sq1 := ui1.Sequence()
@@ -653,9 +653,9 @@ func Test_UUIDV1_Sequence(t *testing.T) {
 		v1.lastTime.Store(uint64((initClock.now().UnixNano() / 100) + offsetTime))
 		v1.lastSequence.Store(maxV1Sequence - 1)
 		// Генерация идентификаторов
-		ui1 := V1()
+		ui1 := NewV1()
 		clockMock.add(time.Nanosecond * 100)
-		ui2 := V1()
+		ui2 := NewV1()
 		// Получение временных меток и последовательностей
 		ts1 := ui1.Timestamp()
 		sq1 := ui1.Sequence()
@@ -671,7 +671,7 @@ func Test_UUIDV1_Sequence(t *testing.T) {
 func Test_UUIDV1_Timestamp(t *testing.T) {
 	var prevUUID UUID
 	for i := 0; i < 10; i++ {
-		uuid := V1()
+		uuid := NewV1()
 		if i > 0 {
 			currentTime := uuid.Timestamp()
 			prevTime := prevUUID.Timestamp()
@@ -691,7 +691,7 @@ func Test_UUIDV1_Timestamp(t *testing.T) {
 func Test_UUIDV2_Generate(t *testing.T) {
 	for i := int(0); i < 2; i++ {
 		// Генерация идентификаторов
-		ui := V2(i)
+		ui := NewV2(i)
 		// Проверка вариантов
 		vt := ui.Variant()
 		if vt != variantRFC4122 {
@@ -720,7 +720,7 @@ func Test_UUIDV3_Generate(t *testing.T) {
 	}
 	for i, tc := range testCases {
 		// Генерация идентификаторов
-		ui := V3(tc.namespace, tc.name)
+		ui := NewV3(tc.namespace, tc.name)
 		// Проверка вариантов
 		vt := ui.Variant()
 		if vt != variantRFC4122 {
@@ -735,10 +735,10 @@ func Test_UUIDV3_Generate(t *testing.T) {
 }
 func Test_UUIDV3_Hash(t *testing.T) {
 	// Генерация идентификаторов
-	ui1a := V3(NameSpaceDNS, testNameString+"/TestA")
-	ui1b := V3(NameSpaceDNS, testNameString+"/TestB")
-	ui2a := V3(NameSpaceURL, testNameString+"/TestA")
-	ui2b := V3(NameSpaceURL, testNameString+"/TestB")
+	ui1a := NewV3(NameSpaceDNS, testNameString+"/TestA")
+	ui1b := NewV3(NameSpaceDNS, testNameString+"/TestB")
+	ui2a := NewV3(NameSpaceURL, testNameString+"/TestA")
+	ui2b := NewV3(NameSpaceURL, testNameString+"/TestB")
 	// Проверка детерминированности при разных NameSpace
 	if (ui1a == ui2a) || (ui1b == ui2b) {
 		t.Error("Invalid UUIDv3 with the same value for different Namespace")
@@ -750,8 +750,8 @@ func Test_UUIDV3_Hash(t *testing.T) {
 }
 func Test_UUIDV4_Generate(t *testing.T) {
 	// Генерация идентификаторов
-	ui1 := V4()
-	ui2 := V4()
+	ui1 := NewV4()
+	ui2 := NewV4()
 	// Проверка вариантов
 	vt1 := ui1.Variant()
 	vt2 := ui2.Variant()
@@ -787,7 +787,7 @@ func Test_UUIDV5_Generate(t *testing.T) {
 	}
 	for i, tc := range testCases {
 		// Генерация идентификаторов
-		ui := V5(tc.namespace, tc.name)
+		ui := NewV5(tc.namespace, tc.name)
 		// Проверка вариантов
 		vt := ui.Variant()
 		if vt != variantRFC4122 {
@@ -802,10 +802,10 @@ func Test_UUIDV5_Generate(t *testing.T) {
 }
 func Test_UUIDV5_Hash(t *testing.T) {
 	// Генерация идентификаторов
-	ui1a := V5(NameSpaceDNS, testNameString+"/TestA")
-	ui1b := V5(NameSpaceDNS, testNameString+"/TestB")
-	ui2a := V5(NameSpaceURL, testNameString+"/TestA")
-	ui2b := V5(NameSpaceURL, testNameString+"/TestB")
+	ui1a := NewV5(NameSpaceDNS, testNameString+"/TestA")
+	ui1b := NewV5(NameSpaceDNS, testNameString+"/TestB")
+	ui2a := NewV5(NameSpaceURL, testNameString+"/TestA")
+	ui2b := NewV5(NameSpaceURL, testNameString+"/TestB")
 	// Проверка детерминированности при разных NameSpace
 	if (ui1a == ui2a) || (ui1b == ui2b) {
 		t.Error("Invalid UUIDv5 with the same value for different Namespace")
@@ -837,8 +837,8 @@ func Test_UUIDV6_Generate(t *testing.T) {
 	v6.lastTime.Store(0)
 	v6.lastSequence.Store(0)
 	// Генерация идентификаторов
-	ui1 := V6()
-	ui2 := V6()
+	ui1 := NewV6()
+	ui2 := NewV6()
 	// Проверка вариантов
 	vt1 := ui1.Variant()
 	vt2 := ui2.Variant()
@@ -895,8 +895,8 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 		v6.lastTime.Store(uint64((initClock.now().UnixNano() / 100) + offsetTime))
 		v6.lastSequence.Store(0)
 		// Генерация идентификаторов
-		ui1 := V6()
-		ui2 := V6()
+		ui1 := NewV6()
+		ui2 := NewV6()
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
 		sq1 := ui1.Sequence()
@@ -931,9 +931,9 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 		v6.lastTime.Store(uint64((initClock.now().UnixNano() / 100) + offsetTime))
 		v6.lastSequence.Store(maxV6Sequence - 1)
 		// Генерация идентификаторов
-		ui1 := V6()
+		ui1 := NewV6()
 		clockMock.add(time.Nanosecond * 100)
-		ui2 := V6()
+		ui2 := NewV6()
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
 		sq1 := ui1.Sequence()
@@ -949,7 +949,7 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 func Test_UUIDV6_Timestamp(t *testing.T) {
 	var prevUUID UUID
 	for i := 0; i < 10; i++ {
-		uuid := V6()
+		uuid := NewV6()
 		if i > 0 {
 			currentTime := uuid.Timestamp()
 			prevTime := prevUUID.Timestamp()
@@ -988,8 +988,8 @@ func Test_UUIDV7_Generate(t *testing.T) {
 	v7.lastTime.Store(0)
 	v7.lastSequence.Store(0)
 	// Генерация идентификаторов
-	ui1 := V7()
-	ui2 := V7()
+	ui1 := NewV7()
+	ui2 := NewV7()
 	// Проверка вариантов
 	vt1 := ui1.Variant()
 	vt2 := ui2.Variant()
@@ -1047,8 +1047,8 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 		v7.lastTime.Store(uint64(initClock.now().UnixMilli()))
 		v7.lastSequence.Store(0)
 		// Генерация идентификаторов
-		ui1 := V7()
-		ui2 := V7()
+		ui1 := NewV7()
+		ui2 := NewV7()
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
 		sq1 := ui1.Sequence()
@@ -1084,9 +1084,9 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 		v7.lastTime.Store(uint64(initClock.now().UnixMilli()))
 		v7.lastSequence.Store(maxV7Sequence - 1)
 		// Генерация идентификаторов
-		ui1 := V7()
+		ui1 := NewV7()
 		clockMock.add(time.Millisecond)
-		ui2 := V7()
+		ui2 := NewV7()
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
 		sq1 := ui1.Sequence()
@@ -1102,7 +1102,7 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 func Test_UUIDV7_Timestamp(t *testing.T) {
 	var prevUUID UUID
 	for i := 0; i < 10; i++ {
-		uuid := V7()
+		uuid := NewV7()
 		if i > 0 {
 			currentTime := uuid.Timestamp()
 			prevTime := prevUUID.Timestamp()
@@ -1136,8 +1136,8 @@ func Test_UUIDV8_Generate(t *testing.T) {
 	v8.lastTime.Store(uint64(initClock.now().UnixMilli()))
 	v8.lastSequence.Store(0)
 	// Генерация идентификаторов
-	ui1 := V8(testNodeID)
-	ui2 := V8(testNodeID)
+	ui1 := NewV8(testNodeID)
+	ui2 := NewV8(testNodeID)
 	// Проверка вариантов
 	vt1 := ui1.Variant()
 	vt2 := ui2.Variant()
@@ -1203,8 +1203,8 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 		v8.lastTime.Store(uint64(initClock.now().UnixMilli()))
 		v8.lastSequence.Store(0)
 		// Генерация идентификаторов
-		ui1 := V8(testNodeID)
-		ui2 := V8(testNodeID)
+		ui1 := NewV8(testNodeID)
+		ui2 := NewV8(testNodeID)
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
 		sq1 := ui1.Sequence()
@@ -1239,9 +1239,9 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 		v8.lastTime.Store(uint64(initClock.now().UnixMilli()))
 		v8.lastSequence.Store(maxV8Sequence - 1)
 		// Генерация идентификаторов
-		ui1 := V8(testNodeID)
+		ui1 := NewV8(testNodeID)
 		clockMock.add(time.Millisecond)
-		ui2 := V8(testNodeID)
+		ui2 := NewV8(testNodeID)
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
 		sq1 := ui1.Sequence()
@@ -1257,7 +1257,7 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 func Test_UUIDV8_Timestamp(t *testing.T) {
 	var prevUUID UUID
 	for i := 0; i < 10; i++ {
-		uuid := V8(testNodeID)
+		uuid := NewV8(testNodeID)
 		if i > 0 {
 			currentTime := uuid.Timestamp()
 			prevTime := prevUUID.Timestamp()

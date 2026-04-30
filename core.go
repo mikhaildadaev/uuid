@@ -79,7 +79,7 @@ func Parse(str string) (UUID, error) {
 	}
 	return ui, nil
 }
-func V1() UUID {
+func NewV1() UUID {
 	var uuid UUID
 	// Получение временной метки и последовательности
 	ts, sq := getTimeNanoAndSequence("v1")
@@ -96,7 +96,7 @@ func V1() UUID {
 	copy(uuid[10:16], mac[:])
 	return uuid
 }
-func V2(posType int) UUID {
+func NewV2(posType int) UUID {
 	var uuid UUID
 	// Проверка POSType (UID/GID и др.)
 	posType = max(0, min(posType, maxV2POSType))
@@ -118,7 +118,7 @@ func V2(posType int) UUID {
 	copy(uuid[10:16], mac[:])
 	return uuid
 }
-func V3(nameSpace UUID, nameString string) UUID {
+func NewV3(nameSpace UUID, nameString string) UUID {
 	var uuid UUID
 	var hashBufPool = hashMD5Pool.Get().(*struct {
 		buf  [md5.Size + bufSize]byte
@@ -142,7 +142,7 @@ func V3(nameSpace UUID, nameString string) UUID {
 	uuid[8] = (uuid[8] & 0x3F) | bitVRFC4122
 	return uuid
 }
-func V4() UUID {
+func NewV4() UUID {
 	var uuid UUID
 	// Установка рандомных данных
 	genRandCrypto(uuid[:])
@@ -152,7 +152,7 @@ func V4() UUID {
 	uuid[8] = (uuid[8] & 0x3F) | bitVRFC4122
 	return uuid
 }
-func V5(nameSpace UUID, nameString string) UUID {
+func NewV5(nameSpace UUID, nameString string) UUID {
 	var uuid UUID
 	var hashBufPool = hashSHA1Pool.Get().(*struct {
 		buf  [sha1.Size + bufSize]byte
@@ -176,7 +176,7 @@ func V5(nameSpace UUID, nameString string) UUID {
 	uuid[8] = (uuid[8] & 0x3F) | bitVRFC4122
 	return uuid
 }
-func V6() UUID {
+func NewV6() UUID {
 	var uuid UUID
 	// Получение временной метки и последовательности
 	ts, sq := getTimeNanoAndSequence("v6")
@@ -193,7 +193,7 @@ func V6() UUID {
 	copy(uuid[10:16], mac[:])
 	return uuid
 }
-func V7() UUID {
+func NewV7() UUID {
 	var uuid UUID
 	// Получение временной метки и последовательности
 	ts, sq := getTimeMilliAndSequence("v7")
@@ -206,7 +206,7 @@ func V7() UUID {
 	uuid[8] = (uuid[8]&0x3F | bitVRFC4122)
 	return uuid
 }
-func V8(nodeID int) UUID {
+func NewV8(nodeID int) UUID {
 	var uuid UUID
 	// Получение временной метки и последовательности
 	ts, sq := getTimeMilliAndSequence("v8")

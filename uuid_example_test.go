@@ -25,50 +25,50 @@ func ExampleParse() {
 	// Output:
 	// false
 }
-func ExampleV1() {
-	u1 := uuid.V1()
+func ExampleNewV1() {
+	u1 := uuid.NewV1()
 	fmt.Println(u1.Version())
 	// Output:
 	// 1
 }
-func ExampleV2() {
-	u2 := uuid.V2(posix)
+func ExampleNewV2() {
+	u2 := uuid.NewV2(posix)
 	fmt.Println(u2.Version())
 	// Output:
 	// 2
 }
-func ExampleV3() {
-	u3 := uuid.V3(uuid.NameSpaceDNS, name)
+func ExampleNewV3() {
+	u3 := uuid.NewV3(uuid.NameSpaceDNS, name)
 	fmt.Println(u3.Version())
 	// Output:
 	// 3
 }
-func ExampleV4() {
-	u4 := uuid.V4()
+func ExampleNewV4() {
+	u4 := uuid.NewV4()
 	fmt.Println(u4.Version())
 	// Output:
 	// 4
 }
-func ExampleV5() {
-	u5 := uuid.V5(uuid.NameSpaceDNS, name)
+func ExampleNewV5() {
+	u5 := uuid.NewV5(uuid.NameSpaceDNS, name)
 	fmt.Println(u5.Version())
 	// Output:
 	// 5
 }
-func ExampleV6() {
-	u6 := uuid.V6()
+func ExampleNewV6() {
+	u6 := uuid.NewV6()
 	fmt.Println(u6.Version())
 	// Output:
 	// 6
 }
-func ExampleV7() {
-	u7 := uuid.V7()
+func ExampleNewV7() {
+	u7 := uuid.NewV7()
 	fmt.Println(u7.Version())
 	// Output:
 	// 7
 }
-func ExampleV8() {
-	u8 := uuid.V8(node)
+func ExampleNewV8() {
+	u8 := uuid.NewV8(node)
 	fmt.Println(u8.Version())
 	// Output:
 	// 8
@@ -120,7 +120,7 @@ func ExampleUUID_IsZero() {
 	// true
 }
 func ExampleUUID_Node() {
-	u8 := uuid.V8(node)
+	u8 := uuid.NewV8(node)
 	fmt.Println(u8.Node())
 	// Output:
 	// 1995
@@ -144,7 +144,7 @@ func ExampleUUID_Sequence() {
 	// 0
 }
 func ExampleUUID_String() {
-	u4 := uuid.V4()
+	u4 := uuid.NewV4()
 	fmt.Println(u4.Version())
 	fmt.Println(len(u4.String()))
 	// Output:
