@@ -78,7 +78,7 @@ Pure generation and serialization overhead. Benchmarks write to `io.Discard` —
 
 > **Note**
 > 
-> All benchmarks measure pure generation and parsing overhead. Benchmarks marked as zero-allocation (`0 B/op`, `0 allocs/op`) perform no heap allocations in hot-path operations — minor artifacts in single-threaded V3/V5 are from the Go testing framework itself, not from UUID generation. Benchmarks suffixed with `Info` include logging overhead via `b.Logf` and are intended for debugging, not performance comparison. Real-world performance depends on CPU, memory latency, and concurrency.
+> All benchmarks measure pure generation and parsing overhead. Benchmarks marked as zero-allocation (`0 B/op`, `0 allocs/op`) perform no heap allocations in hot-path operations — minor artifacts in single-threaded V3/V5 are from the Go testing framework itself, not from UUID generation. Real-world performance depends on CPU, memory latency, and concurrency.
 >
 > *Benchmarked on Intel Core i9-9880H (2.30 GHz)*
 
