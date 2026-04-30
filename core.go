@@ -387,14 +387,14 @@ func (uuid UUID) Validate() error {
 	}
 	switch version {
 	case 1, 6:
-		macValid := true
+		macIsZero := true
 		for _, b := range uuid[10:16] {
 			if b != 0 {
-				macValid = false
+				macIsZero = false
 				break
 			}
 		}
-		if macValid {
+		if macIsZero {
 			return ErrInvalidUUIDMAC
 		}
 	case 2:

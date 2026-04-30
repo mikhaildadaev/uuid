@@ -33,6 +33,8 @@ func (uuid *UUID) MarshalText() ([]byte, error) {
 	buf := initCachePool.Get().(*[36]byte)
 	defer initCachePool.Put(buf)
 	encodeHex(buf[:], *uuid)
+	out := make([]byte, 36)
+	copy(out, buf[:])
 	return buf[:], nil
 }
 func (uuid *UUID) UnmarshalBinary(data []byte) error {

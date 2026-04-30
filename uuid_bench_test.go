@@ -7,32 +7,6 @@ import (
 )
 
 // Бенчмарки компонентов
-func Benchmark_Parse(b *testing.B) {
-	UUID := testUUIDVUString
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_, _ = Parse(UUID)
-	}
-}
-func Benchmark_String(b *testing.B) {
-	uuid, _ := Parse(testUUIDVUString)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = uuid.String()
-	}
-}
-func Benchmark_Time(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		waitTime(time.Nanosecond * 100)
-	}
-}
-func Benchmark_Validate(b *testing.B) {
-	uuid, _ := Parse(testUUIDVUString)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		_ = uuid.Validate()
-	}
-}
 func Benchmark_NewV1(b *testing.B) {
 	b.Run("Multi", func(b *testing.B) {
 		b.ResetTimer()
@@ -49,7 +23,7 @@ func Benchmark_NewV1(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V1_Info(b *testing.B) {
+func Benchmark_NewV1_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -102,7 +76,7 @@ func Benchmark_NewV2(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V2_Info(b *testing.B) {
+func Benchmark_NewV2_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
@@ -127,7 +101,7 @@ func Benchmark_NewV3(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V3_Info(b *testing.B) {
+func Benchmark_NewV3_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
@@ -152,7 +126,7 @@ func Benchmark_NewV4(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V4_Info(b *testing.B) {
+func Benchmark_NewV4_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
@@ -177,7 +151,7 @@ func Benchmark_NewV5(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V5_Info(b *testing.B) {
+func Benchmark_NewV5_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
@@ -202,7 +176,7 @@ func Benchmark_NewV6(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V6_Info(b *testing.B) {
+func Benchmark_NewV6_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -255,7 +229,7 @@ func Benchmark_NewV7(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V7_Info(b *testing.B) {
+func Benchmark_NewV7_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -308,7 +282,7 @@ func Benchmark_NewV8(b *testing.B) {
 		}
 	})
 }
-func Benchmark_V8_Info(b *testing.B) {
+func Benchmark_NewV8_Info(b *testing.B) {
 	b.Run("With Mock Time", func(b *testing.B) {
 		// Ленивая инициализация глобального состояния
 		initSync.Do(func() {
@@ -344,4 +318,30 @@ func Benchmark_V8_Info(b *testing.B) {
 			b.Logf("UUIDv8-%d: %s", i, ui)
 		}
 	})
+}
+func Benchmark_Parse(b *testing.B) {
+	UUID := testUUIDVUString
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		_, _ = Parse(UUID)
+	}
+}
+func Benchmark_String(b *testing.B) {
+	uuid, _ := Parse(testUUIDVUString)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		_ = uuid.String()
+	}
+}
+func Benchmark_Time(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		waitTime(time.Nanosecond * 100)
+	}
+}
+func Benchmark_Validate(b *testing.B) {
+	uuid, _ := Parse(testUUIDVUString)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		_ = uuid.Validate()
+	}
 }

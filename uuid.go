@@ -92,7 +92,9 @@ var (
 	initRandPool = sync.Pool{
 		New: func() any {
 			buf := make([]byte, bufSize)
-			_, _ = rand.Read(buf)
+			if _, err := rand.Read(buf); err != nil {
+				fallbackSeed(buf)
+			}
 			return &poolBuffer{
 				buf: buf,
 				pos: atomic.Uint32{},
@@ -172,6 +174,13 @@ func encodeHex(buf []byte, uuid UUID) {
 	buf[33] = hexTable[uuid[14]&0x0f]
 	buf[34] = hexTable[uuid[15]>>4]
 	buf[35] = hexTable[uuid[15]&0x0f]
+}
+func fallbackSeed(b []byte) {
+	t := uint64(time.Now().UnixNano())
+	for i := range b {
+		t = t*31 + uint64(i)
+		b[i] = byte(t >> (i % 8))
+	}
 }
 func genRandCrypto(b []byte) {
 	if len(b) == 0 {
