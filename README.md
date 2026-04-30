@@ -10,7 +10,7 @@ A high-performance, zero-allocation platform for UUID versions 1-8.
 
 ## Go
 
-> Info
+> **Info**
 > 
 > The latest stable version of `uuid` is **v1.26.11**.
 
