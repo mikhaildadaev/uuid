@@ -330,7 +330,7 @@ func (uuid UUID) Posix() (string, uint32) {
 	case 0:
 		return "UID", binary.BigEndian.Uint32(uuid[0:4])
 	case 1:
-		return "UID", binary.BigEndian.Uint32(uuid[0:4])
+		return "GID", binary.BigEndian.Uint32(uuid[0:4])
 	default:
 		return "RID", binary.BigEndian.Uint32(uuid[0:4])
 	}

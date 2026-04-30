@@ -35,7 +35,7 @@ func (uuid *UUID) MarshalText() ([]byte, error) {
 	encodeHex(buf[:], *uuid)
 	out := make([]byte, 36)
 	copy(out, buf[:])
-	return buf[:], nil
+	return out, nil
 }
 func (uuid *UUID) UnmarshalBinary(data []byte) error {
 	if len(data) == 0 {
