@@ -36,9 +36,9 @@ go test -race ./...
 
 ## Benchmarks
 
-## Core Performance
+### Core Performance
 
-### MultiThread
+#### MultiThread
 |  Version | Operations | Time (ns/op) | Memory (B/op) | Allocs (allocs/op) |
 |----------|------------|--------------|---------------|--------------------|
 |  **V1**  |      34.1M |        29.29 |             0 |                  0 |
@@ -50,7 +50,7 @@ go test -race ./...
 |  **V7**  |      22.5M |        44.45 |             0 |                  0 |
 |  **V8**  |      32.0M |        31.21 |             0 |                  0 |
 
-### SingleThread
+#### SingleThread
 |  Version | Operations | Time (ns/op) | Memory (B/op) | Allocs (allocs/op) |
 |----------|------------|--------------|---------------|--------------------|
 |  **V1**  |      13.5M |        85.46 |             0 |                  0 |
