@@ -22,26 +22,21 @@ go test -race ./...
 ```
 
 ## Key Features
-- **Unified API** — One API for logs, metrics, and traces.
-- **Context Extraction** — Automatic extraction `node_id`, `trace_id`, etc. from `context.Context`.
-- **Colored output** – `Dark` and `Light` themes with auto-detection for TEXT format.
-- **16 Field Types** — `Bool`, `Bools`, `Duration`, `Durations`, `Error`, `Errors`, `Float64`, `Floats64`, `Int`, `Ints`, `Int64`, `Ints64`, `String`, `Strings`, `Time`, `Times`.
-- **SinkFile** — Non-blocking atomic rotation with `gzip`.
-- **SinkHttp** — `Batching`, `Circuit Breaker`, `Deduplication`, `Retry`, `Sampling`.
-- **8 Integrations** — `Discord`, `Kafka`, `Loki`, `Prometheus`, `Slack`, `Telegram`, `Tempo`, `WeChat`.
+- **UUIDv1..v8 & Null** — Generate all UUID versions and SQL-compatible null UUID;
+- **Parse & Validate** — Parse and validate standard and null UUID strings;
+- **Metadata Extraction** — Extract timestamp, sequence, node, POSIX, variant, and version;
+- **Serialization** — Full Binary, JSON, and Text marshal/unmarshal support;
+- **SQL Integration** — Native database/sql driver with Scan/Value interfaces;
+- **Zero-Allocation** — Fast, allocator-free core routines on all hot paths.
 
 ## Limits
-- **Async buffer**: if full, log is written synchronously (no blocking)
-- **Caller information**: only for `LevelDebug` (performance optimization)
-- **Time precision**: microseconds (6 digits) — sufficient for 99% of use cases, reduces allocations
-- **Deduplication cache**: in-memory only, cleared periodically (no persistence across restarts)
-- **Circuit Breaker**: resets on application restart (no persistent state)
-- **File rotation**: checks size on each write; rotation triggered by first write exceeding limit
-- **HTTP batching**: messages may be lost if application crashes before flush
-- **Kafka sink**: uses REST Proxy API (not native Kafka protocol) — requires Confluent REST Proxy
-- **Loki sink**: uses HTTP API (`/loki/api/v1/push`) — labels must be pre-configured
-- **Context extraction**: only works with values stored via `context.WithValue()`
-- **Zero dependencies**: by design; no external libraries for features like Kafka native protocol
+- **V2**: `posix` should be `0..255`;
+- **V3/V5**: `name` should be `1..512` symbols (byte length);
+- **V8**: `node` should be `0..16383`;
+
+> **Note** 
+>
+> Strings `name` that are 0 bytes or larger than 512 bytes return a null UUID to prevent allocation.
 
 ## Quick Navigation
 - [Benchmarks](/en/benchmarks) - Core, file, and network performance data.
