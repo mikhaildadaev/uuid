@@ -18,8 +18,6 @@ import (
 	"crypto/rand"
 	"crypto/sha1"
 	"encoding/binary"
-	"errors"
-	"fmt"
 	"net"
 	"os"
 	"runtime"
@@ -28,59 +26,23 @@ import (
 	"time"
 )
 
-// Публичные константы
-const (
-	Author  = "Mikhail Dadaev"
-	Version = "1.26.10"
-)
-
-// Публичные переменные
-var (
-	ErrFailedCryptoRand    = errors.New("failed crypto/rand")
-	ErrFailedGenMAC        = errors.New("failed gen/mac")
-	ErrFailedGenSequences  = errors.New("failed gen/sequences")
-	ErrInvalidNameLine     = errors.New("invalid nameline")
-	ErrInvalidNameSpase    = errors.New("invalid namespace")
-	ErrInvalidUUIDLength   = errors.New("invalid UUID length")
-	ErrInvalidUUIDMAC      = errors.New("invalid UUID mac")
-	ErrInvalidUUIDNode     = errors.New("invalid UUID node")
-	ErrInvalidUUIDPOSIX    = errors.New("invalid UUID posix")
-	ErrInvalidUUIDPosType  = errors.New("invalid UUID postype")
-	ErrInvalidUUIDString   = errors.New("invalid UUID string")
-	ErrInvalidUUIDVariant  = errors.New("invalid UUID variant")
-	ErrInvalidUUIDVersion  = errors.New("invalid UUID version")
-	ErrNullUUID            = errors.New("null UUID")
-	ErrNullUUIDNotAllowed  = errors.New("null UUID not allowed")
-	ErrUnsupportedUUIDType = errors.New("unsupported UUID type")
-)
-var (
-	NameSpaceDNS   = [16]byte{0x6b, 0xa7, 0xb8, 0x10, 0x9d, 0xad, 0x11, 0xd1, 0x80, 0xb4, 0x00, 0xc0, 0x4f, 0xd4, 0x30, 0xc8}
-	NameSpaceURL   = [16]byte{0x6b, 0xa7, 0xb8, 0x11, 0x9d, 0xad, 0x11, 0xd1, 0x80, 0xb4, 0x00, 0xc0, 0x4f, 0xd4, 0x30, 0xc8}
-	NameSpaceOID   = [16]byte{0x6b, 0xa7, 0xb8, 0x12, 0x9d, 0xad, 0x11, 0xd1, 0x80, 0xb4, 0x00, 0xc0, 0x4f, 0xd4, 0x30, 0xc8}
-	NameSpaceX500  = [16]byte{0x6b, 0xa7, 0xb8, 0x14, 0x9d, 0xad, 0x11, 0xd1, 0x80, 0xb4, 0x00, 0xc0, 0x4f, 0xd4, 0x30, 0xc8}
-	NullUUIDBinary = [16]byte{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
-	NullUUIDString = "00000000-0000-0000-0000-000000000000"
-)
-
-// Публичные типы
-type UUID [16]byte
-
-// Публичные структуры
-type NullUUID struct {
-	UUID  UUID
-	Valid bool
+// Приватные интерфейсы
+type clock interface {
+	now() time.Time
 }
 
-// Публичные функции
-func GetAuthor() string {
-	return Author
+// Приватные структуры
+type clockMock struct {
+	time time.Time
 }
-func GetCopyright() string {
-	Copyright := fmt.Sprintf("Copyright © 2022-%d %s. All rights reserved.", time.Now().Year(), Author)
-	return Copyright
+type clockReal struct{}
+type poolBuffer struct {
+	buf []byte
+	pos atomic.Uint32
 }
-func GetVersion() string {
-	return Version
+type version struct {
+	lastSequence *atomic.Uint32
+	lastTime     *atomic.Uint64
 }
 
 // Приватные константы
@@ -115,16 +77,6 @@ const (
 	variantReserved  = 3
 )
 
-// Приватные типы
-type poolBuffer struct {
-	buf []byte
-	pos atomic.Uint32
-}
-type version struct {
-	lastSequence *atomic.Uint32
-	lastTime     *atomic.Uint64
-}
-
 // Приватные переменные
 var (
 	cacheGID      atomic.Uint32
@@ -134,7 +86,7 @@ var (
 			return new([36]byte)
 		},
 	}
-	initClock    clock = realClock{}
+	initClock    clock = clockReal{}
 	initError    error
 	initMAC      atomic.Value
 	initRandPool = sync.Pool{
@@ -309,7 +261,7 @@ func getTimeNanoAndSequence(v string) (ts uint64, sq uint32) {
 		if ts == prevTime {
 			sq := lastSequence.Add(1)
 			if sq > maxSequence {
-				if _, isMock := initClock.(*mockClock); !isMock {
+				if _, isMock := initClock.(*clockMock); !isMock {
 					waitTime(100 * time.Nanosecond)
 					ts = uint64(initClock.now().UnixNano()/100 + offsetTime)
 					continue
@@ -400,4 +352,15 @@ func waitTime(d time.Duration) {
 	for time.Since(start) < d {
 		runtime.Gosched()
 	}
+}
+
+// Приватные методы
+func (clockMock *clockMock) add(d time.Duration) {
+	clockMock.time = clockMock.time.Add(d)
+}
+func (clockMock *clockMock) now() time.Time {
+	return clockMock.time
+}
+func (clockReal) now() time.Time {
+	return time.Now().UTC()
 }

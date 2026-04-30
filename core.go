@@ -5,12 +5,66 @@ import (
 	"crypto/sha1"
 	"encoding/binary"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"strings"
 	"time"
 )
 
+// Публичные типы
+type UUID [16]byte
+
+// Публичные структуры
+type NullUUID struct {
+	UUID  UUID
+	Valid bool
+}
+
+// Публичные константы
+const (
+	Author  = "Mikhail Dadaev"
+	Version = "1.26.11"
+)
+
+// Публичные переменные
+var (
+	ErrFailedCryptoRand    = errors.New("failed crypto/rand")
+	ErrFailedGenMAC        = errors.New("failed gen/mac")
+	ErrFailedGenSequences  = errors.New("failed gen/sequences")
+	ErrInvalidNameLine     = errors.New("invalid nameline")
+	ErrInvalidNameSpase    = errors.New("invalid namespace")
+	ErrInvalidUUIDLength   = errors.New("invalid UUID length")
+	ErrInvalidUUIDMAC      = errors.New("invalid UUID mac")
+	ErrInvalidUUIDNode     = errors.New("invalid UUID node")
+	ErrInvalidUUIDPOSIX    = errors.New("invalid UUID posix")
+	ErrInvalidUUIDPosType  = errors.New("invalid UUID postype")
+	ErrInvalidUUIDString   = errors.New("invalid UUID string")
+	ErrInvalidUUIDVariant  = errors.New("invalid UUID variant")
+	ErrInvalidUUIDVersion  = errors.New("invalid UUID version")
+	ErrNullUUID            = errors.New("null UUID")
+	ErrNullUUIDNotAllowed  = errors.New("null UUID not allowed")
+	ErrUnsupportedUUIDType = errors.New("unsupported UUID type")
+)
+var (
+	NameSpaceDNS   = [16]byte{0x6b, 0xa7, 0xb8, 0x10, 0x9d, 0xad, 0x11, 0xd1, 0x80, 0xb4, 0x00, 0xc0, 0x4f, 0xd4, 0x30, 0xc8}
+	NameSpaceURL   = [16]byte{0x6b, 0xa7, 0xb8, 0x11, 0x9d, 0xad, 0x11, 0xd1, 0x80, 0xb4, 0x00, 0xc0, 0x4f, 0xd4, 0x30, 0xc8}
+	NameSpaceOID   = [16]byte{0x6b, 0xa7, 0xb8, 0x12, 0x9d, 0xad, 0x11, 0xd1, 0x80, 0xb4, 0x00, 0xc0, 0x4f, 0xd4, 0x30, 0xc8}
+	NameSpaceX500  = [16]byte{0x6b, 0xa7, 0xb8, 0x14, 0x9d, 0xad, 0x11, 0xd1, 0x80, 0xb4, 0x00, 0xc0, 0x4f, 0xd4, 0x30, 0xc8}
+	NullUUIDBinary = [16]byte{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+	NullUUIDString = "00000000-0000-0000-0000-000000000000"
+)
+
 // Публичные функции
+func GetAuthor() string {
+	return Author
+}
+func GetCopyright() string {
+	Copyright := fmt.Sprintf("Copyright © 2022-%d %s. All rights reserved.", time.Now().Year(), Author)
+	return Copyright
+}
+func GetVersion() string {
+	return Version
+}
 func Null() NullUUID {
 	return NullUUID{Valid: false}
 }

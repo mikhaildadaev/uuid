@@ -555,7 +555,7 @@ func Test_UUIDV1_Generate(t *testing.T) {
 		v1.lastSequence.Store(savedSequence)
 	})
 	// Мокирование
-	initClock = realClock{}
+	initClock = clockReal{}
 	v1.lastTime.Store(0)
 	v1.lastSequence.Store(0)
 	// Генерация идентификаторов
@@ -603,17 +603,17 @@ func Test_UUIDV1_Sequence(t *testing.T) {
 			t.Fatal(initError)
 		}
 		// Фиксация текущего состояние
-		realClock := initClock
+		clockReal := initClock
 		realTime := v1.lastTime.Load()
 		realSequence := v1.lastSequence.Load()
 		t.Cleanup(func() {
-			initClock = realClock
+			initClock = clockReal
 			v1.lastTime.Store(realTime)
 			v1.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
+		clockMock := &clockMock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		initClock = clockMock
 		v1.lastTime.Store(uint64((initClock.now().UnixNano() / 100) + offsetTime))
 		v1.lastSequence.Store(0)
 		// Генерация идентификаторов
@@ -639,22 +639,22 @@ func Test_UUIDV1_Sequence(t *testing.T) {
 			t.Fatal(initError)
 		}
 		// Фиксация текущего состояние
-		realClock := initClock
+		clockReal := initClock
 		realTime := v1.lastTime.Load()
 		realSequence := v1.lastSequence.Load()
 		t.Cleanup(func() {
-			initClock = realClock
+			initClock = clockReal
 			v1.lastTime.Store(realTime)
 			v1.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
+		clockMock := &clockMock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		initClock = clockMock
 		v1.lastTime.Store(uint64((initClock.now().UnixNano() / 100) + offsetTime))
 		v1.lastSequence.Store(maxV1Sequence - 1)
 		// Генерация идентификаторов
 		ui1 := V1()
-		mockClock.add(time.Nanosecond * 100)
+		clockMock.add(time.Nanosecond * 100)
 		ui2 := V1()
 		// Получение временных меток и последовательностей
 		ts1 := ui1.Timestamp()
@@ -833,7 +833,7 @@ func Test_UUIDV6_Generate(t *testing.T) {
 		v6.lastSequence.Store(savedSequence)
 	})
 	// Мокирование
-	initClock = realClock{}
+	initClock = clockReal{}
 	v6.lastTime.Store(0)
 	v6.lastSequence.Store(0)
 	// Генерация идентификаторов
@@ -881,17 +881,17 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 			t.Fatal(initError)
 		}
 		// Фиксация текущего состояние
-		realClock := initClock
+		clockReal := initClock
 		realTime := v6.lastTime.Load()
 		realSequence := v6.lastSequence.Load()
 		t.Cleanup(func() {
-			initClock = realClock
+			initClock = clockReal
 			v6.lastTime.Store(realTime)
 			v6.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
+		clockMock := &clockMock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		initClock = clockMock
 		v6.lastTime.Store(uint64((initClock.now().UnixNano() / 100) + offsetTime))
 		v6.lastSequence.Store(0)
 		// Генерация идентификаторов
@@ -917,22 +917,22 @@ func Test_UUIDV6_Sequence(t *testing.T) {
 			t.Fatal(initError)
 		}
 		// Фиксация текущего состояние
-		realClock := initClock
+		clockReal := initClock
 		realTime := v6.lastTime.Load()
 		realSequence := v6.lastSequence.Load()
 		t.Cleanup(func() {
-			initClock = realClock
+			initClock = clockReal
 			v6.lastTime.Store(realTime)
 			v6.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
+		clockMock := &clockMock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		initClock = clockMock
 		v6.lastTime.Store(uint64((initClock.now().UnixNano() / 100) + offsetTime))
 		v6.lastSequence.Store(maxV6Sequence - 1)
 		// Генерация идентификаторов
 		ui1 := V6()
-		mockClock.add(time.Nanosecond * 100)
+		clockMock.add(time.Nanosecond * 100)
 		ui2 := V6()
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
@@ -984,7 +984,7 @@ func Test_UUIDV7_Generate(t *testing.T) {
 		v7.lastSequence.Store(savedSequence)
 	})
 	// Мокирование
-	initClock = realClock{}
+	initClock = clockReal{}
 	v7.lastTime.Store(0)
 	v7.lastSequence.Store(0)
 	// Генерация идентификаторов
@@ -1033,17 +1033,17 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 			t.Fatal(initError)
 		}
 		// Фиксация текущего состояние
-		realClock := initClock
+		clockReal := initClock
 		realTime := v7.lastTime.Load()
 		realSequence := v7.lastSequence.Load()
 		t.Cleanup(func() {
-			initClock = realClock
+			initClock = clockReal
 			v7.lastTime.Store(realTime)
 			v7.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
+		clockMock := &clockMock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		initClock = clockMock
 		v7.lastTime.Store(uint64(initClock.now().UnixMilli()))
 		v7.lastSequence.Store(0)
 		// Генерация идентификаторов
@@ -1070,22 +1070,22 @@ func Test_UUIDV7_Sequence(t *testing.T) {
 			t.Fatal(initError)
 		}
 		// Фиксация текущего состояние
-		realClock := initClock
+		clockReal := initClock
 		realTime := v7.lastTime.Load()
 		realSequence := v7.lastSequence.Load()
 		t.Cleanup(func() {
-			initClock = realClock
+			initClock = clockReal
 			v7.lastTime.Store(realTime)
 			v7.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
+		clockMock := &clockMock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		initClock = clockMock
 		v7.lastTime.Store(uint64(initClock.now().UnixMilli()))
 		v7.lastSequence.Store(maxV7Sequence - 1)
 		// Генерация идентификаторов
 		ui1 := V7()
-		mockClock.add(time.Millisecond)
+		clockMock.add(time.Millisecond)
 		ui2 := V7()
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
@@ -1122,17 +1122,17 @@ func Test_UUIDV8_Generate(t *testing.T) {
 		t.Fatal(initError)
 	}
 	// Фиксация текущего состояние
-	realClock := initClock
+	clockReal := initClock
 	realTime := v8.lastTime.Load()
 	realSequence := v8.lastSequence.Load()
 	t.Cleanup(func() {
-		initClock = realClock
+		initClock = clockReal
 		v8.lastTime.Store(realTime)
 		v8.lastSequence.Store(realSequence)
 	})
 	// Мокирование
-	mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-	initClock = mockClock
+	clockMock := &clockMock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+	initClock = clockMock
 	v8.lastTime.Store(uint64(initClock.now().UnixMilli()))
 	v8.lastSequence.Store(0)
 	// Генерация идентификаторов
@@ -1189,17 +1189,17 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 			t.Fatal(initError)
 		}
 		// Фиксация текущего состояние
-		realClock := initClock
+		clockReal := initClock
 		realTime := v8.lastTime.Load()
 		realSequence := v8.lastSequence.Load()
 		t.Cleanup(func() {
-			initClock = realClock
+			initClock = clockReal
 			v8.lastTime.Store(realTime)
 			v8.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
+		clockMock := &clockMock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		initClock = clockMock
 		v8.lastTime.Store(uint64(initClock.now().UnixMilli()))
 		v8.lastSequence.Store(0)
 		// Генерация идентификаторов
@@ -1225,22 +1225,22 @@ func Test_UUIDV8_Sequence(t *testing.T) {
 			t.Fatal(initError)
 		}
 		// Фиксация текущего состояние
-		realClock := initClock
+		clockReal := initClock
 		realTime := v8.lastTime.Load()
 		realSequence := v8.lastSequence.Load()
 		t.Cleanup(func() {
-			initClock = realClock
+			initClock = clockReal
 			v8.lastTime.Store(realTime)
 			v8.lastSequence.Store(realSequence)
 		})
 		// Мокирование
-		mockClock := &mockClock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
-		initClock = mockClock
+		clockMock := &clockMock{time: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)}
+		initClock = clockMock
 		v8.lastTime.Store(uint64(initClock.now().UnixMilli()))
 		v8.lastSequence.Store(maxV8Sequence - 1)
 		// Генерация идентификаторов
 		ui1 := V8(testNodeID)
-		mockClock.add(time.Millisecond)
+		clockMock.add(time.Millisecond)
 		ui2 := V8(testNodeID)
 		// Проверка временных меток и последовательностей
 		ts1 := ui1.Timestamp()
