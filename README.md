@@ -8,12 +8,18 @@
 
 A high-performance, zero-allocation platform for UUID versions 1-8.
 
-## Get Started
+## Go
+
+> Info
+> 
+> The latest stable version of `uuid` is **v1.26.11**.
+
+### Get Started
 ```bash
 go get github.com/mikhaildadaev/uuid
 ```
 
-## Run Test
+### Run Test
 ```bash
 go test ./...
 go test -bench=. ./...
@@ -21,14 +27,14 @@ go test -cover ./...
 go test -race ./...
 ```
 
-## Key Features
+### Key Features
 - Generate UUIDv1..v8 and null UUID;
 - Parse and validate standard and null UUID;
 - Serialize and deserialize via Binary/Json/Text;
 - Extract metadata UUID;
 - Fast, allocator-free core routines;
 
-## Limits
+### Limits
 - V2: `posix` should be `0..255`;
 - V3/V5: `name` should be `1..512` symbols (byte length). 
 - V8: `node` should be `0..16383`;
