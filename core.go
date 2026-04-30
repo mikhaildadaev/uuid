@@ -55,29 +55,8 @@ var (
 )
 
 // Публичные функции
-func GetAuthor() string {
-	return Author
-}
-func GetCopyright() string {
-	Copyright := fmt.Sprintf("Copyright © 2022-%d %s. All rights reserved.", time.Now().Year(), Author)
-	return Copyright
-}
-func GetVersion() string {
-	return Version
-}
-func Null() NullUUID {
+func NewNull() NullUUID {
 	return NullUUID{Valid: false}
-}
-func Parse(str string) (UUID, error) {
-	var ln = strings.NewReplacer("{", "", "}", "", "-", "").Replace(str)
-	var ui UUID
-	if len(ln) != 32 {
-		return UUID{}, ErrInvalidUUIDLength
-	}
-	if _, err := hex.Decode(ui[:], []byte(ln)); err != nil {
-		return UUID{}, ErrInvalidUUIDString
-	}
-	return ui, nil
 }
 func NewV1() UUID {
 	var uuid UUID
@@ -221,6 +200,27 @@ func NewV8(nodeID int) UUID {
 	// Установка идентификатора ноды и варианта RFC 4122
 	binary.BigEndian.PutUint16(uuid[8:10], uint16(nodeID)&maxV8NodeID|bitVRFC4122<<8)
 	return uuid
+}
+func GetAuthor() string {
+	return Author
+}
+func GetCopyright() string {
+	Copyright := fmt.Sprintf("Copyright © 2022-%d %s. All rights reserved.", time.Now().Year(), Author)
+	return Copyright
+}
+func GetVersion() string {
+	return Version
+}
+func Parse(str string) (UUID, error) {
+	var ln = strings.NewReplacer("{", "", "}", "", "-", "").Replace(str)
+	var ui UUID
+	if len(ln) != 32 {
+		return UUID{}, ErrInvalidUUIDLength
+	}
+	if _, err := hex.Decode(ui[:], []byte(ln)); err != nil {
+		return UUID{}, ErrInvalidUUIDString
+	}
+	return ui, nil
 }
 
 // Публичные методы
