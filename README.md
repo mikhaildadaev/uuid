@@ -43,8 +43,14 @@ go test -race ./...
 > Strings `name` that are 0 bytes or larger than 512 bytes return a null UUID to prevent allocation.
 
 ## Benchmarks
+> **Info**
+> 
+> The best way to compare libraries is to run benchmarks in your own environment with your own workload. Each project has unique requirements — latency, throughput, memory usage, and integration complexity — and no single test can cover them all.
+> 
+> I recommend that you test ulog alongside other libraries and choose the tool that best suits your needs.
 
 ### Core Performance
+Pure generation and serialization overhead. Benchmarks write to `io.Discard` — no I/O involved.
 
 #### MultiThread
 |  Version | Operations | Time (ns/op) | Memory (B/op) | Allocs (allocs/op) |
@@ -72,10 +78,7 @@ go test -race ./...
 
 > **Note**
 > 
-> - All benchmarks measure pure generation and parsing overhead.
-> - Zero allocations (`0 B/op`, `0 allocs/op`) indicate that no heap memory is allocated during hot-path operations. The 7 B/op in single-threaded V3/V5 benchmarks is an artifact of the Go testing framework's string allocation for the benchmark loop itself, not an allocation within the UUID generation hot path. This is confirmed by `0 allocs/op` and the absence of this memory in multi-threaded benchmarks.
-> - The `Info` benchmarks (e.g., `Benchmark_VX_Info`) include logging of generated UUIDs via `b.Logf`, which adds measurable overhead and is primarily used for debugging and validation, not for performance comparisons.
-> - Real-world performance may vary based on CPU frequency, memory latency, and concurrency level.
+> All benchmarks measure pure generation and parsing overhead. Benchmarks marked as zero-allocation (`0 B/op`, `0 allocs/op`) perform no heap allocations in hot-path operations — minor artifacts in single-threaded V3/V5 are from the Go testing framework itself, not from UUID generation. Benchmarks suffixed with `Info` include logging overhead via `b.Logf` and are intended for debugging, not performance comparison. Real-world performance depends on CPU, memory latency, and concurrency.
 >
 > *Benchmarked on Intel Core i9-9880H (2.30 GHz)*
 
