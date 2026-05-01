@@ -18,7 +18,8 @@ import (
     "github.com/mikhaildadaev/uuid"
 )
 var uu uuid.UUID
-err := uu.Scan("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+err := uu.Scan(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -26,7 +27,7 @@ fmt.Println(uu.String())
 ```
 Output
 ```text
-018f3c14-8000-0000-0000-000000000001
+01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
 ## UUID Value
@@ -37,7 +38,8 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -49,7 +51,7 @@ fmt.Printf("%s\n", val)
 ```
 Output
 ```text
-018f3c14-8000-0000-0000-000000000001
+01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
 ## NULLUUID Scan
@@ -65,7 +67,8 @@ if err := nu.Scan(nil); err != nil {
     fmt.Println(err)
 }
 fmt.Println("Valid:", nu.Valid)
-if err := nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f"); err != nil {
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+if err := nu.Scan(uuidV8String); err != nil {
     fmt.Println(err)
 }
 fmt.Println("Valid:", nu.Valid)
@@ -89,7 +92,8 @@ import (
 var nu uuid.NullUUID
 value, _ := nu.Value()
 fmt.Println("NULL value:", value)
-nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+nu.Scan(uuidV8String)
 value, _ = nu.Value()
 fmt.Println("UUID value:", value)
 ```
