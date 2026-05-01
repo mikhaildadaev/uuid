@@ -210,9 +210,6 @@ func genRandCrypto(b []byte) {
 	}
 }
 func getTimeMilliAndSequence(v string) (ts uint64, sq uint32) {
-	initSync.Do(func() {
-		initError = initGlobal()
-	})
 	if initError != nil {
 		return 0, 0
 	}
@@ -241,9 +238,6 @@ func getTimeMilliAndSequence(v string) (ts uint64, sq uint32) {
 	}
 }
 func getTimeNanoAndSequence(v string) (ts uint64, sq uint32) {
-	initSync.Do(func() {
-		initError = initGlobal()
-	})
 	if initError != nil {
 		return 0, 0
 	}
@@ -285,9 +279,6 @@ func getTimeNanoAndSequence(v string) (ts uint64, sq uint32) {
 	}
 }
 func getPOSIX(p int) (pi uint32) {
-	initSync.Do(func() {
-		initError = initGlobal()
-	})
 	if initError != nil {
 		return 0
 	}

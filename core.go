@@ -52,6 +52,9 @@ func NewNull() NullUUID {
 	return NullUUID{Valid: false}
 }
 func NewV1() UUID {
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
 	var uuid UUID
 	// Получение временной метки и последовательности
 	ts, sq := getTimeNanoAndSequence("v1")
@@ -68,12 +71,21 @@ func NewV1() UUID {
 	copy(uuid[10:16], mac[:])
 	return uuid
 }
-func NewV2(posType int) UUID {
+func NewV2(posType int, posValue ...int) UUID {
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
+	var pi uint32
 	var uuid UUID
 	// Проверка POSType (UID/GID и др.)
 	posType = max(0, min(posType, maxV2POSType))
-	// Извлечение POS-идентификатора
-	pi := getPOSIX(posType)
+	if len(posValue) == 1 {
+		// Переданный POS-идентификатора
+		pi = uint32(posValue[0])
+	} else {
+		// Извлечение POS-идентификатора
+		pi = getPOSIX(posType)
+	}
 	// Получение MAC-адреса
 	mac := initMAC.Load().([6]byte)
 	// Установка рандомных данных
@@ -91,6 +103,9 @@ func NewV2(posType int) UUID {
 	return uuid
 }
 func NewV3(nameSpace UUID, nameString string) UUID {
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
 	var uuid UUID
 	var hashBufPool = hashMD5Pool.Get().(*struct {
 		buf  [md5.Size + bufSize]byte
@@ -115,6 +130,9 @@ func NewV3(nameSpace UUID, nameString string) UUID {
 	return uuid
 }
 func NewV4() UUID {
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
 	var uuid UUID
 	// Установка рандомных данных
 	genRandCrypto(uuid[:])
@@ -125,6 +143,9 @@ func NewV4() UUID {
 	return uuid
 }
 func NewV5(nameSpace UUID, nameString string) UUID {
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
 	var uuid UUID
 	var hashBufPool = hashSHA1Pool.Get().(*struct {
 		buf  [sha1.Size + bufSize]byte
@@ -149,6 +170,9 @@ func NewV5(nameSpace UUID, nameString string) UUID {
 	return uuid
 }
 func NewV6() UUID {
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
 	var uuid UUID
 	// Получение временной метки и последовательности
 	ts, sq := getTimeNanoAndSequence("v6")
@@ -166,6 +190,9 @@ func NewV6() UUID {
 	return uuid
 }
 func NewV7() UUID {
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
 	var uuid UUID
 	// Получение временной метки и последовательности
 	ts, sq := getTimeMilliAndSequence("v7")
@@ -179,6 +206,9 @@ func NewV7() UUID {
 	return uuid
 }
 func NewV8(nodeID int) UUID {
+	initSync.Do(func() {
+		initError = initGlobal()
+	})
 	var uuid UUID
 	// Получение временной метки и последовательности
 	ts, sq := getTimeMilliAndSequence("v8")
