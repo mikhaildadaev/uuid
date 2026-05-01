@@ -72,13 +72,13 @@ Output:
 Декодирует UUID из 16-байтового бинарного представления. Возвращает ошибку, если длина входных данных не равна 16 байтам.
 ```go
 import "github.com/mikhaildadaev/uuid"
-var u uuid.UUID
-uuidBinary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
-err := u.UnmarshalBinary(uuidBinary)
+var uu uuid.UUID
+uuidV8Binary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+err := uu.UnmarshalBinary(uuidV8Binary)
 if err != nil {
     fmt.Println(err)
 }
-fmt.Println(u.String())
+fmt.Println(uu.String())
 ```
 Output:
 ```text
@@ -89,13 +89,13 @@ Output:
 Декодирует UUID из Json-строки. Принимает как строки в кавычках, так и без кавычек; возвращает ошибку при неверном формате.
 ```go
 import "github.com/mikhaildadaev/uuid"
-var u uuid.UUID
-uuidJson := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
-err := u.UnmarshalJSON(uuidJson)
+var uu uuid.UUID
+uuidV8Json := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
+err := uu.UnmarshalJSON(uuidV8Json)
 if err != nil {
     fmt.Println(err)
 }
-fmt.Println(u.String())
+fmt.Println(uu.String())
 ```
 Output:
 ```text
@@ -106,13 +106,13 @@ Output:
 Декодирует UUID из канонической текстовой формы (32 шестнадцатеричные цифры с дефисами). Регистронезависимый; возвращает ошибку при неверном формате.
 ```go
 import "github.com/mikhaildadaev/uuid"
-var u uuid.UUID
-uuidText := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
-err := u.UnmarshalText(uuidText)
+var uu uuid.UUID
+uuidV8Text := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
+err := uu.UnmarshalText(uuidV8Text)
 if err != nil {
     fmt.Println(err)
 }
-fmt.Println(u.String())
+fmt.Println(uu.String())
 ```
 Output:
 ```text

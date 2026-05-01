@@ -72,13 +72,13 @@ Output:
 Decodes a UUID from its 16-byte binary representation. An error is returned if the input is not exactly 16 bytes long.
 ```go
 import "github.com/mikhaildadaev/uuid"
-var u uuid.UUID
-uuidBinary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
-err := u.UnmarshalBinary(uuidBinary)
+var uu uuid.UUID
+uuidV8Binary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+err := uu.UnmarshalBinary(uuidV8Binary)
 if err != nil {
     fmt.Println(err)
 }
-fmt.Println(u.String())
+fmt.Println(uu.String())
 ```
 Output:
 ```text
@@ -89,13 +89,13 @@ Output:
 Decodes a UUID from a Json-encoded string. Accepts both quoted and unquoted forms; returns an error if the format is invalid.
 ```go
 import "github.com/mikhaildadaev/uuid"
-var u uuid.UUID
-uuidJson := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
-err := u.UnmarshalJSON(uuidJson)
+var uu uuid.UUID
+uuidV8Json := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
+err := uu.UnmarshalJSON(uuidV8Json)
 if err != nil {
     fmt.Println(err)
 }
-fmt.Println(u.String())
+fmt.Println(uu.String())
 ```
 Output:
 ```text
@@ -106,13 +106,13 @@ Output:
 Decodes a UUID from its canonical text form (32 hex digits with hyphens). Case-insensitive; returns an error if the format is invalid.
 ```go
 import "github.com/mikhaildadaev/uuid"
-var u uuid.UUID
-uuidText := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
-err := u.UnmarshalText(uuidText)
+var uu uuid.UUID
+uuidV8Text := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
+err := uu.UnmarshalText(uuidV8Text)
 if err != nil {
     fmt.Println(err)
 }
-fmt.Println(u.String())
+fmt.Println(uu.String())
 ```
 Output:
 ```text

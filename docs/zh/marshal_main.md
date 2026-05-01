@@ -72,13 +72,13 @@ Output:
 从 16 字节的二进制表示解码 UUID。输入如果不是 16 字节将返回错误。
 ```go
 import "github.com/mikhaildadaev/uuid"
-var u uuid.UUID
-uuidBinary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
-err := u.UnmarshalBinary(uuidBinary)
+var uu uuid.UUID
+uuidV8Binary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+err := uu.UnmarshalBinary(uuidV8Binary)
 if err != nil {
     fmt.Println(err)
 }
-fmt.Println(u.String())
+fmt.Println(uu.String())
 ```
 Output:
 ```text
@@ -89,13 +89,13 @@ Output:
 从 Json 编码的字符串解码 UUID。接受带引号和不带引号的形式；格式无效时返回错误。
 ```go
 import "github.com/mikhaildadaev/uuid"
-var u uuid.UUID
-uuidJson := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
-err := u.UnmarshalJSON(uuidJson)
+var uu uuid.UUID
+uuidV8Json := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
+err := uu.UnmarshalJSON(uuidV8Json)
 if err != nil {
     fmt.Println(err)
 }
-fmt.Println(u.String())
+fmt.Println(uu.String())
 ```
 Output:
 ```text
@@ -106,13 +106,13 @@ Output:
 从规范的文本形式（32 个十六进制数字，用连字符分隔）解码 UUID。不区分大小写；格式无效时返回错误。
 ```go
 import "github.com/mikhaildadaev/uuid"
-var u uuid.UUID
-uuidText := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
-err := u.UnmarshalText(uuidText)
+var uu uuid.UUID
+uuidV8Text := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
+err := uu.UnmarshalText(uuidV8Text)
 if err != nil {
     fmt.Println(err)
 }
-fmt.Println(u.String())
+fmt.Println(uu.String())
 ```
 Output:
 ```text
