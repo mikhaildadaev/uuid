@@ -22,13 +22,13 @@ func ExampleNewV1() {
 	// 1
 }
 func ExampleNewV2() {
-	u2 := uuid.NewV2(posix)
+	u2 := uuid.NewV2(uuidPosType, uuidPosValue)
 	fmt.Println(u2.Version())
 	// Output:
 	// 2
 }
 func ExampleNewV3() {
-	u3 := uuid.NewV3(uuid.NameSpaceDNS, name)
+	u3 := uuid.NewV3(uuid.NameSpaceDNS, uuidName)
 	fmt.Println(u3.Version())
 	// Output:
 	// 3
@@ -40,7 +40,7 @@ func ExampleNewV4() {
 	// 4
 }
 func ExampleNewV5() {
-	u5 := uuid.NewV5(uuid.NameSpaceDNS, name)
+	u5 := uuid.NewV5(uuid.NameSpaceDNS, uuidName)
 	fmt.Println(u5.Version())
 	// Output:
 	// 5
@@ -58,7 +58,7 @@ func ExampleNewV7() {
 	// 7
 }
 func ExampleNewV8() {
-	u8 := uuid.NewV8(node)
+	u8 := uuid.NewV8(uuidNode)
 	fmt.Println(u8.Version())
 	// Output:
 	// 8
@@ -118,13 +118,13 @@ func ExampleUUID_IsZero() {
 	// true
 }
 func ExampleUUID_Node() {
-	u8 := uuid.NewV8(node)
+	u8 := uuid.NewV8(uuidNode)
 	fmt.Println(u8.Node())
 	// Output:
 	// 1995
 }
 func ExampleUUID_Posix() {
-	u2 := uuid.NewV2(posix)
+	u2 := uuid.NewV2(uuidPosType, uuidPosValue)
 	fmt.Println(u2.Posix())
 	// Output:
 	// UID 501
@@ -398,9 +398,10 @@ func ExampleNullUUID_Value() {
 
 // Приватные переменные
 var (
-	name         = "github.com/mikhaildadaev/uuid"
-	node         = 1995
-	posix        = 501
+	uuidName     = "github.com/mikhaildadaev/uuid"
+	uuidNode     = 1995
+	uuidPosType  = 0
+	uuidPosValue = 501
 	uuidV8Binary = []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
 	uuidV8Json   = []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
 	uuidV8String = "01968727-8c7e-8000-87cb-bdba4f634d9f"

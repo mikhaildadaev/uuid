@@ -65,14 +65,14 @@ func Benchmark_NewV2(b *testing.B) {
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_ = NewV2(testPOSType)
+				_ = NewV2(testPOSType, testPOSValue)
 			}
 		})
 	})
 	b.Run("Single", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			_ = NewV2(testPOSType)
+			_ = NewV2(testPOSType, testPOSValue)
 		}
 	})
 }
@@ -80,7 +80,7 @@ func Benchmark_NewV2_Info(b *testing.B) {
 	b.Run("Without Mock Time", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			ui := NewV2(testPOSType)
+			ui := NewV2(testPOSType, testPOSValue)
 			b.Logf("UUIDv2-%d: %s", i, ui)
 		}
 	})

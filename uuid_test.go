@@ -17,7 +17,7 @@ func Test_Core_Info(t *testing.T) {
 		uuid UUID
 	}{
 		{"V1", func() UUID { u := NewV1(); return u }()},
-		{"V2", func() UUID { u := NewV2(testPOSType); return u }()},
+		{"V2", func() UUID { u := NewV2(testPOSType, testPOSValue); return u }()},
 		{"V3", func() UUID { u := NewV3(NameSpaceDNS, testNameString); return u }()},
 		{"V4", func() UUID { u := NewV4(); return u }()},
 		{"V5", func() UUID { u := NewV5(NameSpaceDNS, testNameString); return u }()},
@@ -213,7 +213,7 @@ func Test_Core_NewV1_Timestamp(t *testing.T) {
 func Test_Core_NewV2(t *testing.T) {
 	for i := int(0); i < 2; i++ {
 		// Генерация идентификаторов
-		ui := NewV2(i)
+		ui := NewV2(i, i)
 		// Проверка вариантов
 		vt := ui.Variant()
 		if vt != variantRFC4122 {
@@ -955,7 +955,7 @@ func Test_Core_Validate(t *testing.T) {
 			uuid UUID
 		}{
 			{"V1", NewV1()},
-			{"V2", NewV2(testPOSType)},
+			{"V2", NewV2(testPOSType, testPOSValue)},
 			{"V3", NewV3(NameSpaceDNS, testNameString)},
 			{"V4", NewV4()},
 			{"V5", NewV5(NameSpaceDNS, testNameString)},
@@ -1274,6 +1274,7 @@ var (
 	testNameString               = "md.local"
 	testNodeID                   = 1995
 	testPOSType                  = 0
+	testPOSValue                 = 510
 	testUUIDErrByteEmpty         = []byte{}
 	testUUIDErrByteLengthLong    = [17]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
 	testUUIDErrByteLengthShort   = [15]byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
