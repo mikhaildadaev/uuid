@@ -47,11 +47,11 @@ import (
 )
 var nu uuid.NullUUID
 value, _ := nu.Value()
-fmt.Printf(value)
+fmt.Println(value)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 nu.Scan(uuidV8String)
 value, _ = nu.Value()
-fmt.Printf(value)
+fmt.Println(value)
 ```
 Output
 ```text
