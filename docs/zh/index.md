@@ -13,5 +13,5 @@ features:
   - title: 零分配
     details: 无堆分配的 UUID 生成。栈分配变体，适用于性能关键路径。
   - title: 完全序列化
-    details: 开箱即用的二进制、JSON、文本和 SQL 数据库集成。Scan 和 Value 接口，实现无缝数据库操作。
+    details: 开箱即用的二进制、Json、文本和 SQL 数据库集成。Scan 和 Value 接口，实现无缝数据库操作。
 ---

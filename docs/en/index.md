@@ -13,5 +13,5 @@ features:
   - title: Zero Allocations
     details: Generate UUIDs without heap allocations. Stack-allocated variants for performance-critical paths.
   - title: Full Serialization
-    details: Binary, JSON, Text, and SQL database integration out of the box. Scan and Value interfaces for seamless database usage.
+    details: Binary, Json, Text, and SQL database integration out of the box. Scan and Value interfaces for seamless database usage.
 ---
