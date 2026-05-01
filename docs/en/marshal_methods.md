@@ -37,7 +37,7 @@ uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
-data, err := uu.MarshalJSON()
+data, err := uu.MarshalJson()
 if err != nil {
     fmt.Println(err)
 }
@@ -91,7 +91,7 @@ Decodes a UUID from a Json-encoded string. Accepts both quoted and unquoted form
 import "github.com/mikhaildadaev/uuid"
 var uu uuid.UUID
 uuidV8Json := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
-err := uu.UnmarshalJSON(uuidV8Json)
+err := uu.UnmarshalJson(uuidV8Json)
 if err != nil {
     fmt.Println(err)
 }
@@ -155,7 +155,7 @@ if err != nil {
 fmt.Println(string(data))
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 nu.Scan(uuidV8String)
-data, err := nu.MarshalJSON()
+data, err := nu.MarshalJson()
 if err != nil {
     fmt.Println(err)
 }
@@ -227,7 +227,7 @@ if err := nu.UnmarshalJson(data); err != nil {
 }
 fmt.Println("Valid:", nu.Valid)
 uuidV8Json := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
-err := nu.UnmarshalJSON(uuidV8Json)
+err := nu.UnmarshalJson(uuidV8Json)
 if err != nil {
     fmt.Println(err)
 }
