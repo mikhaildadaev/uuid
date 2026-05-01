@@ -9,9 +9,9 @@ import (
 
 // Примеры использования публичных функций
 func ExampleNewNull() {
-	u := uuid.NewNull()
-	fmt.Println(u.IsZero())
-	fmt.Println(u.String())
+	un := uuid.NewNull()
+	fmt.Println(un.IsZero())
+	fmt.Println(un.String())
 	// Output:
 	// true
 	// 00000000-0000-0000-0000-000000000000
@@ -65,11 +65,11 @@ func ExampleNewV8() {
 	// 8
 }
 func ExampleParse() {
-	u, err := uuid.Parse(uuidV8String)
+	u8, err := uuid.Parse(uuidV8String)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(u.IsZero())
+	fmt.Println(u8.IsZero())
 	// Output:
 	// false
 }
