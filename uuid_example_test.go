@@ -74,6 +74,33 @@ func ExampleParse() {
 }
 
 // Примеры использования публичных методов
+func ExampleNullUUID_IsZero() {
+	var nu uuid.NullUUID
+	fmt.Println(nu.IsZero())
+	nu.Scan(uuidV8String)
+	fmt.Println(nu.IsZero())
+	// Output:
+	// true
+	// false
+}
+func ExampleNullUUID_String() {
+	var nu uuid.NullUUID
+	fmt.Println(nu.String())
+	nu.Scan(uuidV8String)
+	fmt.Println(nu.String())
+	// Output:
+	// 00000000-0000-0000-0000-000000000000
+	// 01968727-8c7e-8000-87cb-bdba4f634d9f
+}
+func ExampleNullUUID_Validate() {
+	var nu uuid.NullUUID
+	fmt.Println(nu.Validate())
+	nu.Scan(uuidV8String)
+	fmt.Println(nu.Validate())
+	// Output:
+	// <nil>
+	// <nil>
+}
 func ExampleNullUUID_MarshalBinary() {
 	var nu uuid.NullUUID
 	data, err := nu.MarshalBinary()
