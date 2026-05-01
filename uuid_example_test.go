@@ -199,11 +199,11 @@ func ExampleUUID_MarshalJson() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	json, err := uu.MarshalJson()
+	data, err := uu.MarshalJson()
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(json))
+	fmt.Println(string(data))
 	// Output: "01968727-8c7e-8000-87cb-bdba4f634d9f"
 }
 func ExampleUUID_MarshalText() {
@@ -211,11 +211,11 @@ func ExampleUUID_MarshalText() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	text, err := uu.MarshalText()
+	data, err := uu.MarshalText()
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(text))
+	fmt.Println(string(data))
 	// Output: 01968727-8c7e-8000-87cb-bdba4f634d9f
 }
 func ExampleUUID_UnmarshalBinary() {
