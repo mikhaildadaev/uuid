@@ -5,6 +5,6 @@ outline: deep
 # API / 核心 / 方法
 
 ::: info **关于**
-核心是 `uuid` 的基础。在这里，您将学习如何创建每个 UUID 版本——从与 SQL 兼容的 `NULL` 到最新的基于时间戳的 V7 和供应商特定的 V8。从 **NewV4** 开始用于通用场景，或使用 **NewV7** 获取可排序的标识符。
+本页记录了 UUID 和 NullUUID 上可用的所有实例方法——从 **String** 和 **Version** 等基本操作，到 **Timestamp**、**Node** 和 **Sequence** 等高级元数据提取。每个方法适用于所有 UUID 版本，V1 至 V8。
 :::
 
