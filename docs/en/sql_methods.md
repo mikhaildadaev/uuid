@@ -65,7 +65,6 @@ Implements the `sql.Scanner` interface. Decodes a UUID from a database value —
 import (
     "database/sql"
     "fmt"
-    _ "github.com/lib/pq"
     "github.com/mikhaildadaev/uuid"
 )
 var uu uuid.UUID

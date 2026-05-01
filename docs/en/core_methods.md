@@ -11,7 +11,10 @@ This page documents all instance methods available on UUID and NullUUID — from
 ## NULLUUID IsZero
 Returns `true` if the NullUUID is invalid (SQL NULL) or the underlying UUID is the zero value.
 ```go
-import "github.com/mikhaildadaev/uuid"
+import (
+    "fmt"
+    "github.com/mikhaildadaev/uuid"
+)
 var nu uuid.NullUUID
 fmt.Println(nu.IsZero())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
@@ -26,7 +29,10 @@ false
 ## NULLUUID String
 Returns the canonical text form (8-4-4-4-12) for a valid UUID, or `00000000-0000-0000-0000-000000000000` for a null value.
 ```go
-import "github.com/mikhaildadaev/uuid"
+import (
+    "fmt"
+    "github.com/mikhaildadaev/uuid"
+)
 var nu uuid.NullUUID
 fmt.Println(nu.String())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
@@ -41,7 +47,10 @@ Output
 ## NULLUUID Validate
 Validates the NullUUID. Returns `nil` for both null and valid UUIDs (null is considered valid in SQL context). Returns an error only if the UUID is present but malformed.
 ```go
-import "github.com/mikhaildadaev/uuid"
+import (
+    "fmt"
+    "github.com/mikhaildadaev/uuid"
+)
 var nu uuid.NullUUID
 fmt.Println(nu.Validate())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")

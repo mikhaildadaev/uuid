@@ -65,7 +65,6 @@ Output
 import (
     "database/sql"
     "fmt"
-    _ "github.com/lib/pq"
     "github.com/mikhaildadaev/uuid"
 )
 var uu uuid.UUID

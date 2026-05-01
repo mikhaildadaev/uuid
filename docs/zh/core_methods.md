@@ -12,7 +12,10 @@ outline: deep
 ## NULLUUID IsZero
 如果 NullUUID 无效（SQL NULL）或底层 UUID 为零值，则返回 `true`。
 ```go
-import "github.com/mikhaildadaev/uuid"
+import (
+    "fmt"
+    "github.com/mikhaildadaev/uuid"
+)
 var nu uuid.NullUUID
 fmt.Println(nu.IsZero())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
@@ -27,7 +30,10 @@ false
 ## NULLUUID String
 返回有效 UUID 的规范文本形式（8-4-4-4-12），或对于空值返回 `00000000-0000-0000-0000-000000000000`。
 ```go
-import "github.com/mikhaildadaev/uuid"
+import (
+    "fmt"
+    "github.com/mikhaildadaev/uuid"
+)
 var nu uuid.NullUUID
 fmt.Println(nu.String())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
@@ -42,7 +48,10 @@ Output
 ## NULLUUID Validate
 验证 NullUUID。对于空值和有效 UUID 均返回 `nil`（在 SQL 上下文中，空值被认为是有效的）。仅当 UUID 存在但格式错误时返回错误。
 ```go
-import "github.com/mikhaildadaev/uuid"
+import (
+    "fmt"
+    "github.com/mikhaildadaev/uuid"
+)
 var nu uuid.NullUUID
 fmt.Println(nu.Validate())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
