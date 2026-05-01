@@ -247,6 +247,21 @@ func Parse(str string) (UUID, error) {
 }
 
 // Публичные методы
+func (nulluuid NullUUID) IsZero() bool {
+	return !nulluuid.Valid || nulluuid.UUID.IsZero()
+}
+func (nulluuid NullUUID) String() string {
+	if !nulluuid.Valid {
+		return NullUUIDString
+	}
+	return nulluuid.UUID.String()
+}
+func (nulluuid NullUUID) Validate() error {
+	if nulluuid.Valid {
+		return nulluuid.UUID.Validate()
+	}
+	return nil
+}
 func (uuid UUID) Bytes() []byte {
 	if len(uuid) != 16 {
 		return nil
@@ -449,19 +464,4 @@ func (uuid UUID) Version() int {
 		return 0
 	}
 	return int(uuid[6] >> 4)
-}
-func (nulluuid NullUUID) IsZero() bool {
-	return !nulluuid.Valid || nulluuid.UUID.IsZero()
-}
-func (nulluuid NullUUID) String() string {
-	if !nulluuid.Valid {
-		return NullUUIDString
-	}
-	return nulluuid.UUID.String()
-}
-func (nulluuid NullUUID) Validate() error {
-	if nulluuid.Valid {
-		return nulluuid.UUID.Validate()
-	}
-	return nil
 }
