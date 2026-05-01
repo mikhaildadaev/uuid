@@ -7,7 +7,7 @@ outline: deep
 go get github.com/mikhaildadaev/uuid
 ```
 
-::: info 关于
+::: info **关于**
 `uuid` 的最新稳定版本是 **v1.26.11**.
 :::
 
@@ -32,6 +32,6 @@ go test -race ./...
 - **V3/V5**: `name` 应为 `1..512` 个符号（字节长度）； 
 - **V8**: `node` 应为 `0..16383`;
 
-::: tip 注
+::: tip **注**
 长度为 0 字节或超过 512 字节的 `name` 字符串将返回 null UUID，以防止内存分配。
 :::

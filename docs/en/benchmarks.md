@@ -3,7 +3,7 @@ outline: deep
 ---
 
 # Benchmarks
-::: info Info
+::: info **Info**
 The best way to compare libraries is to run benchmarks in **your own environment** with **your own workload**. Each project has unique requirements — latency, throughput, memory usage, and integration complexity — and no single test can cover them all.
 
 I recommend that you test `uuid` alongside other libraries and choose the tool that best suits your needs.
@@ -36,7 +36,7 @@ Pure generation and serialization overhead. Benchmarks write to `io.Discard` —
 | **V7**  |      10.7M |       109.50 |             0 |      0 |
 | **V8**  |      10.2M |       109.10 |             0 |      0 |
 
-::: tip Note
+::: tip **Note**
 All benchmarks measure pure generation and parsing overhead. Benchmarks marked as zero-allocation (`0 B/op`, `0 allocs/op`) perform no heap allocations in hot-path operations — minor artifacts in single-threaded V3/V5 are from the Go testing framework itself, not from UUID generation. Real-world performance depends on CPU, memory latency, and concurrency.
 
 *Benchmarked on Intel Core i9-9880H (2.30 GHz).*
