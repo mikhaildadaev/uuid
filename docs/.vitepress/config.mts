@@ -155,7 +155,7 @@ export default defineConfig({
                 ] 
               },
               { 
-                text: 'Запись в файл', 
+                text: 'Сериализация', 
                 collapsed: true,
                 items: [
                   { 
@@ -165,7 +165,7 @@ export default defineConfig({
                 ] 
               },
               { 
-                text: 'Запись по сети', 
+                text: 'Интеграция с SQL', 
                 collapsed: true,
                 items: [
                   { 
@@ -253,7 +253,7 @@ export default defineConfig({
                     ] 
                   },
                   { 
-                    text: '文件接收器', 
+                    text: '序列化', 
                     collapsed: true,
                     items: [
                       { 
@@ -263,7 +263,7 @@ export default defineConfig({
                     ] 
                   },
                   { 
-                    text: 'HTTP 接收器', 
+                    text: 'SQL 集成', 
                     collapsed: true,
                     items: [
                       { 
