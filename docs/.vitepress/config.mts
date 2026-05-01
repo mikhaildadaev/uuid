@@ -55,7 +55,11 @@ export default defineConfig({
                       { 
                         text: 'Main', 
                         link: '/en/core_main' 
-                      }
+                      },
+                      { 
+                        text: 'Methods', 
+                        link: '/en/core_methods'
+                      } 
                     ] 
                   },
                   {
@@ -145,34 +149,44 @@ export default defineConfig({
                 link: '/ru/benchmarks' 
               },
               { 
-                text: 'Ядро', 
+                text: 'API', 
                 collapsed: true,
                 items: [
                   { 
-                    text: 'Основное', 
-                    link: '/ru/core_main' 
-                  }
-                ] 
-              },
-              { 
-                text: 'Сериализация', 
-                collapsed: true,
-                items: [
+                    text: 'Ядро', 
+                    collapsed: true,
+                    items: [
+                      { 
+                        text: 'Основное', 
+                        link: '/ru/core_main' 
+                      },
+                      { 
+                        text: 'Методы', 
+                        link: '/ru/core_methods'
+                      } 
+                    ] 
+                  },
                   { 
-                    text: 'Основное', 
-                    link: '/ru/marshal_main' 
-                  }
-                ] 
-              },
-              { 
-                text: 'Интеграция с SQL', 
-                collapsed: true,
-                items: [
+                    text: 'Сериализация', 
+                    collapsed: true,
+                    items: [
+                      { 
+                        text: 'Основное', 
+                        link: '/ru/marshal_main' 
+                      }
+                    ] 
+                  },
                   { 
-                    text: 'Основное', 
-                    link: '/ru/sql_main' 
+                    text: 'Интеграция с SQL', 
+                    collapsed: true,
+                    items: [
+                      { 
+                        text: 'Основное', 
+                        link: '/ru/sql_main' 
+                      }
+                    ] 
                   }
-                ] 
+                ]
               }
             ]
           }
@@ -249,6 +263,10 @@ export default defineConfig({
                       { 
                         text: '主要', 
                         link: '/zh/core_main' 
+                      },
+                      { 
+                        text: '方法', 
+                        link: '/zh/core_methods'
                       }
                     ] 
                   },
