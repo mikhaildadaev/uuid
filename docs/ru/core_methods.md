@@ -8,6 +8,52 @@ outline: deep
 На этой странице описаны все методы экземпляров UUID и NullUUID — от базовых операций, таких как **String** и **Version**, до расширенного извлечения метаданных, таких как **Timestamp**, **Node** и **Sequence**. Каждый метод работает со всеми версиями UUID, от V1 до V8.
 :::
 
+
+## NULLUUID IsZero
+Возвращает `true`, если NullUUID недействителен (SQL NULL) или базовый UUID является нулевым значением.
+```go
+import "github.com/mikhaildadaev/uuid"
+var nu uuid.NullUUID
+fmt.Println(nu.IsZero())
+nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
+fmt.Println(nu.IsZero())
+```
+Output
+```text
+true
+false
+```
+
+## NULLUUID String
+Возвращает каноническую текстовую форму (8-4-4-4-12) для валидного UUID или `00000000-0000-0000-0000-000000000000` для null-значения.
+```go
+import "github.com/mikhaildadaev/uuid"
+var nu uuid.NullUUID
+fmt.Println(nu.String())
+nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
+fmt.Println(nu.String())
+```
+Output
+```text
+00000000-0000-0000-0000-000000000000
+01968727-8c7e-8000-87cb-bdba4f634d9f
+```
+
+## NULLUUID Validate
+Проверяет NullUUID. Возвращает `nil` как для null, так и для валидных UUID (null считается валидным в контексте SQL). Возвращает ошибку только если UUID присутствует, но имеет неверный формат.
+```go
+import "github.com/mikhaildadaev/uuid"
+var nu uuid.NullUUID
+fmt.Println(nu.Validate())
+nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
+fmt.Println(nu.Validate())
+```
+Output
+```text
+<nil>
+<nil>
+```
+
 ## UUID Bytes
 Возвращает UUID в виде 16-байтового среза.
 ```go

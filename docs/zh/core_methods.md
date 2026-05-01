@@ -8,6 +8,52 @@ outline: deep
 本页记录了 UUID 和 NullUUID 上可用的所有实例方法——从 **String** 和 **Version** 等基本操作，到 **Timestamp**、**Node** 和 **Sequence** 等高级元数据提取。每个方法适用于所有 UUID 版本，V1 至 V8。
 :::
 
+
+## NULLUUID IsZero
+如果 NullUUID 无效（SQL NULL）或底层 UUID 为零值，则返回 `true`。
+```go
+import "github.com/mikhaildadaev/uuid"
+var nu uuid.NullUUID
+fmt.Println(nu.IsZero())
+nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
+fmt.Println(nu.IsZero())
+```
+Output
+```text
+true
+false
+```
+
+## NULLUUID String
+返回有效 UUID 的规范文本形式（8-4-4-4-12），或对于空值返回 `00000000-0000-0000-0000-000000000000`。
+```go
+import "github.com/mikhaildadaev/uuid"
+var nu uuid.NullUUID
+fmt.Println(nu.String())
+nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
+fmt.Println(nu.String())
+```
+Output
+```text
+00000000-0000-0000-0000-000000000000
+01968727-8c7e-8000-87cb-bdba4f634d9f
+```
+
+## NULLUUID Validate
+验证 NullUUID。对于空值和有效 UUID 均返回 `nil`（在 SQL 上下文中，空值被认为是有效的）。仅当 UUID 存在但格式错误时返回错误。
+```go
+import "github.com/mikhaildadaev/uuid"
+var nu uuid.NullUUID
+fmt.Println(nu.Validate())
+nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
+fmt.Println(nu.Validate())
+```
+Output
+```text
+<nil>
+<nil>
+```
+
 ## UUID Bytes
 将 UUID 作为 16 字节切片返回。
 ```go
