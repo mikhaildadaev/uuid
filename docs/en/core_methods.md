@@ -20,6 +20,7 @@ if err != nil {
     fmt.Println(err)
 }
 fmt.Printf("%x\n", uu.Bytes())
+```
 Output
 ```text
 018f3c1480000000000000000000000001
@@ -35,6 +36,7 @@ import (
 u1, _ := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
 u2, _ := uuid.Parse("018f3c14-8000-0000-0000-000000000002")
 fmt.Println(u1.Equal(u2))
+```
 Output
 ```text
 false
@@ -52,6 +54,7 @@ if err != nil {
     fmt.Println(err)
 }
 fmt.Println(uu.Info())
+```
 Output
 ```text
 V7 time-sortable Unix-epoch 2026-04-01 00:00:00.000 +0000 UTC variant10 node1995 posix0 sequence0
@@ -66,6 +69,7 @@ import (
 )
 uu := uuid.NewNull()
 fmt.Println(uu.IsZero())
+```
 Output
 ```text
 true
@@ -83,6 +87,7 @@ if err != nil {
     fmt.Println(err)
 }
 fmt.Println(uu.Node())
+```
 Output
 ```text
 1995
@@ -97,6 +102,7 @@ import (
 )
 uu := uuid.NewV2(1000)
 fmt.Println(uu.Posix())
+```
 Output
 ```text
 1000
@@ -114,6 +120,7 @@ if err != nil {
     fmt.Println(err)
 }
 fmt.Println(uu.Sequence())
+```
 Output
 ```text
 0
@@ -131,6 +138,7 @@ if err != nil {
     fmt.Println(err)
 }
 fmt.Println(uu.String())
+```
 Output
 ```text
 018f3c14-8000-0000-0000-000000000001
@@ -148,6 +156,7 @@ if err != nil {
     fmt.Println(err)
 }
 fmt.Println(uu.Timestamp())
+```
 Output
 ```text
 2026-04-01 00:00:00.000 +0000 UTC
@@ -165,6 +174,7 @@ if err != nil {
     fmt.Println(err)
 }
 fmt.Println(uu.Validate())
+```
 Output
 ```text
 7 <nil>
@@ -182,6 +192,7 @@ if err != nil {
     fmt.Println(err)
 }
 fmt.Println(uu.Variant())
+```
 Output
 ```text
 1
@@ -199,6 +210,7 @@ if err != nil {
     fmt.Println(err)
 }
 fmt.Println(uu.Version())
+```
 Output
 ```text
 8
