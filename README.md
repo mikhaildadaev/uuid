@@ -9,14 +9,13 @@
 A high-performance, zero-allocation platform for UUID versions 1-8.
 
 ## Go
+```bash
+go get github.com/mikhaildadaev/uuid
+```
 
 > **Info**
 > 
 > The latest stable version of `uuid` is **v1.26.11**.
-
-```bash
-go get github.com/mikhaildadaev/uuid
-```
 
 ### Run Test
 ```bash

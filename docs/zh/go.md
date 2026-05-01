@@ -3,14 +3,13 @@ outline: deep
 ---
 
 # Go
+```bash
+go get github.com/mikhaildadaev/uuid
+```
 
 ::: info 关于
 `uuid` 的最新稳定版本是 **v1.26.11**.
 :::
-
-```bash
-go get github.com/mikhaildadaev/uuid
-```
 
 ## Run Test 
 ```bash
