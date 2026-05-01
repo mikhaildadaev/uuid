@@ -5,7 +5,7 @@ outline: deep
 # API / Marshal / Main
 
 ::: info Info
-This page documents serialization and deserialization of UUIDs to and from **Binary**, **JSON**, and **Text** formats. Every marshal/unmarshal method works with all UUID versions — V1 through V8 and Null.
+This page documents serialization and deserialization of UUIDs to and from **Binary**, **Json**, and **Text** formats. Every marshal/unmarshal method works with all UUID versions — V1 through V8 and Null.
 :::
 
 ## MarshalBinary
@@ -28,7 +28,7 @@ Output:
 ```
 
 ## MarshalJson
-Encodes the UUID into a JSON string in the standard 8-4-4-4-12 format.
+Encodes the UUID into a Json string in the standard 8-4-4-4-12 format.
 ```go
 import "github.com/mikhaildadaev/uuid"
 uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
@@ -83,7 +83,7 @@ Output:
 ```
 
 ## UnmarshalJson
-Decodes a UUID from a JSON-encoded string. Accepts both quoted and unquoted forms; returns an error if the format is invalid.
+Decodes a UUID from a Json-encoded string. Accepts both quoted and unquoted forms; returns an error if the format is invalid.
 ```go
 import "github.com/mikhaildadaev/uuid"
 var u uuid.UUID

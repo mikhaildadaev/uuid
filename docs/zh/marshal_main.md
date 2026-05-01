@@ -5,7 +5,7 @@ outline: deep
 # API / Marshal / 主要
 
 ::: info 关于
-本页记录了 UUID 与 **Binary**、**JSON** 和 **Text** 格式之间的序列化和反序列化。每个方法适用于所有 UUID 版本 — V1 至 V8 以及 Null。
+本页记录了 UUID 与 **Binary**、**Json** 和 **Text** 格式之间的序列化和反序列化。每个方法适用于所有 UUID 版本 — V1 至 V8 以及 Null。
 :::
 
 ## MarshalBinary
@@ -28,7 +28,7 @@ Output:
 ```
 
 ## MarshalJson
-将 UUID 编码为标准 8-4-4-4-12 格式的 JSON 字符串。
+将 UUID 编码为标准 8-4-4-4-12 格式的 Json 字符串。
 ```go
 import "github.com/mikhaildadaev/uuid"
 uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
@@ -83,7 +83,7 @@ Output:
 ```
 
 ## UnmarshalJson
-从 JSON 编码的字符串解码 UUID。接受带引号和不带引号的形式；格式无效时返回错误。
+从 Json 编码的字符串解码 UUID。接受带引号和不带引号的形式；格式无效时返回错误。
 ```go
 import "github.com/mikhaildadaev/uuid"
 var u uuid.UUID
