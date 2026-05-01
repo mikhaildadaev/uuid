@@ -45,7 +45,7 @@ fmt.Println(string(data))
 ```
 Output:
 ```text
-01968727-8c7e-8000-87cb-bdba4f634d9f
+"01968727-8c7e-8000-87cb-bdba4f634d9f"
 ```
 
 ## UUID MarshalText
@@ -117,4 +117,115 @@ fmt.Println(uu.String())
 Output:
 ```text
 01968727-8c7e-8000-87cb-bdba4f634d9f
+```
+
+## NULLUUID MarshalBinary
+Encodes the NullUUID into its 16-byte binary representation. Returns all zeros for a null value.
+```go
+import "github.com/mikhaildadaev/uuid"
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+var nu uuid.NullUUID
+nu.Scan(uuidV8String)
+data, err := nu.MarshalBinary()
+if err != nil {
+    fmt.Println(err)
+}
+fmt.Printf("%x\n", data)
+```
+Output:
+```text
+019687278c7e800087cbbdba4f634d9f
+```
+
+## NULLUUID MarshalJson
+Encodes the NullUUID into a Json string. Returns null for a null value.
+```go
+import "github.com/mikhaildadaev/uuid"
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+var nu uuid.NullUUID
+nu.Scan(uuidV8String)
+data, err := nu.MarshalJSON()
+if err != nil {
+    fmt.Println(err)
+}
+fmt.Println(string(data))
+```
+Output:
+```text
+"01968727-8c7e-8000-87cb-bdba4f634d9f"
+```
+
+## NULLUUID MarshalText
+Encodes the NullUUID into its canonical text form. Returns an empty string for a null value.
+```go
+import "github.com/mikhaildadaev/uuid"
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+var nu uuid.NullUUID
+nu.Scan(uuidV8String)
+data, err := nu.MarshalText()
+if err != nil {
+    fmt.Println(err)
+}
+fmt.Println(string(data))
+```
+Output:
+```text
+01968727-8c7e-8000-87cb-bdba4f634d9f
+```
+
+## NULLUUID UnmarshalBinary
+Decodes a NullUUID from its 16-byte binary representation. Sets Valid based on the input.
+```go
+import "github.com/mikhaildadaev/uuid"
+var nu uuid.NullUUID
+uuidV8Binary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+err := nu.UnmarshalBinary(uuidV8Binary)
+if err != nil {
+    fmt.Println(err)
+}
+fmt.Println("Valid:", nu.Valid)
+fmt.Println("UUID:", nu.UUID)
+```
+Output:
+```text
+Valid: true
+UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
+```
+
+## NULLUUID UnmarshalJson
+Decodes a NullUUID from a Json-encoded string. Accepts null for SQL NULL or a valid UUID string.
+```go
+import "github.com/mikhaildadaev/uuid"
+var nu uuid.NullUUID
+uuidV8Json := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
+err := nu.UnmarshalJSON(uuidV8Json)
+if err != nil {
+    fmt.Println(err)
+}
+fmt.Println("Valid:", nu.Valid)
+fmt.Println("UUID:", nu.UUID)
+```
+Output:
+```text
+Valid: true
+UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
+```
+
+## NULLUUID UnmarshalText
+Decodes a NullUUID from its canonical text form. Accepts an empty string for SQL NULL.
+```go
+import "github.com/mikhaildadaev/uuid"
+var nu uuid.NullUUID
+uuidV8Text := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
+err := nu.UnmarshalText(uuidV8Text)
+if err != nil {
+    fmt.Println(err)
+}
+fmt.Println("Valid:", nu.Valid)
+fmt.Println("UUID:", nu.UUID)
+```
+Output:
+```text
+Valid: true
+UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
