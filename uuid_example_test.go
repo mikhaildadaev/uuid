@@ -132,6 +132,7 @@ func ExampleNullUUID_UnmarshalBinary() {
 		fmt.Println(err)
 	}
 	fmt.Println("Valid:", nu.Valid)
+	fmt.Println("UUID:", nu.UUID)
 	data = uuidV8Binary
 	if err := nu.UnmarshalBinary(data); err != nil {
 		fmt.Println(err)
@@ -140,6 +141,7 @@ func ExampleNullUUID_UnmarshalBinary() {
 	fmt.Println("UUID:", nu.UUID)
 	// Output:
 	// Valid: false
+	// UUID: 00000000-0000-0000-0000-000000000000
 	// Valid: true
 	// UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 }
@@ -150,6 +152,7 @@ func ExampleNullUUID_UnmarshalJson() {
 		fmt.Println(err)
 	}
 	fmt.Println("Valid:", nu.Valid)
+	fmt.Println("UUID:", nu.UUID)
 	data = []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
 	if err := nu.UnmarshalJson(data); err != nil {
 		fmt.Println(err)
@@ -158,6 +161,7 @@ func ExampleNullUUID_UnmarshalJson() {
 	fmt.Println("UUID:", nu.UUID)
 	// Output:
 	// Valid: false
+	// UUID: 00000000-0000-0000-0000-000000000000
 	// Valid: true
 	// UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 }
@@ -168,6 +172,7 @@ func ExampleNullUUID_UnmarshalText() {
 		fmt.Println(err)
 	}
 	fmt.Println("Valid:", nu.Valid)
+	fmt.Println("UUID:", nu.UUID)
 	data = uuidV8Text
 	if err := nu.UnmarshalText(data); err != nil {
 		fmt.Println(err)
@@ -176,6 +181,7 @@ func ExampleNullUUID_UnmarshalText() {
 	fmt.Println("UUID:", nu.UUID)
 	// Output:
 	// Valid: false
+	// UUID: 00000000-0000-0000-0000-000000000000
 	// Valid: true
 	// UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 }
@@ -185,6 +191,7 @@ func ExampleNullUUID_Scan() {
 		fmt.Println(err)
 	}
 	fmt.Println("Valid:", nu.Valid)
+	fmt.Println("UUID:", nu.UUID)
 	if err := nu.Scan(uuidV8String); err != nil {
 		fmt.Println(err)
 	}
@@ -192,19 +199,20 @@ func ExampleNullUUID_Scan() {
 	fmt.Println("UUID:", nu.UUID)
 	// Output:
 	// Valid: false
+	// UUID: 00000000-0000-0000-0000-000000000000
 	// Valid: true
 	// UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 }
 func ExampleNullUUID_Value() {
 	var nu uuid.NullUUID
 	value, _ := nu.Value()
-	fmt.Println("NULL value:", value)
+	fmt.Println(value)
 	nu.Scan(uuidV8String)
 	value, _ = nu.Value()
-	fmt.Println("UUID value:", value)
+	fmt.Println(value)
 	// Output:
-	// NULL value: <nil>
-	// UUID value: 01968727-8c7e-8000-87cb-bdba4f634d9f
+	// <nil>
+	// 01968727-8c7e-8000-87cb-bdba4f634d9f
 }
 func ExampleUUID_Bytes() {
 	uu, err := uuid.Parse(uuidV8String)
@@ -381,10 +389,11 @@ func ExampleUUID_Scan() {
 		fmt.Println(err)
 	}
 	fmt.Println(uu.String())
-	// Output: 01968727-8c7e-8000-87cb-bdba4f634d9f
+	// Output:
+	// 01968727-8c7e-8000-87cb-bdba4f634d9f
 }
 func ExampleUUID_Value() {
-	var nilUUID uuid.UUID
+	var uu uuid.UUID
 	uu, err := uuid.Parse(uuidV8String)
 	if err != nil {
 		fmt.Println(err)
@@ -394,14 +403,8 @@ func ExampleUUID_Value() {
 		fmt.Println(err)
 	}
 	fmt.Println(value)
-	value, err = nilUUID.Value()
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(value)
 	// Output:
 	// 01968727-8c7e-8000-87cb-bdba4f634d9f
-	// <nil>
 }
 
 // Приватные переменные
