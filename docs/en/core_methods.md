@@ -177,7 +177,7 @@ fmt.Println(uu.Validate())
 ```
 Output
 ```text
-7 <nil>
+<nil>
 ```
 
 ## Variant
