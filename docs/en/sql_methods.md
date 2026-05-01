@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# API / SQL / Main
+# API / SQL / Methods
 
 ::: info **Info**
 This page documents the native `database/sql` integration for UUIDs. Both `Scan` and `Value` methods make UUID work seamlessly with SQL databases, including `NULL` support for nullable columns.

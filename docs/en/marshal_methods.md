@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# API / Marshal / Main
+# API / Marshal / Methods
 
 ::: info **Info**
 This page documents serialization and deserialization of UUIDs to and from **Binary**, **Json**, and **Text** formats. Every marshal/unmarshal method works with all UUID versions — V1 through V8 and Null.

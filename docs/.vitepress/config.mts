@@ -53,8 +53,8 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                       { 
-                        text: 'Main', 
-                        link: '/en/core_main' 
+                        text: 'Constructors', 
+                        link: '/en/core_constructors' 
                       },
                       { 
                         text: 'Methods', 
@@ -67,8 +67,8 @@ export default defineConfig({
                     collapsed: true, 
                     items: [
                       { 
-                        text: 'Main', 
-                        link: '/en/marshal_main' 
+                        text: 'Methods', 
+                        link: '/en/marshal_methods' 
                       }
                     ]
                   },
@@ -77,8 +77,8 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                       { 
-                        text: 'Main', 
-                        link: '/en/sql_main' 
+                        text: 'Methods', 
+                        link: '/en/sql_methods' 
                       }
                     ]
                   }
@@ -157,8 +157,8 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                       { 
-                        text: 'Основное', 
-                        link: '/ru/core_main' 
+                        text: 'Конструкторы', 
+                        link: '/ru/core_constructors' 
                       },
                       { 
                         text: 'Методы', 
@@ -171,8 +171,8 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                       { 
-                        text: 'Основное', 
-                        link: '/ru/marshal_main' 
+                        text: 'Методы', 
+                        link: '/ru/marshal_methods' 
                       }
                     ] 
                   },
@@ -181,8 +181,8 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                       { 
-                        text: 'Основное', 
-                        link: '/ru/sql_main' 
+                        text: 'Методы', 
+                        link: '/ru/sql_methods' 
                       }
                     ] 
                   }
@@ -261,8 +261,8 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                       { 
-                        text: '主要', 
-                        link: '/zh/core_main' 
+                        text: '构造函数', 
+                        link: '/zh/core_constructors' 
                       },
                       { 
                         text: '方法', 
@@ -275,8 +275,8 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                       { 
-                        text: '主要', 
-                        link: '/zh/marshal_main' 
+                        text: '方法', 
+                        link: '/zh/marshal_methods' 
                       }
                     ] 
                   },
@@ -285,8 +285,8 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                       { 
-                        text: '主要', 
-                        link: '/zh/sql_main' 
+                        text: '方法', 
+                        link: '/zh/sql_methods' 
                       }
                     ] 
                   }

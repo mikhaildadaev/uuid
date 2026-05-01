@@ -2,14 +2,14 @@
 outline: deep
 ---
 
-# API / Core / Main
+# API / 核心 / 构造函数
 
-::: info **Info**
-The Core is the foundation of `uuid`. Here you'll learn how to create every UUID version — from the SQL-compatible `NULL` to the latest timestamp-based V7 and vendor-specific V8. Start with **NewV4** for general use or **NewV7** for sortable identifiers.
+::: info **关于**
+核心是 `uuid` 的基础。在这里，您将学习如何创建每个 UUID 版本——从与 SQL 兼容的 `NULL` 到最新的基于时间戳的 V7 和供应商特定的 V8。从 **NewV4** 开始用于通用场景，或使用 **NewV7** 获取可排序的标识符。
 :::
 
 ## NewNull
-Creates a UUID that represents a SQL-compatible `NULL` value.
+创建一个与 SQL 兼容的 `NULL` 值 UUID。
 ```go
 import "github.com/mikhaildadaev/uuid"
 un := uuid.NewNull()
@@ -23,7 +23,7 @@ true
 ```
 
 ## NewV1
-Creates a UUID version 1 based on the current timestamp and the local machine's MAC address (or a random node if unavailable).
+创建一个基于当前时间戳和本地机器 MAC 地址（如果不可用则为随机节点）的 UUID 版本 1。
 ```go
 import "github.com/mikhaildadaev/uuid"
 u1 := uuid.NewV1()
@@ -35,7 +35,7 @@ Output:
 ```
 
 ## NewV2
-Creates a UUID version 2 (DCE Security) using the current timestamp, the local machine's MAC address, and a POSIX UID/GID.
+创建一个 UUID 版本 2（DCE 安全），使用当前时间戳、本地机器的 MAC 地址和 POSIX UID/GID。
 ```go
 import "github.com/mikhaildadaev/uuid"
 u2 := uuid.NewV2(posix)
@@ -47,7 +47,7 @@ Output:
 ```
 
 ## NewV3
-Creates a UUID version 3 by hashing a namespace identifier and a name with MD5.
+通过使用 MD5 哈希命名空间标识符和名称来创建 UUID 版本 3。
 ```go
 import "github.com/mikhaildadaev/uuid"
 u3 := uuid.NewV3(uuid.NameSpaceDNS, name)
@@ -59,7 +59,7 @@ Output:
 ```
 
 ## NewV4
-Creates a UUID version 4 using cryptographically secure random numbers.
+使用加密安全的随机数创建 UUID 版本 4。
 ```go
 import "github.com/mikhaildadaev/uuid"
 u4 := uuid.NewV4()
@@ -71,7 +71,7 @@ Output:
 ```
 
 ## NewV5
-Creates a UUID version 5 by hashing a namespace identifier and a name with SHA-1.
+通过使用 SHA-1 哈希命名空间标识符和名称来创建 UUID 版本 5。
 ```go
 import "github.com/mikhaildadaev/uuid"
 u5 := uuid.NewV5(uuid.NameSpaceDNS, name)
@@ -83,7 +83,7 @@ Output:
 ```
 
 ## NewV6
-Creates a UUID version 6 (field-compatible with UUIDv1) based on the current timestamp and the local machine's MAC address (or a random node if unavailable).
+创建一个基于当前时间戳和本地机器 MAC 地址（或随机节点，如果 MAC 不可用）的 UUID 版本 6（与 UUIDv1 字段兼容）。
 ```go
 import "github.com/mikhaildadaev/uuid"
 u6 := uuid.NewV6()
@@ -95,7 +95,7 @@ Output:
 ```
 
 ## NewV7
-Creates a UUID version 7 (timestamp-based, lexicographically sortable) using the current Unix timestamp in milliseconds and random bits.
+创建一个 UUID 版本 7（基于时间戳，按字典顺序可排序），使用当前 Unix 时间戳（以毫秒为单位）和随机位。
 ```go
 import "github.com/mikhaildadaev/uuid"
 u7 := uuid.NewV7()
@@ -107,7 +107,7 @@ Output:
 ```
 
 ## NewV8
-Creates a UUID version 8 (vendor-specific, custom) using a node identifier and the current timestamp.
+创建一个 UUID 版本 8（供应商特定，自定义），使用节点标识符和当前时间戳。
 ```go
 import "github.com/mikhaildadaev/uuid"
 u8 := uuid.NewV8(node)

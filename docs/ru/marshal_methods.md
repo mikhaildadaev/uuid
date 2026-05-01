@@ -2,14 +2,14 @@
 outline: deep
 ---
 
-# API / 序列化 / 主要
+# API / Сериализация / Методы
 
-::: info **关于**
-本页记录了 UUID 与 **Binary**、**Json** 和 **Text** 格式之间的序列化和反序列化。每个方法适用于所有 UUID 版本 — V1 至 V8 以及 Null。
+::: info **Информация**
+На этой странице описана сериализация и десериализация UUID в форматы **Binary**, **Json** и **Text**. Каждый метод работает со всеми версиями UUID — от V1 до V8, включая Null.
 :::
 
 ## MarshalBinary
-将 UUID 编码为其 16 字节的二进制表示。
+Кодирует UUID в 16-байтовое бинарное представление.
 ```go
 import "github.com/mikhaildadaev/uuid"
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -29,7 +29,7 @@ Output:
 ```
 
 ## MarshalJson
-将 UUID 编码为标准 8-4-4-4-12 格式的 Json 字符串。
+Кодирует UUID в строку Json в стандартном формате 8-4-4-4-12.
 ```go
 import "github.com/mikhaildadaev/uuid"
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -49,7 +49,7 @@ Output:
 ```
 
 ## MarshalText
-将 UUID 编码为其规范的文本形式：32 个十六进制数字，用连字符分隔。
+Кодирует UUID в каноническую текстовую форму: 32 шестнадцатеричные цифры с дефисами.
 ```go
 import "github.com/mikhaildadaev/uuid"
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -69,7 +69,7 @@ Output:
 ```
 
 ## UnmarshalBinary
-从 16 字节的二进制表示解码 UUID。输入如果不是 16 字节将返回错误。
+Декодирует UUID из 16-байтового бинарного представления. Возвращает ошибку, если длина входных данных не равна 16 байтам.
 ```go
 import "github.com/mikhaildadaev/uuid"
 var uu uuid.UUID
@@ -86,7 +86,7 @@ Output:
 ```
 
 ## UnmarshalJson
-从 Json 编码的字符串解码 UUID。接受带引号和不带引号的形式；格式无效时返回错误。
+Декодирует UUID из Json-строки. Принимает как строки в кавычках, так и без кавычек; возвращает ошибку при неверном формате.
 ```go
 import "github.com/mikhaildadaev/uuid"
 var uu uuid.UUID
@@ -103,7 +103,7 @@ Output:
 ```
 
 ## UnmarshalText
-从规范的文本形式（32 个十六进制数字，用连字符分隔）解码 UUID。不区分大小写；格式无效时返回错误。
+Декодирует UUID из канонической текстовой формы (32 шестнадцатеричные цифры с дефисами). Регистронезависимый; возвращает ошибку при неверном формате.
 ```go
 import "github.com/mikhaildadaev/uuid"
 var uu uuid.UUID

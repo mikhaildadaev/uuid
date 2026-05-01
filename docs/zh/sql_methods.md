@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# API / SQL 集成 / 主要
+# API / SQL 集成 / 方法
 
 ::: info **关于**
 本页记录了 UUID 的原生 `database/sql` 集成。`Scan` 和 `Value` 方法使 UUID 能够与 SQL 数据库无缝协作，包括对可空列的 `NULL` 支持。
