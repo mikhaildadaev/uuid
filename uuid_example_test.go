@@ -98,8 +98,7 @@ func ExampleUUID_Info() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	info := uu.Info()
-	fmt.Println(info)
+	fmt.Println(uu.Info())
 	// Output:
 	// UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 	// VAR.: RFC4122
@@ -155,6 +154,15 @@ func ExampleUUID_Timestamp() {
 	fmt.Println(uu.Timestamp())
 	// Output:
 	// 1746024238206
+}
+func ExampleUUID_Validate() {
+	uu, err := uuid.Parse(uuidV8String)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(uu.Validate())
+	// Output:
+	// <nil>
 }
 func ExampleUUID_Variant() {
 	uu, err := uuid.Parse(uuidV8String)
