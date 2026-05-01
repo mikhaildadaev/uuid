@@ -30,7 +30,7 @@ export default defineConfig({
           },
           { 
             text: 'API', 
-            link: '/en/core_main' 
+            link: '/en/core_constructors' 
           },
         ],
         sidebar: [
@@ -134,7 +134,7 @@ export default defineConfig({
           },
           { 
             text: 'API', 
-            link: '/ru/core_main' 
+            link: '/ru/core_constructors' 
           },
         ],
         sidebar: [
@@ -238,7 +238,7 @@ export default defineConfig({
           },
           { 
             text: 'API', 
-            link: '/zh/core_main' 
+            link: '/zh/core_constructors' 
           },
         ],
         sidebar: [
