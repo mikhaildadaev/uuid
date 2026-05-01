@@ -261,34 +261,34 @@ func ExampleNullUUID_MarshalBinary() {
 }
 func ExampleNullUUID_MarshalJson() {
 	var nu uuid.NullUUID
-	json, err := nu.MarshalJson()
+	data, err := nu.MarshalJson()
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(json))
+	fmt.Println(string(data))
 	nu.Scan(uuidV8String)
-	json, err = nu.MarshalJson()
+	data, err = nu.MarshalJson()
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(json))
+	fmt.Println(string(data))
 	// Output:
 	// null
 	// "01968727-8c7e-8000-87cb-bdba4f634d9f"
 }
 func ExampleNullUUID_MarshalText() {
 	var nu uuid.NullUUID
-	text, err := nu.MarshalText()
+	data, err := nu.MarshalText()
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(text))
+	fmt.Println(string(data))
 	nu.Scan(uuidV8String)
-	text, err = nu.MarshalText()
+	data, err = nu.MarshalText()
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(text))
+	fmt.Println(string(data))
 	// Output:
 	//
 	// 01968727-8c7e-8000-87cb-bdba4f634d9f
@@ -313,13 +313,13 @@ func ExampleNullUUID_UnmarshalBinary() {
 }
 func ExampleNullUUID_UnmarshalJson() {
 	var nu uuid.NullUUID
-	json := []byte(`null`)
-	if err := nu.UnmarshalJson(json); err != nil {
+	data := []byte(`null`)
+	if err := nu.UnmarshalJson(data); err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println("Valid:", nu.Valid)
-	json = []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
-	if err := nu.UnmarshalJson(json); err != nil {
+	data = []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
+	if err := nu.UnmarshalJson(data); err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println("Valid:", nu.Valid)
@@ -331,13 +331,13 @@ func ExampleNullUUID_UnmarshalJson() {
 }
 func ExampleNullUUID_UnmarshalText() {
 	var nu uuid.NullUUID
-	text := []byte("")
-	if err := nu.UnmarshalText(text); err != nil {
+	data := []byte("")
+	if err := nu.UnmarshalText(data); err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println("Valid:", nu.Valid)
-	text = uuidV8Text
-	if err := nu.UnmarshalText(text); err != nil {
+	data = uuidV8Text
+	if err := nu.UnmarshalText(data); err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println("Valid:", nu.Valid)
