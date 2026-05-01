@@ -96,8 +96,8 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-node := 1995
-u8 := uuid.NewV8(node)
+uuidNode := 1995
+u8 := uuid.NewV8(uuidNode)
 fmt.Println(u8.Node())
 ```
 Output
@@ -112,13 +112,14 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-posix := 501
-u2 := uuid.NewV2(posix)
+uuidPosType := 0
+uuidPosValue := 501
+u2 := uuid.NewV2(uuidPosType, uuidPosValue)
 fmt.Println(u2.Posix())
 ```
 Output
 ```text
-501
+UID 501
 ```
 
 ## Sequence
