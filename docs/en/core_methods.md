@@ -224,7 +224,8 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
