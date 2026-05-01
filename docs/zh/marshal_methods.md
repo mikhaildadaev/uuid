@@ -8,7 +8,7 @@ outline: deep
 本页记录了 UUID 与 **Binary**、**Json** 和 **Text** 格式之间的序列化和反序列化。每个方法适用于所有 UUID 版本 — V1 至 V8 以及 Null。
 :::
 
-## MarshalBinary
+## UUID MarshalBinary
 将 UUID 编码为其 16 字节的二进制表示。
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -28,7 +28,7 @@ Output:
 019687278c7e800087cbbdba4f634d9f
 ```
 
-## MarshalJson
+## UUID MarshalJson
 将 UUID 编码为标准 8-4-4-4-12 格式的 Json 字符串。
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -48,7 +48,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## MarshalText
+## UUID MarshalText
 将 UUID 编码为其规范的文本形式：32 个十六进制数字，用连字符分隔。
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -68,7 +68,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UnmarshalBinary
+## UUID UnmarshalBinary
 从 16 字节的二进制表示解码 UUID。输入如果不是 16 字节将返回错误。
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -85,7 +85,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UnmarshalJson
+## UUID UnmarshalJson
 从 Json 编码的字符串解码 UUID。接受带引号和不带引号的形式；格式无效时返回错误。
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -102,7 +102,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UnmarshalText
+## UUID UnmarshalText
 从规范的文本形式（32 个十六进制数字，用连字符分隔）解码 UUID。不区分大小写；格式无效时返回错误。
 ```go
 import "github.com/mikhaildadaev/uuid"

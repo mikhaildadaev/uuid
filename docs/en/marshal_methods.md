@@ -8,7 +8,7 @@ outline: deep
 This page documents serialization and deserialization of UUIDs to and from **Binary**, **Json**, and **Text** formats. Every marshal/unmarshal method works with all UUID versions — V1 through V8 and Null.
 :::
 
-## MarshalBinary
+## UUID MarshalBinary
 Encodes the UUID into its 16-byte binary representation.
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -28,7 +28,7 @@ Output:
 019687278c7e800087cbbdba4f634d9f
 ```
 
-## MarshalJson
+## UUID MarshalJson
 Encodes the UUID into a Json string in the standard 8-4-4-4-12 format.
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -48,7 +48,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## MarshalText
+## UUID MarshalText
 Encodes the UUID into its canonical text form: 32 hex digits with hyphens.
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -68,7 +68,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UnmarshalBinary
+## UUID UnmarshalBinary
 Decodes a UUID from its 16-byte binary representation. An error is returned if the input is not exactly 16 bytes long.
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -85,7 +85,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UnmarshalJson
+## UUID UnmarshalJson
 Decodes a UUID from a Json-encoded string. Accepts both quoted and unquoted forms; returns an error if the format is invalid.
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -102,7 +102,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UnmarshalText
+## UUID UnmarshalText
 Decodes a UUID from its canonical text form (32 hex digits with hyphens). Case-insensitive; returns an error if the format is invalid.
 ```go
 import "github.com/mikhaildadaev/uuid"

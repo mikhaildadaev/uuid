@@ -8,7 +8,7 @@ outline: deep
 На этой странице описана сериализация и десериализация UUID в форматы **Binary**, **Json** и **Text**. Каждый метод работает со всеми версиями UUID — от V1 до V8, включая Null.
 :::
 
-## MarshalBinary
+## UUID MarshalBinary
 Кодирует UUID в 16-байтовое бинарное представление.
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -28,7 +28,7 @@ Output:
 019687278c7e800087cbbdba4f634d9f
 ```
 
-## MarshalJson
+## UUID MarshalJson
 Кодирует UUID в строку Json в стандартном формате 8-4-4-4-12.
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -48,7 +48,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## MarshalText
+## UUID MarshalText
 Кодирует UUID в каноническую текстовую форму: 32 шестнадцатеричные цифры с дефисами.
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -68,7 +68,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UnmarshalBinary
+## UUID UnmarshalBinary
 Декодирует UUID из 16-байтового бинарного представления. Возвращает ошибку, если длина входных данных не равна 16 байтам.
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -85,7 +85,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UnmarshalJson
+## UUID UnmarshalJson
 Декодирует UUID из Json-строки. Принимает как строки в кавычках, так и без кавычек; возвращает ошибку при неверном формате.
 ```go
 import "github.com/mikhaildadaev/uuid"
@@ -102,7 +102,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UnmarshalText
+## UUID UnmarshalText
 Декодирует UUID из канонической текстовой формы (32 шестнадцатеричные цифры с дефисами). Регистронезависимый; возвращает ошибку при неверном формате.
 ```go
 import "github.com/mikhaildadaev/uuid"

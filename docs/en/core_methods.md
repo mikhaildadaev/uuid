@@ -8,7 +8,7 @@ outline: deep
 This page documents all instance methods available on UUID and NullUUID — from basic operations like **String** and **Version** to advanced metadata extraction like **Timestamp**, **Node**, and **Sequence**. Every method works with all UUID versions, V1 through V8.
 :::
 
-## Bytes
+## UUID Bytes
 Returns the UUID as a 16-byte slice.
 ```go
 import (
@@ -27,7 +27,7 @@ Output
 019687278c7e800087cbbdba4f634d9f
 ```
 
-## Equal
+## UUID Equal
 Compares two UUIDs for equality. Returns true if both UUIDs represent the same value.
 ```go
 import (
@@ -47,7 +47,7 @@ Output
 true
 ```
 
-## Info
+## UUID Info
 Returns a human-readable summary of the UUID: version, variant, timestamp, sequence, node, and POSIX.
 ```go
 import (
@@ -74,7 +74,7 @@ NODE: 1995
 RAND: bdba4f634d9f
 ```
 
-## IsZero
+## UUID IsZero
 Returns true if the UUID is the zero value (all 16 bytes are zero).
 ```go
 import (
@@ -89,7 +89,7 @@ Output
 true
 ```
 
-## Node
+## UUID Node
 Returns the node identifier for UUID versions V1, V2, V6, and V8. Returns 0 for other versions.
 ```go
 import (
@@ -105,7 +105,7 @@ Output
 1995
 ```
 
-## Posix
+## UUID Posix
 Returns the POSIX UID/GID for UUID version V2. Returns 0 for other versions.
 ```go
 import (
@@ -122,7 +122,7 @@ Output
 UID 501
 ```
 
-## Sequence
+## UUID Sequence
 Returns the clock sequence field for UUID versions V1, V2, V6, and V7. Returns 0 for other versions.
 ```go
 import (
@@ -141,7 +141,7 @@ Output
 0
 ```
 
-## String
+## UUID String
 Returns the UUID in its canonical text form: 8-4-4-4-12 hex digits with hyphens.
 ```go
 import (
@@ -160,7 +160,7 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## Timestamp
+## UUID Timestamp
 Returns the timestamp embedded in UUID versions V1, V2, V6, and V7. Returns a zero time for other versions.
 ```go
 import (
@@ -179,7 +179,7 @@ Output
 1746024238206
 ```
 
-## Validate
+## UUID Validate
 Validates the UUID and returns the UUID version on success, or an error on failure.
 ```go
 import (
@@ -198,7 +198,7 @@ Output
 <nil>
 ```
 
-## Variant
+## UUID Variant
 Returns the UUID variant number. Valid UUIDs return 1 (RFC 4122 standard).
 ```go
 import (
@@ -217,7 +217,7 @@ Output
 1
 ```
 
-## Version
+## UUID Version
 Returns the UUID version number (1 through 8). Returns 0 for a null UUID.
 ```go
 import (

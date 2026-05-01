@@ -8,7 +8,7 @@ outline: deep
 This page documents the native `database/sql` integration for UUIDs. Both `Scan` and `Value` methods make UUID work seamlessly with SQL databases, including `NULL` support for nullable columns.
 :::
 
-## Scan
+## UUID Scan
 Implements the `sql.Scanner` interface. Decodes a UUID from a database value — accepts string, byte slice, or nil (NULL). Returns an error if the value cannot be parsed.
 ```go
 import (
@@ -29,7 +29,7 @@ Output
 018f3c14-8000-0000-0000-000000000001
 ```
 
-## Value
+## UUID Value
 Implements the `driver.Valuer` interface. Encodes the UUID into a value suitable for database storage. Returns nil for a null UUID.
 ```go
 import (
