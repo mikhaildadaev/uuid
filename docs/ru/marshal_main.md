@@ -12,7 +12,8 @@ outline: deep
 Кодирует UUID в 16-байтовое бинарное представление.
 ```go
 import "github.com/mikhaildadaev/uuid"
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -24,14 +25,15 @@ fmt.Printf("%x\n", data)
 ```
 Output:
 ```text
-018f3c1480000000000000000000000001
+019687278c7e800087cbbdba4f634d9f
 ```
 
 ## MarshalJson
 Кодирует UUID в строку Json в стандартном формате 8-4-4-4-12.
 ```go
 import "github.com/mikhaildadaev/uuid"
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -43,14 +45,15 @@ fmt.Println(string(data))
 ```
 Output:
 ```text
-018f3c14-8000-0000-0000-000000000001
+01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
 ## MarshalText
 Кодирует UUID в каноническую текстовую форму: 32 шестнадцатеричные цифры с дефисами.
 ```go
 import "github.com/mikhaildadaev/uuid"
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -62,7 +65,7 @@ fmt.Println(string(data))
 ```
 Output:
 ```text
-018f3c14-8000-0000-0000-000000000001
+01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
 ## UnmarshalBinary
@@ -70,8 +73,8 @@ Output:
 ```go
 import "github.com/mikhaildadaev/uuid"
 var u uuid.UUID
-bin := []byte{0x01, 0x8f, 0x3c, 0x14, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01}
-err := u.UnmarshalBinary(bin)
+uuidBinary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
+err := u.UnmarshalBinary(uuidBinary)
 if err != nil {
     fmt.Println(err)
 }
@@ -79,7 +82,7 @@ fmt.Println(u.String())
 ```
 Output:
 ```text
-018f3c14-0000-8000-0000-000000000001
+01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
 ## UnmarshalJson
@@ -87,7 +90,8 @@ Output:
 ```go
 import "github.com/mikhaildadaev/uuid"
 var u uuid.UUID
-err := u.UnmarshalJSON([]byte(`"018f3c14-0000-8000-0000-000000000001"`))
+uuidJson := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
+err := u.UnmarshalJSON(uuidJson)
 if err != nil {
     fmt.Println(err)
 }
@@ -95,7 +99,7 @@ fmt.Println(u.String())
 ```
 Output:
 ```text
-018f3c14-0000-8000-0000-000000000001
+01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
 ## UnmarshalText
@@ -103,7 +107,8 @@ Output:
 ```go
 import "github.com/mikhaildadaev/uuid"
 var u uuid.UUID
-err := u.UnmarshalText([]byte("018f3c14-0000-8000-0000-000000000001"))
+uuidText := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
+err := u.UnmarshalText(uuidText)
 if err != nil {
     fmt.Println(err)
 }
@@ -111,5 +116,5 @@ fmt.Println(u.String())
 ```
 Output:
 ```text
-018f3c14-0000-8000-0000-000000000001
+01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
