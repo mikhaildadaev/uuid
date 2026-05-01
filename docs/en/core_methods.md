@@ -15,7 +15,8 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -23,7 +24,7 @@ fmt.Printf("%x\n", uu.Bytes())
 ```
 Output
 ```text
-018f3c1480000000000000000000000001
+019687278c7e800087cbbdba4f634d9f
 ```
 
 ## Equal
@@ -33,13 +34,17 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-u1, _ := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
-u2, _ := uuid.Parse("018f3c14-8000-0000-0000-000000000002")
-fmt.Println(u1.Equal(u2))
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
+if err != nil {
+	fmt.Println(err)
+}
+other := uu
+fmt.Println(uu.Equal(other))
 ```
 Output
 ```text
-false
+true
 ```
 
 ## Info
@@ -49,7 +54,8 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -57,7 +63,15 @@ fmt.Println(uu.Info())
 ```
 Output
 ```text
-V7 time-sortable Unix-epoch 2026-04-01 00:00:00.000 +0000 UTC variant10 node1995 posix0 sequence0
+UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
+VAR.: RFC4122
+VER.: 8
+FORM: TTTTTTTT-TTTT-8SSS-VNNN-RRRRRRRRRRRR
+INFO: TIME (1-milliseconds interval since 1970-01-01) + SEQUENCE (0-4095) + NODE (0-16383) + RANDOM
+TIME: 1746024238206 [2025-04-30 14:43:58.206 +0000 UTC]
+SEQ.: 0
+NODE: 1995
+RAND: bdba4f634d9f
 ```
 
 ## IsZero
@@ -82,11 +96,9 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
-if err != nil {
-    fmt.Println(err)
-}
-fmt.Println(uu.Node())
+node := 1995
+u8 := uuid.NewV8(node)
+fmt.Println(u8.Node())
 ```
 Output
 ```text
@@ -100,12 +112,13 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu := uuid.NewV2(1000)
-fmt.Println(uu.Posix())
+posix := 501
+u2 := uuid.NewV2(posix)
+fmt.Println(u2.Posix())
 ```
 Output
 ```text
-1000
+501
 ```
 
 ## Sequence
@@ -115,7 +128,8 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -133,7 +147,8 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -141,7 +156,7 @@ fmt.Println(uu.String())
 ```
 Output
 ```text
-018f3c14-8000-0000-0000-000000000001
+01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
 ## Timestamp
@@ -151,7 +166,8 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -159,7 +175,7 @@ fmt.Println(uu.Timestamp())
 ```
 Output
 ```text
-2026-04-01 00:00:00.000 +0000 UTC
+1746024238206
 ```
 
 ## Validate
@@ -169,7 +185,8 @@ import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
@@ -181,13 +198,14 @@ Output
 ```
 
 ## Variant
-Returns the UUID variant number. Valid UUIDs return 10 (RFC 4122 standard).
+Returns the UUID variant number. Valid UUIDs return 1 (RFC 4122 standard).
 ```go
 import (
     "fmt"
     "github.com/mikhaildadaev/uuid"
 )
-uu, err := uuid.Parse("018f3c14-8000-0000-0000-000000000001")
+uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
+uu, err := uuid.Parse(uuidV8String)
 if err != nil {
     fmt.Println(err)
 }
