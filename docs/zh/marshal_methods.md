@@ -9,7 +9,7 @@ outline: deep
 :::
 
 ## NULLUUID MarshalBinary
-Encodes the NullUUID into its 16-byte binary representation. Returns all zeros for a null value.
+将 NullUUID 编码为其 16 字节的二进制表示。对于空值返回全零。
 ```go
 import "github.com/mikhaildadaev/uuid"
 var nu uuid.NullUUID
@@ -33,7 +33,7 @@ Output:
 ```
 
 ## NULLUUID MarshalJson
-Encodes the NullUUID into a Json string. Returns null for a null value.
+将 NullUUID 编码为 Json 字符串。对于空值返回 null。
 ```go
 import "github.com/mikhaildadaev/uuid"
 var nu uuid.NullUUID
@@ -57,7 +57,7 @@ null
 ```
 
 ## NULLUUID MarshalText
-Encodes the NullUUID into its canonical text form. Returns an empty string for a null value.
+将 NullUUID 编码为其规范的文本形式。对于空值返回空字符串。
 ```go
 import "github.com/mikhaildadaev/uuid"
 var nu uuid.NullUUID
@@ -81,7 +81,7 @@ Output:
 ```
 
 ## NULLUUID UnmarshalBinary
-Decodes a NullUUID from its 16-byte binary representation. Sets Valid based on the input.
+从 16 字节的二进制表示解码 NullUUID。根据输入设置 Valid。
 ```go
 import "github.com/mikhaildadaev/uuid"
 var nu uuid.NullUUID
@@ -90,6 +90,7 @@ if err := nu.UnmarshalBinary(data); err != nil {
 	fmt.Println(err)
 }
 fmt.Println("Valid:", nu.Valid)
+fmt.Println("UUID:", nu.UUID)
 uuidV8Binary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
 err := nu.UnmarshalBinary(uuidV8Binary)
 if err != nil {
@@ -101,12 +102,13 @@ fmt.Println("UUID:", nu.UUID)
 Output:
 ```text
 Valid: false
+UUID: 00000000-0000-0000-0000-000000000000
 Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
 ## NULLUUID UnmarshalJson
-Decodes a NullUUID from a Json-encoded string. Accepts null for SQL NULL or a valid UUID string.
+从 Json 编码的字符串解码 NullUUID。接受 null 表示 SQL NULL 或有效的 UUID 字符串。
 ```go
 import "github.com/mikhaildadaev/uuid"
 var nu uuid.NullUUID
@@ -115,6 +117,7 @@ if err := nu.UnmarshalJson(data); err != nil {
 	fmt.Println(err)
 }
 fmt.Println("Valid:", nu.Valid)
+fmt.Println("UUID:", nu.UUID)
 uuidV8Json := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
 err := nu.UnmarshalJson(uuidV8Json)
 if err != nil {
@@ -126,12 +129,13 @@ fmt.Println("UUID:", nu.UUID)
 Output:
 ```text
 Valid: false
+UUID: 00000000-0000-0000-0000-000000000000
 Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
 ## NULLUUID UnmarshalText
-Decodes a NullUUID from its canonical text form. Accepts an empty string for SQL NULL.
+从规范的文本形式解码 NullUUID。接受空字符串表示 SQL NULL。
 ```go
 import "github.com/mikhaildadaev/uuid"
 var nu uuid.NullUUID
@@ -140,6 +144,7 @@ if err := nu.UnmarshalText(data); err != nil {
 	fmt.Println(err)
 }
 fmt.Println("Valid:", nu.Valid)
+fmt.Println("UUID:", nu.UUID)
 uuidV8Text := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
 err := nu.UnmarshalText(uuidV8Text)
 if err != nil {
@@ -151,12 +156,13 @@ fmt.Println("UUID:", nu.UUID)
 Output:
 ```text
 Valid: false
+UUID: 00000000-0000-0000-0000-000000000000
 Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
 ## UUID MarshalBinary
-Encodes the UUID into its 16-byte binary representation.
+将 UUID 编码为其 16 字节的二进制表示。
 ```go
 import "github.com/mikhaildadaev/uuid"
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -176,7 +182,7 @@ Output:
 ```
 
 ## UUID MarshalJson
-Encodes the UUID into a Json string in the standard 8-4-4-4-12 format.
+将 UUID 编码为标准 8-4-4-4-12 格式的 Json 字符串。
 ```go
 import "github.com/mikhaildadaev/uuid"
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -196,7 +202,7 @@ Output:
 ```
 
 ## UUID MarshalText
-Encodes the UUID into its canonical text form: 32 hex digits with hyphens.
+将 UUID 编码为其规范的文本形式：32 个十六进制数字，用连字符分隔。
 ```go
 import "github.com/mikhaildadaev/uuid"
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -216,7 +222,7 @@ Output:
 ```
 
 ## UUID UnmarshalBinary
-Decodes a UUID from its 16-byte binary representation. An error is returned if the input is not exactly 16 bytes long.
+从 16 字节的二进制表示解码 UUID。输入如果不是 16 字节将返回错误。
 ```go
 import "github.com/mikhaildadaev/uuid"
 var uu uuid.UUID
@@ -233,7 +239,7 @@ Output:
 ```
 
 ## UUID UnmarshalJson
-Decodes a UUID from a Json-encoded string. Accepts both quoted and unquoted forms; returns an error if the format is invalid.
+从 Json 编码的字符串解码 UUID。接受带引号和不带引号的形式；格式无效时返回错误。
 ```go
 import "github.com/mikhaildadaev/uuid"
 var uu uuid.UUID
@@ -250,7 +256,7 @@ Output:
 ```
 
 ## UUID UnmarshalText
-Decodes a UUID from its canonical text form (32 hex digits with hyphens). Case-insensitive; returns an error if the format is invalid.
+从规范的文本形式（32 个十六进制数字，用连字符分隔）解码 UUID。不区分大小写；格式无效时返回错误。
 ```go
 import "github.com/mikhaildadaev/uuid"
 var uu uuid.UUID

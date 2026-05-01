@@ -90,6 +90,7 @@ if err := nu.UnmarshalBinary(data); err != nil {
 	fmt.Println(err)
 }
 fmt.Println("Valid:", nu.Valid)
+fmt.Println("UUID:", nu.UUID)
 uuidV8Binary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
 err := nu.UnmarshalBinary(uuidV8Binary)
 if err != nil {
@@ -101,6 +102,7 @@ fmt.Println("UUID:", nu.UUID)
 Output:
 ```text
 Valid: false
+UUID: 00000000-0000-0000-0000-000000000000
 Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
@@ -115,6 +117,7 @@ if err := nu.UnmarshalJson(data); err != nil {
 	fmt.Println(err)
 }
 fmt.Println("Valid:", nu.Valid)
+fmt.Println("UUID:", nu.UUID)
 uuidV8Json := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
 err := nu.UnmarshalJson(uuidV8Json)
 if err != nil {
@@ -126,6 +129,7 @@ fmt.Println("UUID:", nu.UUID)
 Output:
 ```text
 Valid: false
+UUID: 00000000-0000-0000-0000-000000000000
 Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
@@ -140,6 +144,7 @@ if err := nu.UnmarshalText(data); err != nil {
 	fmt.Println(err)
 }
 fmt.Println("Valid:", nu.Valid)
+fmt.Println("UUID:", nu.UUID)
 uuidV8Text := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
 err := nu.UnmarshalText(uuidV8Text)
 if err != nil {
@@ -151,6 +156,7 @@ fmt.Println("UUID:", nu.UUID)
 Output:
 ```text
 Valid: false
+UUID: 00000000-0000-0000-0000-000000000000
 Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
