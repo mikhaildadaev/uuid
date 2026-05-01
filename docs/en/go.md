@@ -36,14 +36,3 @@ go test -race ./...
 > **Note** 
 >
 > Strings `name` that are 0 bytes or larger than 512 bytes return a null UUID to prevent allocation.
-
-## Quick Navigation
-- [Benchmarks](/en/benchmarks) - Core, ..., and ... performance data.
-- **API**
-    - **Core**
-        - [Main](/en/core_main) — ....
-    - **Marshal**
-        - [Main](/en/marshal_main) — ....
-    - **SQL**
-        - [Main](/en/sql_main) — ....
-

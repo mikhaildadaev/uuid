@@ -36,13 +36,3 @@ go test -race ./...
 > **注意** 
 >
 > 长度为 0 字节或超过 512 字节的 `name` 字符串将返回 null UUID，以防止内存分配。
-
-## Quick Navigation
-- [基准测试](/en/benchmarks) - 核心、文件和网络的性能数据。
-- **API**
-    - **核心**
-        - [主要](/en/core_main) — 。。。。
-    - **Marshal**
-        - [主要](/en/marshal_main) — 。。。。
-    - **SQL**
-        - [主要](/en/sql_main) — 。。。。
