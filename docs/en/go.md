@@ -32,6 +32,6 @@ go test -race ./...
 - **V3/V5**: `name` should be `1..512` symbols (byte length);
 - **V8**: `node` should be `0..16383`;
 
-> **Note** 
->
-> Strings `name` that are 0 bytes or larger than 512 bytes return a null UUID to prevent allocation.
+::: tip Note 
+Strings `name` that are 0 bytes or larger than 512 bytes return a null UUID to prevent allocation.
+:::
