@@ -11,10 +11,6 @@ outline: deep
 ## NULLUUID MarshalBinary
 Кодирует NullUUID в 16-байтовое бинарное представление. Возвращает все нули для null-значения.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 data, err := nu.MarshalBinary()
 if err != nil {
@@ -38,10 +34,6 @@ Output:
 ## NULLUUID MarshalJson
 Кодирует NullUUID в строку Json. Возвращает null для null-значения.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 data, err := nu.MarshalJson()
 if err != nil {
@@ -65,10 +57,6 @@ null
 ## NULLUUID MarshalText
 Кодирует NullUUID в каноническую текстовую форму. Возвращает пустую строку для null-значения.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 data, err := nu.MarshalText()
 if err != nil {
@@ -92,10 +80,6 @@ Output:
 ## NULLUUID UnmarshalBinary
 Декодирует NullUUID из 16-байтового бинарного представления. Устанавливает Valid в зависимости от входных данных.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 data := []byte{}
 if err := nu.UnmarshalBinary(data); err != nil {
@@ -122,10 +106,6 @@ UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ## NULLUUID UnmarshalJson
 Декодирует NullUUID из Json-строки. Принимает null для SQL NULL или валидную строку UUID.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 data := []byte(`null`)
 if err := nu.UnmarshalJson(data); err != nil {
@@ -152,10 +132,6 @@ UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ## NULLUUID UnmarshalText
 Декодирует NullUUID из канонической текстовой формы. Принимает пустую строку для SQL NULL.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 data := []byte("")
 if err := nu.UnmarshalText(data); err != nil {
@@ -182,10 +158,6 @@ UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ## UUID MarshalBinary
 Кодирует UUID в 16-байтовое бинарное представление.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -205,10 +177,6 @@ Output:
 ## UUID MarshalJson
 Кодирует UUID в строку Json в стандартном формате 8-4-4-4-12.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -228,10 +196,6 @@ Output:
 ## UUID MarshalText
 Кодирует UUID в каноническую текстовую форму: 32 шестнадцатеричные цифры с дефисами.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -251,10 +215,6 @@ Output:
 ## UUID UnmarshalBinary
 Декодирует UUID из 16-байтового бинарного представления. Возвращает ошибку, если длина входных данных не равна 16 байтам.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var uu uuid.UUID
 uuidV8Binary := []byte{0x01, 0x96, 0x87, 0x27, 0x8c, 0x7e, 0x80, 0x00, 0x87, 0xcb, 0xbd, 0xba, 0x4f, 0x63, 0x4d, 0x9f}
 err := uu.UnmarshalBinary(uuidV8Binary)
@@ -271,10 +231,6 @@ Output:
 ## UUID UnmarshalJson
 Декодирует UUID из Json-строки. Принимает как строки в кавычках, так и без; возвращает ошибку при неверном формате.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var uu uuid.UUID
 uuidV8Json := []byte(`"01968727-8c7e-8000-87cb-bdba4f634d9f"`)
 err := uu.UnmarshalJson(uuidV8Json)
@@ -291,10 +247,6 @@ Output:
 ## UUID UnmarshalText
 Декодирует UUID из канонической текстовой формы (32 шестнадцатеричные цифры с дефисами). Регистронезависимый; возвращает ошибку при неверном формате.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var uu uuid.UUID
 uuidV8Text := []byte("01968727-8c7e-8000-87cb-bdba4f634d9f")
 err := uu.UnmarshalText(uuidV8Text)

@@ -12,10 +12,6 @@ outline: deep
 ## NULLUUID IsZero
 如果 NullUUID 无效（SQL NULL）或底层 UUID 为零值，则返回 `true`。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 fmt.Println(nu.IsZero())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
@@ -30,10 +26,6 @@ false
 ## NULLUUID String
 返回有效 UUID 的规范文本形式（8-4-4-4-12），或对于空值返回 `00000000-0000-0000-0000-000000000000`。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 fmt.Println(nu.String())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
@@ -48,10 +40,6 @@ Output
 ## NULLUUID Validate
 验证 NullUUID。对于空值和有效 UUID 均返回 `nil`（在 SQL 上下文中，空值被认为是有效的）。仅当 UUID 存在但格式错误时返回错误。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 fmt.Println(nu.Validate())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
@@ -66,10 +54,6 @@ Output
 ## UUID Bytes
 将 UUID 作为 16 字节切片返回。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -85,10 +69,6 @@ Output
 ## UUID Equal
 比较两个 UUID 是否相等。如果两个 UUID 表示相同的值，则返回 true。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -105,10 +85,6 @@ true
 ## UUID Info
 返回 UUID 的可读摘要：版本、变体、时间戳、序列、节点和 POSIX。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -132,10 +108,6 @@ RAND: bdba4f634d9f
 ## UUID IsZero
 如果 UUID 为零值（所有 16 字节均为零），则返回 true。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uu := uuid.NewNull()
 fmt.Println(uu.IsZero())
 ```
@@ -147,10 +119,6 @@ true
 ## UUID Node
 返回 UUID 版本 V1、V2、V6 和 V8 的节点标识符。其他版本返回 0。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidNode := 1995
 u8 := uuid.NewV8(uuidNode)
 fmt.Println(u8.Node())
@@ -163,10 +131,6 @@ Output
 ## UUID Posix
 返回 UUID 版本 V2 的 POSIX UID/GID。其他版本返回 0。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidPosType := 0
 uuidPosValue := 501
 u2 := uuid.NewV2(uuidPosType, uuidPosValue)
@@ -180,10 +144,6 @@ UID 501
 ## UUID Sequence
 返回 UUID 版本 V1、V2、V6 和 V7 的时钟序列字段。其他版本返回 0。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -199,10 +159,6 @@ Output
 ## UUID String
 返回 UUID 的规范文本形式：8-4-4-4-12 十六进制数字，用连字符分隔。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -218,10 +174,6 @@ Output
 ## UUID Timestamp
 返回嵌入在 UUID 版本 V1、V2、V6 和 V7 中的时间戳。其他版本返回零时间。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -237,10 +189,6 @@ Output
 ## UUID Validate
 验证 UUID，成功时返回 UUID 版本，失败时返回错误。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -256,10 +204,6 @@ Output
 ## UUID Variant
 返回 UUID 变体号。有效的 UUID 返回 1（RFC 4122 标准）。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -275,10 +219,6 @@ Output
 ## UUID Version
 返回 UUID 版本号（1 到 8）。对于 null UUID，返回 0。
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {

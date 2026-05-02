@@ -11,11 +11,6 @@ outline: deep
 ## NULLUUID Scan
 Реализует интерфейс `sql.Scanner` для nullable-колонок UUID. Принимает `nil` для SQL NULL или валидную строку/байты UUID. Устанавливает `Valid` в `true,` когда UUID присутствует, и в `false` для NULL.
 ```go
-import (
-    "database/sql"
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 if err := nu.Scan(nil); err != nil {
     fmt.Println(err)
@@ -40,11 +35,6 @@ UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ## NULLUUID Value
 Реализует интерфейс `driver.Valuer` для nullable-колонок UUID. Возвращает `nil`, когда `Valid` равен `false`, или строку UUID, когда `Valid` равен `true`.
 ```go
-import (
-    "database/sql"
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 value, _ := nu.Value()
 fmt.Println(value)
@@ -62,11 +52,6 @@ Output
 ## UUID Scan
 Реализует интерфейс `sql.Scanner`. Декодирует UUID из значения базы данных — принимает строку, байтовый срез или nil (NULL). Возвращает ошибку, если значение не может быть разобрано.
 ```go
-import (
-    "database/sql"
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var uu uuid.UUID
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 err := uu.Scan(uuidV8String)
@@ -83,11 +68,6 @@ Output
 ## UUID Value
 Реализует интерфейс `driver.Valuer`. Кодирует UUID в значение, пригодное для хранения в базе данных. Возвращает nil для null UUID.
 ```go
-import (
-    "database/sql"
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {

@@ -11,10 +11,6 @@ This page documents all instance methods available on UUID and NullUUID — from
 ## NULLUUID IsZero
 Returns `true` if the NullUUID is invalid (SQL NULL) or the underlying UUID is the zero value.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 fmt.Println(nu.IsZero())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
@@ -29,10 +25,6 @@ false
 ## NULLUUID String
 Returns the canonical text form (8-4-4-4-12) for a valid UUID, or `00000000-0000-0000-0000-000000000000` for a null value.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 fmt.Println(nu.String())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
@@ -47,10 +39,6 @@ Output
 ## NULLUUID Validate
 Validates the NullUUID. Returns `nil` for both null and valid UUIDs (null is considered valid in SQL context). Returns an error only if the UUID is present but malformed.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 var nu uuid.NullUUID
 fmt.Println(nu.Validate())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
@@ -65,10 +53,6 @@ Output
 ## UUID Bytes
 Returns the UUID as a 16-byte slice.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -84,10 +68,6 @@ Output
 ## UUID Equal
 Compares two UUIDs for equality. Returns true if both UUIDs represent the same value.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -104,10 +84,6 @@ true
 ## UUID Info
 Returns a human-readable summary of the UUID: version, variant, timestamp, sequence, node, and POSIX.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -131,10 +107,6 @@ RAND: bdba4f634d9f
 ## UUID IsZero
 Returns true if the UUID is the zero value (all 16 bytes are zero).
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uu := uuid.NewNull()
 fmt.Println(uu.IsZero())
 ```
@@ -146,10 +118,6 @@ true
 ## UUID Node
 Returns the node identifier for UUID versions V1, V2, V6, and V8. Returns 0 for other versions.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidNode := 1995
 u8 := uuid.NewV8(uuidNode)
 fmt.Println(u8.Node())
@@ -162,10 +130,6 @@ Output
 ## UUID Posix
 Returns the POSIX UID/GID for UUID version V2. Returns 0 for other versions.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidPosType := 0
 uuidPosValue := 501
 u2 := uuid.NewV2(uuidPosType, uuidPosValue)
@@ -179,10 +143,6 @@ UID 501
 ## UUID Sequence
 Returns the clock sequence field for UUID versions V1, V2, V6, and V7. Returns 0 for other versions.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -198,10 +158,6 @@ Output
 ## UUID String
 Returns the UUID in its canonical text form: 8-4-4-4-12 hex digits with hyphens.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -217,10 +173,6 @@ Output
 ## UUID Timestamp
 Returns the timestamp embedded in UUID versions V1, V2, V6, and V7. Returns a zero time for other versions.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -236,10 +188,6 @@ Output
 ## UUID Validate
 Validates the UUID and returns the UUID version on success, or an error on failure.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -255,10 +203,6 @@ Output
 ## UUID Variant
 Returns the UUID variant number. Valid UUIDs return 1 (RFC 4122 standard).
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
@@ -274,10 +218,6 @@ Output
 ## UUID Version
 Returns the UUID version number (1 through 8). Returns 0 for a null UUID.
 ```go
-import (
-    "fmt"
-    "github.com/mikhaildadaev/uuid"
-)
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
 uu, err := uuid.Parse(uuidV8String)
 if err != nil {
