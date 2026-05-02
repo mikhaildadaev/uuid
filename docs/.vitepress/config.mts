@@ -15,6 +15,26 @@ export default defineConfig({
       link: '/en/',
       title: 'UUID',
       themeConfig: {
+        search: {
+          provider: 'local',
+          options: {
+            translations: {
+              button: {
+                buttonText: 'Search',
+                buttonAriaLabel: 'Search'
+              },
+              modal: {
+                noResultsText: 'No results found',
+                resetButtonTitle: 'Clear search',
+                footer: {
+                  selectText: 'to select',
+                  navigateText: 'to navigate',
+                  closeText: 'to close'
+                }
+              }
+            }
+          }
+        },
         nav: [
           { 
             text: 'Home', 
@@ -119,6 +139,26 @@ export default defineConfig({
       link: '/ru/',
       title: 'UUID',
       themeConfig: {
+        search: {
+          provider: 'local',
+          options: {
+            translations: {
+              button: {
+                buttonText: 'Поиск',
+                buttonAriaLabel: 'Поиск'
+              },
+              modal: {
+                noResultsText: 'Ничего не найдено',
+                resetButtonTitle: 'Очистить поиск',
+                footer: {
+                  selectText: 'выбрать',
+                  navigateText: 'перейти',
+                  closeText: 'закрыть'
+                }
+              }
+            }
+          }
+        },
         nav: [
           { 
             text: 'Главная', 
@@ -223,6 +263,26 @@ export default defineConfig({
       link: '/zh/',
       title: 'UUID',
       themeConfig: {
+        search: {
+          provider: 'local',
+          options: {
+            translations: {
+              button: {
+                buttonText: '搜索',
+                buttonAriaLabel: '搜索'
+              },
+              modal: {
+                noResultsText: '未找到结果',
+                resetButtonTitle: '清除搜索',
+                footer: {
+                  selectText: '选择',
+                  navigateText: '导航',
+                  closeText: '关闭'
+                }
+              }
+            }
+          }
+        },
         nav: [
           { 
             text: '首页', 
@@ -322,9 +382,6 @@ export default defineConfig({
     }
   },
   themeConfig: {
-    search: {
-      provider: 'local'
-    },
     socialLinks: [
       { 
         icon: 'github', 
