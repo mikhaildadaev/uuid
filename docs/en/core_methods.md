@@ -8,7 +8,8 @@ outline: deep
 This page documents all instance methods available on UUID and NullUUID — from basic operations like **String** and **Version** to advanced metadata extraction like **Timestamp**, **Node**, and **Sequence**. Every method works with all UUID versions, V1 through V8.
 :::
 
-## NULLUUID IsZero
+## NULLUUID
+### IsZero
 Returns `true` if the NullUUID is invalid (SQL NULL) or the underlying UUID is the zero value.
 ```go
 var nu uuid.NullUUID
@@ -22,7 +23,7 @@ true
 false
 ```
 
-## NULLUUID String
+### String
 Returns the canonical text form (8-4-4-4-12) for a valid UUID, or `00000000-0000-0000-0000-000000000000` for a null value.
 ```go
 var nu uuid.NullUUID
@@ -36,7 +37,7 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## NULLUUID Validate
+### Validate
 Validates the NullUUID. Returns `nil` for both null and valid UUIDs (null is considered valid in SQL context). Returns an error only if the UUID is present but malformed.
 ```go
 var nu uuid.NullUUID
@@ -50,7 +51,8 @@ Output
 <nil>
 ```
 
-## UUID Bytes
+## UUID
+### Bytes
 Returns the UUID as a 16-byte slice.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -65,7 +67,7 @@ Output
 019687278c7e800087cbbdba4f634d9f
 ```
 
-## UUID Equal
+### Equal
 Compares two UUIDs for equality. Returns true if both UUIDs represent the same value.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -81,7 +83,7 @@ Output
 true
 ```
 
-## UUID Info
+### Info
 Returns a human-readable summary of the UUID: version, variant, timestamp, sequence, node, and POSIX.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -104,7 +106,7 @@ NODE: 1995
 RAND: bdba4f634d9f
 ```
 
-## UUID IsZero
+### IsZero
 Returns true if the UUID is the zero value (all 16 bytes are zero).
 ```go
 uu := uuid.NewNull()
@@ -115,7 +117,7 @@ Output
 true
 ```
 
-## UUID Node
+### Node
 Returns the node identifier for UUID versions V1, V2, V6, and V8. Returns 0 for other versions.
 ```go
 uuidNode := 1995
@@ -127,7 +129,7 @@ Output
 1995
 ```
 
-## UUID Posix
+### Posix
 Returns the POSIX UID/GID for UUID version V2. Returns 0 for other versions.
 ```go
 uuidPosType := 0
@@ -140,7 +142,7 @@ Output
 UID 501
 ```
 
-## UUID Sequence
+### Sequence
 Returns the clock sequence field for UUID versions V1, V2, V6, and V7. Returns 0 for other versions.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -155,7 +157,7 @@ Output
 0
 ```
 
-## UUID String
+### String
 Returns the UUID in its canonical text form: 8-4-4-4-12 hex digits with hyphens.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -170,7 +172,7 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID Timestamp
+### Timestamp
 Returns the timestamp embedded in UUID versions V1, V2, V6, and V7. Returns a zero time for other versions.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -185,7 +187,7 @@ Output
 1746024238206
 ```
 
-## UUID Validate
+### Validate
 Validates the UUID and returns the UUID version on success, or an error on failure.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -200,7 +202,7 @@ Output
 <nil>
 ```
 
-## UUID Variant
+### Variant
 Returns the UUID variant number. Valid UUIDs return 1 (RFC 4122 standard).
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -215,7 +217,7 @@ Output
 1
 ```
 
-## UUID Version
+### Version
 Returns the UUID version number (1 through 8). Returns 0 for a null UUID.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"

@@ -8,7 +8,8 @@ outline: deep
 На этой странице описана нативная интеграция с `database/sql` для UUID. Методы `Scan` и `Value` позволяют UUID беспрепятственно работать с базами данных SQL, включая поддержку `NULL` для nullable-колонок.
 :::
 
-## NULLUUID Scan
+## NULLUUID
+### Scan
 Реализует интерфейс `sql.Scanner` для nullable-колонок UUID. Принимает `nil` для SQL NULL или валидную строку/байты UUID. Устанавливает `Valid` в `true,` когда UUID присутствует, и в `false` для NULL.
 ```go
 var nu uuid.NullUUID
@@ -32,7 +33,7 @@ Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## NULLUUID Value
+### Value
 Реализует интерфейс `driver.Valuer` для nullable-колонок UUID. Возвращает `nil`, когда `Valid` равен `false`, или строку UUID, когда `Valid` равен `true`.
 ```go
 var nu uuid.NullUUID
@@ -49,7 +50,8 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID Scan
+## UUID
+### Scan
 Реализует интерфейс `sql.Scanner`. Декодирует UUID из значения базы данных — принимает строку, байтовый срез или nil (NULL). Возвращает ошибку, если значение не может быть разобрано.
 ```go
 var uu uuid.UUID
@@ -65,7 +67,7 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID Value
+### Value
 Реализует интерфейс `driver.Valuer`. Кодирует UUID в значение, пригодное для хранения в базе данных. Возвращает nil для null UUID.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"

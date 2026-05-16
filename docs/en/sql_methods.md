@@ -8,7 +8,8 @@ outline: deep
 This page documents the native `database/sql` integration for UUIDs. Both `Scan` and `Value` methods make UUID work seamlessly with SQL databases, including `NULL` support for nullable columns.
 :::
 
-## NULLUUID Scan
+## NULLUUID 
+### Scan
 Implements the `sql.Scanner` interface for nullable UUID columns. Accepts `nil` for SQL NULL or a valid UUID string/bytes. Sets `Valid` to `true` when a UUID is present, `false` for NULL.
 ```go
 var nu uuid.NullUUID
@@ -32,7 +33,7 @@ Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## NULLUUID Value
+### Value
 Implements the `driver.Valuer` interface for nullable UUID columns. Returns `nil` when `Valid` is `false`, or the UUID string when `Valid` is `true`.
 ```go
 var nu uuid.NullUUID
@@ -49,7 +50,8 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID Scan
+## UUID 
+### Scan
 Implements the `sql.Scanner` interface. Decodes a UUID from a database value — accepts string, byte slice, or nil (NULL). Returns an error if the value cannot be parsed.
 ```go
 var uu uuid.UUID
@@ -65,7 +67,7 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID Value
+### Value
 Implements the `driver.Valuer` interface. Encodes the UUID into a value suitable for database storage. Returns `nil` for a null UUID.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"

@@ -8,7 +8,8 @@ outline: deep
 This page documents serialization and deserialization of UUIDs to and from **Binary**, **Json**, and **Text** formats. Every marshal/unmarshal method works with all UUID versions — V1 through V8 and Null.
 :::
 
-## NULLUUID MarshalBinary
+## NULLUUID
+### MarshalBinary
 Encodes the NullUUID into its 16-byte binary representation. Returns all zeros for a null value.
 ```go
 var nu uuid.NullUUID
@@ -31,7 +32,7 @@ Output:
 019687278c7e800087cbbdba4f634d9f
 ```
 
-## NULLUUID MarshalJson
+### MarshalJson
 Encodes the NullUUID into a Json string. Returns null for a null value.
 ```go
 var nu uuid.NullUUID
@@ -54,7 +55,7 @@ null
 "01968727-8c7e-8000-87cb-bdba4f634d9f"
 ```
 
-## NULLUUID MarshalText
+### MarshalText
 Encodes the NullUUID into its canonical text form. Returns an empty string for a null value.
 ```go
 var nu uuid.NullUUID
@@ -77,7 +78,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## NULLUUID UnmarshalBinary
+### UnmarshalBinary
 Decodes a NullUUID from its 16-byte binary representation. Sets Valid based on the input.
 ```go
 var nu uuid.NullUUID
@@ -103,7 +104,7 @@ Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## NULLUUID UnmarshalJson
+### UnmarshalJson
 Decodes a NullUUID from a Json-encoded string. Accepts null for SQL NULL or a valid UUID string.
 ```go
 var nu uuid.NullUUID
@@ -129,7 +130,7 @@ Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## NULLUUID UnmarshalText
+### UnmarshalText
 Decodes a NullUUID from its canonical text form. Accepts an empty string for SQL NULL.
 ```go
 var nu uuid.NullUUID
@@ -155,7 +156,8 @@ Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID MarshalBinary
+## UUID 
+### MarshalBinary
 Encodes the UUID into its 16-byte binary representation.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -174,7 +176,7 @@ Output:
 019687278c7e800087cbbdba4f634d9f
 ```
 
-## UUID MarshalJson
+### MarshalJson
 Encodes the UUID into a Json string in the standard 8-4-4-4-12 format.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -193,7 +195,7 @@ Output:
 "01968727-8c7e-8000-87cb-bdba4f634d9f"
 ```
 
-## UUID MarshalText
+### MarshalText
 Encodes the UUID into its canonical text form: 32 hex digits with hyphens.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -212,7 +214,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID UnmarshalBinary
+### UnmarshalBinary
 Decodes a UUID from its 16-byte binary representation. An error is returned if the input is not exactly 16 bytes long.
 ```go
 var uu uuid.UUID
@@ -228,7 +230,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID UnmarshalJson
+### UnmarshalJson
 Decodes a UUID from a Json-encoded string. Accepts both quoted and unquoted forms; returns an error if the format is invalid.
 ```go
 var uu uuid.UUID
@@ -244,7 +246,7 @@ Output:
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID UnmarshalText
+### UnmarshalText
 Decodes a UUID from its canonical text form (32 hex digits with hyphens). Case-insensitive; returns an error if the format is invalid.
 ```go
 var uu uuid.UUID

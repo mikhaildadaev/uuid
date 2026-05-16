@@ -9,7 +9,8 @@ outline: deep
 :::
 
 
-## NULLUUID IsZero
+## NULLUUID
+### IsZero
 Возвращает `true`, если NullUUID недействителен (SQL NULL) или базовый UUID является нулевым значением.
 ```go
 var nu uuid.NullUUID
@@ -23,7 +24,7 @@ true
 false
 ```
 
-## NULLUUID String
+### String
 Возвращает каноническую текстовую форму (8-4-4-4-12) для валидного UUID или `00000000-0000-0000-0000-000000000000` для null-значения.
 ```go
 var nu uuid.NullUUID
@@ -37,7 +38,7 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## NULLUUID Validate
+### Validate
 Проверяет NullUUID. Возвращает `nil` как для null, так и для валидных UUID (null считается валидным в контексте SQL). Возвращает ошибку только если UUID присутствует, но имеет неверный формат.
 ```go
 var nu uuid.NullUUID
@@ -51,7 +52,8 @@ Output
 <nil>
 ```
 
-## UUID Bytes
+## UUID
+### Bytes
 Возвращает UUID в виде 16-байтового среза.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -66,7 +68,7 @@ Output
 019687278c7e800087cbbdba4f634d9f
 ```
 
-## UUID Equal
+### Equal
 Сравнивает два UUID на равенство. Возвращает true, если оба UUID представляют одно и то же значение.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -82,7 +84,7 @@ Output
 true
 ```
 
-## UUID Info
+### Info
 Возвращает удобочитаемую сводку UUID: версию, вариант, метку времени, последовательность, узел и POSIX.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -105,7 +107,7 @@ NODE: 1995
 RAND: bdba4f634d9f
 ```
 
-## UUID IsZero
+### IsZero
 Возвращает true, если UUID является нулевым значением (все 16 байт равны нулю).
 ```go
 uu := uuid.NewNull()
@@ -116,7 +118,7 @@ Output
 true
 ```
 
-## UUID Node
+### Node
 Возвращает идентификатор узла для UUID версий V1, V2, V6 и V8. Возвращает 0 для других версий.
 ```go
 uuidNode := 1995
@@ -128,7 +130,7 @@ Output
 1995
 ```
 
-## UUID Posix
+### Posix
 Возвращает POSIX UID/GID для UUID версии V2. Возвращает 0 для других версий.
 ```go
 uuidPosType := 0
@@ -141,7 +143,7 @@ Output
 UID 501
 ```
 
-## UUID Sequence
+### Sequence
 Возвращает поле тактовой последовательности для UUID версий V1, V2, V6 и V7. Возвращает 0 для других версий.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -156,7 +158,7 @@ Output
 0
 ```
 
-## UUID String
+### String
 Возвращает UUID в канонической текстовой форме: 8-4-4-4-12 шестнадцатеричных цифр с дефисами.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -171,7 +173,7 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID Timestamp
+### Timestamp
 Возвращает метку времени, встроенную в UUID версий V1, V2, V6 и V7. Возвращает нулевое время для других версий.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -186,7 +188,7 @@ Output
 1746024238206
 ```
 
-## UUID Validate
+### Validate
 Проверяет UUID и возвращает версию UUID при успехе или ошибку при неудаче.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -201,7 +203,7 @@ Output
 <nil>
 ```
 
-## UUID Variant
+### Variant
 Возвращает номер варианта UUID. Действительные UUID возвращают 1 (стандарт RFC 4122).
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -216,7 +218,7 @@ Output
 1
 ```
 
-## UUID Version
+### Version
 Возвращает номер версии UUID (от 1 до 8). Возвращает 0 для null UUID.
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"

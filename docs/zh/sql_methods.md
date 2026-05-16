@@ -8,7 +8,8 @@ outline: deep
 本页记录了 UUID 的原生 `database/sql` 集成。`Scan` 和 `Value` 方法使 UUID 能够与 SQL 数据库无缝协作，包括对可空列的 `NULL` 支持。
 :::
 
-## NULLUUID Scan
+## NULLUUID
+### Scan
 为可空 UUID 列实现 `sql.Scanner` 接口。接受 `nil` 表示 SQL NULL，或有效的 UUID 字符串/字节。当 UUID 存在时将 `Valid` 设置为 `true`，为 NULL 时设置为 `false`。
 ```go
 var nu uuid.NullUUID
@@ -32,7 +33,7 @@ Valid: true
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## NULLUUID Value
+### Value
 为可空 UUID 列实现 `driver.Valuer` 接口。当 `Valid` 为 `false` 时返回 `nil`，当 `Valid` 为 `true` 时返回 UUID 字符串。
 ```go
 var nu uuid.NullUUID
@@ -49,7 +50,8 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID Scan
+## UUID
+### Scan
 实现 `sql.Scanner` 接口。从数据库值解码 UUID——接受字符串、字节切片或 nil (NULL)。如果值无法解析则返回错误
 ```go
 var uu uuid.UUID
@@ -65,7 +67,7 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID Value
+### Value
 实现 `driver.Valuer` 接口。将 UUID 编码为适合数据库存储的值。对于空 UUID 返回 nil。
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"

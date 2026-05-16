@@ -9,7 +9,8 @@ outline: deep
 :::
 
 
-## NULLUUID IsZero
+## NULLUUID
+### IsZero
 如果 NullUUID 无效（SQL NULL）或底层 UUID 为零值，则返回 `true`。
 ```go
 var nu uuid.NullUUID
@@ -23,7 +24,7 @@ true
 false
 ```
 
-## NULLUUID String
+### String
 返回有效 UUID 的规范文本形式（8-4-4-4-12），或对于空值返回 `00000000-0000-0000-0000-000000000000`。
 ```go
 var nu uuid.NullUUID
@@ -37,7 +38,7 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## NULLUUID Validate
+### Validate
 验证 NullUUID。对于空值和有效 UUID 均返回 `nil`（在 SQL 上下文中，空值被认为是有效的）。仅当 UUID 存在但格式错误时返回错误。
 ```go
 var nu uuid.NullUUID
@@ -51,7 +52,8 @@ Output
 <nil>
 ```
 
-## UUID Bytes
+## UUID
+### Bytes
 将 UUID 作为 16 字节切片返回。
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -66,7 +68,7 @@ Output
 019687278c7e800087cbbdba4f634d9f
 ```
 
-## UUID Equal
+### Equal
 比较两个 UUID 是否相等。如果两个 UUID 表示相同的值，则返回 true。
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -82,7 +84,7 @@ Output
 true
 ```
 
-## UUID Info
+### Info
 返回 UUID 的可读摘要：版本、变体、时间戳、序列、节点和 POSIX。
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -105,7 +107,7 @@ NODE: 1995
 RAND: bdba4f634d9f
 ```
 
-## UUID IsZero
+### IsZero
 如果 UUID 为零值（所有 16 字节均为零），则返回 true。
 ```go
 uu := uuid.NewNull()
@@ -116,7 +118,7 @@ Output
 true
 ```
 
-## UUID Node
+### Node
 返回 UUID 版本 V1、V2、V6 和 V8 的节点标识符。其他版本返回 0。
 ```go
 uuidNode := 1995
@@ -128,7 +130,7 @@ Output
 1995
 ```
 
-## UUID Posix
+### Posix
 返回 UUID 版本 V2 的 POSIX UID/GID。其他版本返回 0。
 ```go
 uuidPosType := 0
@@ -141,7 +143,7 @@ Output
 UID 501
 ```
 
-## UUID Sequence
+### Sequence
 返回 UUID 版本 V1、V2、V6 和 V7 的时钟序列字段。其他版本返回 0。
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -156,7 +158,7 @@ Output
 0
 ```
 
-## UUID String
+### String
 返回 UUID 的规范文本形式：8-4-4-4-12 十六进制数字，用连字符分隔。
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -171,7 +173,7 @@ Output
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
 
-## UUID Timestamp
+### Timestamp
 返回嵌入在 UUID 版本 V1、V2、V6 和 V7 中的时间戳。其他版本返回零时间。
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -186,7 +188,7 @@ Output
 1746024238206
 ```
 
-## UUID Validate
+### Validate
 验证 UUID，成功时返回 UUID 版本，失败时返回错误。
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -201,7 +203,7 @@ Output
 <nil>
 ```
 
-## UUID Variant
+### Variant
 返回 UUID 变体号。有效的 UUID 返回 1（RFC 4122 标准）。
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -216,7 +218,7 @@ Output
 1
 ```
 
-## UUID Version
+### Version
 返回 UUID 版本号（1 到 8）。对于 null UUID，返回 0。
 ```go
 uuidV8String := "01968727-8c7e-8000-87cb-bdba4f634d9f"
