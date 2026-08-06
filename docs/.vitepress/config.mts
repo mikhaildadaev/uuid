@@ -3,9 +3,9 @@ export default defineConfig({
   appearance: 'dark',
   base: '/uuid/',
   head: [
-    ['link', { rel: 'stylesheet', href: '/uuid/styles.css' }],
-    ['script', { src: '/uuid/scripts.js' }]
+    ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, viewport-fit=cover' }]
   ],
+  cleanUrls: true,
   lastUpdated: true,
   locales: {
     en: {
