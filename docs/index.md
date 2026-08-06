@@ -1,5 +1,5 @@
 ---
-title: 'Petly'
+title: 'UUID'
 titleTemplate: false
 navbar: false
 sidebar: false
