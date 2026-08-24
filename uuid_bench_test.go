@@ -1,3 +1,17 @@
+// Copyright [2026] [Mikhail Dadaev]
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//	http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package uuid
 
 import (
@@ -137,27 +151,27 @@ func Benchmark_NewV8(b *testing.B) {
 }
 func Benchmark_Parse(b *testing.B) {
 	UUID := testUUIDVUString
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+
+	for b.Loop() {
 		_, _ = Parse(UUID)
 	}
 }
 func Benchmark_String(b *testing.B) {
 	uuid, _ := Parse(testUUIDVUString)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+
+	for b.Loop() {
 		_ = uuid.String()
 	}
 }
 func Benchmark_Time(b *testing.B) {
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		waitTime(time.Nanosecond * 100)
 	}
 }
 func Benchmark_Validate(b *testing.B) {
 	uuid, _ := Parse(testUUIDVUString)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+
+	for b.Loop() {
 		_ = uuid.Validate()
 	}
 }
