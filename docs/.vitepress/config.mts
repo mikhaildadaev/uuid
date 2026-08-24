@@ -41,6 +41,10 @@ export default defineConfig({
             link: '/en/' 
           },
           { 
+            text: 'License', 
+            link: '/en/license' 
+          },
+          { 
             text: 'Go', 
             link: '/en/go' 
           },
@@ -56,6 +60,10 @@ export default defineConfig({
         sidebar: [
           {
             items: [
+              { 
+                text: 'License', 
+                link: '/en/license' 
+              },
               { 
                 text: 'Go', 
                 link: '/en/go' 
@@ -165,6 +173,10 @@ export default defineConfig({
             link: '/ru/' 
           },
           { 
+            text: 'License', 
+            link: '/ru/license' 
+          },
+          { 
             text: 'Go', 
             link: '/ru/go' 
           },
@@ -180,6 +192,10 @@ export default defineConfig({
         sidebar: [
           {
             items: [
+              { 
+                text: 'License', 
+                link: '/ru/license' 
+              },
               { 
                 text: 'Go', 
                 link: '/ru/go' 
@@ -289,6 +305,10 @@ export default defineConfig({
             link: '/zh/' 
           },
           { 
+            text: 'License', 
+            link: '/zh/license' 
+          },
+          { 
             text: 'Go', 
             link: '/zh/go' 
           },
@@ -304,6 +324,10 @@ export default defineConfig({
         sidebar: [
           {
             items: [
+              { 
+                text: 'License', 
+                link: '/zh/license' 
+              },
               { 
                 text: 'Go', 
                 link: '/zh/go' 
