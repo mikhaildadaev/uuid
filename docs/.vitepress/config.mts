@@ -74,11 +74,9 @@ export default defineConfig({
               },
               { 
                 text: 'API', 
-                collapsed: true,
                 items: [
                   { 
                     text: 'Core', 
-                    collapsed: true,
                     items: [
                       { 
                         text: 'Constructors', 
@@ -92,7 +90,6 @@ export default defineConfig({
                   },
                   {
                     text: 'Marshal',
-                    collapsed: true, 
                     items: [
                       { 
                         text: 'Methods', 
@@ -101,8 +98,7 @@ export default defineConfig({
                     ]
                   },
                   {
-                    text: 'SQL', 
-                    collapsed: true,
+                    text: 'SQL',
                     items: [
                       { 
                         text: 'Methods', 
@@ -205,12 +201,10 @@ export default defineConfig({
                 link: '/ru/benchmarks' 
               },
               { 
-                text: 'API', 
-                collapsed: true,
+                text: 'API',
                 items: [
                   { 
-                    text: 'Core', 
-                    collapsed: true,
+                    text: 'Core',
                     items: [
                       { 
                         text: 'Конструкторы', 
@@ -223,8 +217,7 @@ export default defineConfig({
                     ] 
                   },
                   { 
-                    text: 'Marshal', 
-                    collapsed: true,
+                    text: 'Marshal',
                     items: [
                       { 
                         text: 'Методы', 
@@ -233,8 +226,7 @@ export default defineConfig({
                     ] 
                   },
                   { 
-                    text: 'SQL', 
-                    collapsed: true,
+                    text: 'SQL',
                     items: [
                       { 
                         text: 'Методы', 
@@ -337,12 +329,10 @@ export default defineConfig({
                 link: '/zh/benchmarks' 
               },
               { 
-                text: 'API', 
-                collapsed: true,
+                text: 'API',
                 items: [
                   { 
-                    text: 'Core', 
-                    collapsed: true,
+                    text: 'Core',
                     items: [
                       { 
                         text: '构造函数', 
@@ -355,8 +345,7 @@ export default defineConfig({
                     ] 
                   },
                   { 
-                    text: 'Marshal', 
-                    collapsed: true,
+                    text: 'Marshal',
                     items: [
                       { 
                         text: '方法', 
@@ -365,8 +354,7 @@ export default defineConfig({
                     ] 
                   },
                   { 
-                    text: 'SQL', 
-                    collapsed: true,
+                    text: 'SQL',
                     items: [
                       { 
                         text: '方法', 
