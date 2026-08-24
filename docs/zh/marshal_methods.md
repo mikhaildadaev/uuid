@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# API / 序列化 / 方法
+# API / Marshal / 方法
 
 ::: info **关于**
 本页记录了 UUID 与 **Binary**、**Json** 和 **Text** 格式之间的序列化和反序列化。每个方法适用于所有 UUID 版本 — V1 至 V8 以及 Null。
