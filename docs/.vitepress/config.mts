@@ -181,7 +181,7 @@ export default defineConfig({
             link: '/ru/go' 
           },
           { 
-            text: 'Бенчмарки', 
+            text: 'Benchmarks', 
             link: '/ru/benchmarks' 
           },
           { 
@@ -201,7 +201,7 @@ export default defineConfig({
                 link: '/ru/go' 
               },
               { 
-                text: 'Бенчмарки', 
+                text: 'Benchmarks', 
                 link: '/ru/benchmarks' 
               },
               { 
@@ -209,7 +209,7 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                   { 
-                    text: 'Ядро', 
+                    text: 'Core', 
                     collapsed: true,
                     items: [
                       { 
@@ -223,7 +223,7 @@ export default defineConfig({
                     ] 
                   },
                   { 
-                    text: 'Сериализация', 
+                    text: 'Marshal', 
                     collapsed: true,
                     items: [
                       { 
@@ -233,7 +233,7 @@ export default defineConfig({
                     ] 
                   },
                   { 
-                    text: 'Интеграция с SQL', 
+                    text: 'SQL', 
                     collapsed: true,
                     items: [
                       { 
@@ -313,7 +313,7 @@ export default defineConfig({
             link: '/zh/go' 
           },
           { 
-            text: '基准测试', 
+            text: 'Benchmarks', 
             link: '/zh/benchmarks' 
           },
           { 
@@ -333,7 +333,7 @@ export default defineConfig({
                 link: '/zh/go' 
               },
               { 
-                text: '基准', 
+                text: 'Benchmarks', 
                 link: '/zh/benchmarks' 
               },
               { 
@@ -341,7 +341,7 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                   { 
-                    text: '核心', 
+                    text: 'Core', 
                     collapsed: true,
                     items: [
                       { 
@@ -355,7 +355,7 @@ export default defineConfig({
                     ] 
                   },
                   { 
-                    text: '序列化', 
+                    text: 'Marshal', 
                     collapsed: true,
                     items: [
                       { 
@@ -365,7 +365,7 @@ export default defineConfig({
                     ] 
                   },
                   { 
-                    text: 'SQL 集成', 
+                    text: 'SQL', 
                     collapsed: true,
                     items: [
                       { 
