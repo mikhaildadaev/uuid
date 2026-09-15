@@ -15,7 +15,7 @@ un := uuid.NewNull()
 fmt.Println(un.IsZero())
 fmt.Println(un.String())
 ```
-
+**Output TEXT:**
 ```text
 true
 00000000-0000-0000-0000-000000000000
@@ -27,7 +27,7 @@ Creates a UUID version 1 based on the current timestamp and the local machine's 
 u1 := uuid.NewV1()
 fmt.Println(u1.Version())
 ```
-
+**Output TEXT:**
 ```text
 1
 ```
@@ -38,7 +38,7 @@ Creates a UUID version 2 (DCE Security) using the current timestamp, the local m
 u2 := uuid.NewV2(posix)
 fmt.Println(u2.Version())
 ```
-
+**Output TEXT:**
 ```text
 2
 ```
@@ -49,7 +49,7 @@ Creates a UUID version 3 by hashing a namespace identifier and a name with MD5.
 u3 := uuid.NewV3(uuid.NameSpaceDNS, name)
 fmt.Println(u3.Version())
 ```
-
+**Output TEXT:**
 ```text
 3
 ```
@@ -60,7 +60,7 @@ Creates a UUID version 4 using cryptographically secure random numbers.
 u4 := uuid.NewV4()
 fmt.Println(u4.Version())
 ```
-
+**Output TEXT:**
 ```text
 4
 ```
@@ -71,7 +71,7 @@ Creates a UUID version 5 by hashing a namespace identifier and a name with SHA-1
 u5 := uuid.NewV5(uuid.NameSpaceDNS, name)
 fmt.Println(u5.Version())
 ```
-
+**Output TEXT:**
 ```text
 5
 ```
@@ -82,7 +82,7 @@ Creates a UUID version 6 (field-compatible with UUIDv1) based on the current tim
 u6 := uuid.NewV6()
 fmt.Println(u6.Version())
 ```
-
+**Output TEXT:**
 ```text
 6
 ```
@@ -93,7 +93,7 @@ Creates a UUID version 7 (timestamp-based, lexicographically sortable) using the
 u7 := uuid.NewV7()
 fmt.Println(u7.Version())
 ```
-
+**Output TEXT:**
 ```text
 7
 ```
@@ -104,7 +104,7 @@ Creates a UUID version 8 (vendor-specific, custom) using a node identifier and t
 u8 := uuid.NewV8(node)
 fmt.Println(u8.Version())
 ```
-
+**Output TEXT:**
 ```text
 8
 ```

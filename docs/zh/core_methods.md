@@ -18,7 +18,7 @@ fmt.Println(nu.IsZero())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
 fmt.Println(nu.IsZero())
 ```
-
+**Output TEXT:**
 ```text
 true
 false
@@ -32,7 +32,7 @@ fmt.Println(nu.String())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
 fmt.Println(nu.String())
 ```
-
+**Output TEXT:**
 ```text
 00000000-0000-0000-0000-000000000000
 01968727-8c7e-8000-87cb-bdba4f634d9f
@@ -46,7 +46,7 @@ fmt.Println(nu.Validate())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
 fmt.Println(nu.Validate())
 ```
-
+**Output TEXT:**
 ```text
 <nil>
 <nil>
@@ -63,7 +63,7 @@ if err != nil {
 }
 fmt.Printf("%x\n", uu.Bytes())
 ```
-
+**Output TEXT:**
 ```text
 019687278c7e800087cbbdba4f634d9f
 ```
@@ -79,7 +79,7 @@ if err != nil {
 other := uu
 fmt.Println(uu.Equal(other))
 ```
-
+**Output TEXT:**
 ```text
 true
 ```
@@ -94,7 +94,7 @@ if err != nil {
 }
 fmt.Println(uu.Info())
 ```
-
+**Output TEXT:**
 ```text
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 VAR.: RFC4122
@@ -113,7 +113,7 @@ RAND: bdba4f634d9f
 uu := uuid.NewNull()
 fmt.Println(uu.IsZero())
 ```
-
+**Output TEXT:**
 ```text
 true
 ```
@@ -125,7 +125,7 @@ uuidNode := 1995
 u8 := uuid.NewV8(uuidNode)
 fmt.Println(u8.Node())
 ```
-
+**Output TEXT:**
 ```text
 1995
 ```
@@ -138,7 +138,7 @@ uuidPosValue := 501
 u2 := uuid.NewV2(uuidPosType, uuidPosValue)
 fmt.Println(u2.Posix())
 ```
-
+**Output TEXT:**
 ```text
 UID 501
 ```
@@ -153,7 +153,7 @@ if err != nil {
 }
 fmt.Println(uu.Sequence())
 ```
-
+**Output TEXT:**
 ```text
 0
 ```
@@ -168,7 +168,7 @@ if err != nil {
 }
 fmt.Println(uu.String())
 ```
-
+**Output TEXT:**
 ```text
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
@@ -183,7 +183,7 @@ if err != nil {
 }
 fmt.Println(uu.Timestamp())
 ```
-
+**Output TEXT:**
 ```text
 1746024238206
 ```
@@ -198,7 +198,7 @@ if err != nil {
 }
 fmt.Println(uu.Validate())
 ```
-
+**Output TEXT:**
 ```text
 <nil>
 ```
@@ -213,7 +213,7 @@ if err != nil {
 }
 fmt.Println(uu.Variant())
 ```
-
+**Output TEXT:**
 ```text
 1
 ```
@@ -228,7 +228,7 @@ if err != nil {
 }
 fmt.Println(uu.Version())
 ```
-
+**Output TEXT:**
 ```text
 8
 ```

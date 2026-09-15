@@ -15,7 +15,7 @@ un := uuid.NewNull()
 fmt.Println(un.IsZero())
 fmt.Println(un.String())
 ```
-
+**Output TEXT:**
 ```text
 true
 00000000-0000-0000-0000-000000000000
@@ -27,7 +27,7 @@ true
 u1 := uuid.NewV1()
 fmt.Println(u1.Version())
 ```
-
+**Output TEXT:**
 ```text
 1
 ```
@@ -38,7 +38,7 @@ fmt.Println(u1.Version())
 u2 := uuid.NewV2(posix)
 fmt.Println(u2.Version())
 ```
-
+**Output TEXT:**
 ```text
 2
 ```
@@ -49,7 +49,7 @@ fmt.Println(u2.Version())
 u3 := uuid.NewV3(uuid.NameSpaceDNS, name)
 fmt.Println(u3.Version())
 ```
-
+**Output TEXT:**
 ```text
 3
 ```
@@ -60,7 +60,7 @@ fmt.Println(u3.Version())
 u4 := uuid.NewV4()
 fmt.Println(u4.Version())
 ```
-
+**Output TEXT:**
 ```text
 4
 ```
@@ -71,7 +71,7 @@ fmt.Println(u4.Version())
 u5 := uuid.NewV5(uuid.NameSpaceDNS, name)
 fmt.Println(u5.Version())
 ```
-
+**Output TEXT:**
 ```text
 5
 ```
@@ -82,7 +82,7 @@ fmt.Println(u5.Version())
 u6 := uuid.NewV6()
 fmt.Println(u6.Version())
 ```
-
+**Output TEXT:**
 ```text
 6
 ```
@@ -93,7 +93,7 @@ fmt.Println(u6.Version())
 u7 := uuid.NewV7()
 fmt.Println(u7.Version())
 ```
-
+**Output TEXT:**
 ```text
 7
 ```
@@ -104,7 +104,7 @@ fmt.Println(u7.Version())
 u8 := uuid.NewV8(node)
 fmt.Println(u8.Version())
 ```
-
+**Output TEXT:**
 ```text
 8
 ```

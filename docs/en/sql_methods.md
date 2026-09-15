@@ -25,7 +25,7 @@ if err := nu.Scan(uuidV8String); err != nil {
 fmt.Println("Valid:", nu.Valid)
 fmt.Println("UUID:", nu.UUID)
 ```
-
+**Output TEXT:**
 ```text
 Valid: false
 UUID: 00000000-0000-0000-0000-000000000000
@@ -44,7 +44,7 @@ nu.Scan(uuidV8String)
 value, _ = nu.Value()
 fmt.Println(value)
 ```
-
+**Output TEXT:**
 ```text
 <nil>
 01968727-8c7e-8000-87cb-bdba4f634d9f
@@ -62,7 +62,7 @@ if err != nil {
 }
 fmt.Println(uu.String())
 ```
-
+**Output TEXT:**
 ```text
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
@@ -81,7 +81,7 @@ if err != nil {
 }
 fmt.Println(value)
 ```
-
+**Output TEXT:**
 ```text
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
