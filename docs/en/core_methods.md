@@ -17,7 +17,7 @@ fmt.Println(nu.IsZero())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
 fmt.Println(nu.IsZero())
 ```
-Output
+
 ```text
 true
 false
@@ -31,7 +31,7 @@ fmt.Println(nu.String())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
 fmt.Println(nu.String())
 ```
-Output
+
 ```text
 00000000-0000-0000-0000-000000000000
 01968727-8c7e-8000-87cb-bdba4f634d9f
@@ -45,7 +45,7 @@ fmt.Println(nu.Validate())
 nu.Scan("01968727-8c7e-8000-87cb-bdba4f634d9f")
 fmt.Println(nu.Validate())
 ```
-Output
+
 ```text
 <nil>
 <nil>
@@ -62,7 +62,7 @@ if err != nil {
 }
 fmt.Printf("%x\n", uu.Bytes())
 ```
-Output
+
 ```text
 019687278c7e800087cbbdba4f634d9f
 ```
@@ -78,7 +78,7 @@ if err != nil {
 other := uu
 fmt.Println(uu.Equal(other))
 ```
-Output
+
 ```text
 true
 ```
@@ -93,7 +93,7 @@ if err != nil {
 }
 fmt.Println(uu.Info())
 ```
-Output
+
 ```text
 UUID: 01968727-8c7e-8000-87cb-bdba4f634d9f
 VAR.: RFC4122
@@ -112,7 +112,7 @@ Returns true if the UUID is the zero value (all 16 bytes are zero).
 uu := uuid.NewNull()
 fmt.Println(uu.IsZero())
 ```
-Output
+
 ```text
 true
 ```
@@ -124,7 +124,7 @@ uuidNode := 1995
 u8 := uuid.NewV8(uuidNode)
 fmt.Println(u8.Node())
 ```
-Output
+
 ```text
 1995
 ```
@@ -137,7 +137,7 @@ uuidPosValue := 501
 u2 := uuid.NewV2(uuidPosType, uuidPosValue)
 fmt.Println(u2.Posix())
 ```
-Output
+
 ```text
 UID 501
 ```
@@ -152,7 +152,7 @@ if err != nil {
 }
 fmt.Println(uu.Sequence())
 ```
-Output
+
 ```text
 0
 ```
@@ -167,7 +167,7 @@ if err != nil {
 }
 fmt.Println(uu.String())
 ```
-Output
+
 ```text
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
@@ -182,7 +182,7 @@ if err != nil {
 }
 fmt.Println(uu.Timestamp())
 ```
-Output
+
 ```text
 1746024238206
 ```
@@ -197,7 +197,7 @@ if err != nil {
 }
 fmt.Println(uu.Validate())
 ```
-Output
+
 ```text
 <nil>
 ```
@@ -212,7 +212,7 @@ if err != nil {
 }
 fmt.Println(uu.Variant())
 ```
-Output
+
 ```text
 1
 ```
@@ -227,7 +227,7 @@ if err != nil {
 }
 fmt.Println(uu.Version())
 ```
-Output
+
 ```text
 8
 ```

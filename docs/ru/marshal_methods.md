@@ -26,7 +26,7 @@ if err != nil {
 }
 fmt.Printf("%x\n", data)
 ```
-Output:
+
 ```text
 
 019687278c7e800087cbbdba4f634d9f
@@ -49,7 +49,7 @@ if err != nil {
 }
 fmt.Println(string(data))
 ```
-Output:
+
 ```text
 null
 "01968727-8c7e-8000-87cb-bdba4f634d9f"
@@ -72,7 +72,7 @@ if err != nil {
 }
 fmt.Println(string(data))
 ```
-Output:
+
 ```text
 
 01968727-8c7e-8000-87cb-bdba4f634d9f
@@ -96,7 +96,7 @@ if err != nil {
 fmt.Println("Valid:", nu.Valid)
 fmt.Println("UUID:", nu.UUID)
 ```
-Output:
+
 ```text
 Valid: false
 UUID: 00000000-0000-0000-0000-000000000000
@@ -122,7 +122,7 @@ if err != nil {
 fmt.Println("Valid:", nu.Valid)
 fmt.Println("UUID:", nu.UUID)
 ```
-Output:
+
 ```text
 Valid: false
 UUID: 00000000-0000-0000-0000-000000000000
@@ -148,7 +148,7 @@ if err != nil {
 fmt.Println("Valid:", nu.Valid)
 fmt.Println("UUID:", nu.UUID)
 ```
-Output:
+
 ```text
 Valid: false
 UUID: 00000000-0000-0000-0000-000000000000
@@ -171,7 +171,7 @@ if err != nil {
 }
 fmt.Printf("%x\n", data)
 ```
-Output:
+
 ```text
 019687278c7e800087cbbdba4f634d9f
 ```
@@ -190,7 +190,7 @@ if err != nil {
 }
 fmt.Println(string(data))
 ```
-Output:
+
 ```text
 "01968727-8c7e-8000-87cb-bdba4f634d9f"
 ```
@@ -209,7 +209,7 @@ if err != nil {
 }
 fmt.Println(string(data))
 ```
-Output:
+
 ```text
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
@@ -225,7 +225,7 @@ if err != nil {
 }
 fmt.Println(uu.String())
 ```
-Output:
+
 ```text
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
@@ -241,7 +241,7 @@ if err != nil {
 }
 fmt.Println(uu.String())
 ```
-Output:
+
 ```text
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
@@ -257,7 +257,7 @@ if err != nil {
 }
 fmt.Println(uu.String())
 ```
-Output:
+
 ```text
 01968727-8c7e-8000-87cb-bdba4f634d9f
 ```
