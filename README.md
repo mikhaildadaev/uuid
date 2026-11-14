@@ -2,6 +2,7 @@
 [![Go Version](https://img.shields.io/github/go-mod/go-version/mikhaildadaev/uuid)](https://github.com/mikhaildadaev/uuid)
 [![Go Reference](https://pkg.go.dev/badge/github.com/mikhaildadaev/uuid.svg)](https://pkg.go.dev/github.com/mikhaildadaev/uuid)
 [![CI](https://github.com/mikhaildadaev/uuid/actions/workflows/ci.yml/badge.svg)](https://github.com/mikhaildadaev/uuid/actions/workflows/ci.yml)
+[![Ask DeepWiki](https://img.shields.io/badge/Ask-DeepWiki-blue)](https://deepwiki.com/mikhaildadaev/uuid)
 
 # UUID
 
