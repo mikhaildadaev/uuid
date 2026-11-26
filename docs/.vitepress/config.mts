@@ -9,7 +9,7 @@ export default defineConfig({
   lastUpdated: true,
   locales: {
     en: {
-      description: 'A high-performance, zero-dependency platform for logs, metrics and traces.',
+      description: 'A high-performance, zero-allocation platform for UUID versions 1-8.',
       label: 'English',
       lang: 'en',
       link: '/en/',
@@ -137,7 +137,7 @@ export default defineConfig({
       }
     },
     ru: {
-      description: 'Производительная платформа без зависимостей для логов, метрик и трейсов.',
+      description: 'Производительная платформа без аллокаций для UUID версий 1-8.',
       label: 'Русский',
       lang: 'ru',
       link: '/ru/',
@@ -265,7 +265,7 @@ export default defineConfig({
       }
     },
     zh: {
-      description: '一个高性能、零依赖性的日志、度量和跟踪平台。',
+      description: '一个高性能、零分配的UUID版本1-8平台。',
       label: '简体中文',
       lang: 'zh',
       link: '/zh/',
